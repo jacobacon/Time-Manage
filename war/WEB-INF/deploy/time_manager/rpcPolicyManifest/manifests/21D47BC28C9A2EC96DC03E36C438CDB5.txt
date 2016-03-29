@@ -1,0 +1,2 @@
+serviceClass: com.jacobacon.time_manager.client.GreetingService
+path: 99C83C1D4D8D2C06196914ABFAECA5A6.gwt.rpc
