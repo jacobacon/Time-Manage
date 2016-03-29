@@ -1,7 +1,6 @@
 package com.jacobacon.time_manager.client;
 
 import com.jacobacon.time_manager.shared.FieldVerifier;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -23,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-@SuppressWarnings("serial")
+
 public class Time_Manager implements EntryPoint {
 	/**
 	 * The message displayed to the user when the server cannot be reached or
@@ -37,6 +36,7 @@ public class Time_Manager implements EntryPoint {
 	 * service.
 	 */
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+	
 
 	/**
 	 * This is the entry point method.
@@ -44,7 +44,7 @@ public class Time_Manager implements EntryPoint {
 	public void onModuleLoad() {
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
+		nameField.setText("User");
 		final Label errorLabel = new Label();
 		final ListBox list = new ListBox();
 
@@ -53,6 +53,8 @@ public class Time_Manager implements EntryPoint {
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
+		
+		
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
@@ -64,7 +66,7 @@ public class Time_Manager implements EntryPoint {
 
 		// Create the popup dialog box
 		final DialogBox dialogBox = new DialogBox();
-		dialogBox.setText("Test");
+		dialogBox.setText("");
 		dialogBox.setAnimationEnabled(true);
 		final Button closeButton = new Button("Close");
 		// We can set the id of a widget by accessing its Element
