@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
-	public static String getName(){
+	public static String getName() {
 		return "Test";
 	}
 }

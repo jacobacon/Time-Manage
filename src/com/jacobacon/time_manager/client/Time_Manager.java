@@ -2,7 +2,6 @@ package com.jacobacon.time_manager.client;
 
 import com.jacobacon.time_manager.shared.FieldVerifier;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -54,13 +53,12 @@ public class Time_Manager implements EntryPoint {
 		final ListBox nameList = new ListBox();
 		final UTCTimeBox timeIn = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
 		final UTCTimeBox timeOut = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
-		
+
 		timeIn.setValue(UTCTimeBox.getValueForNextHour());
 		timeIn.setTitle("Punch In");
-		
+
 		timeOut.setValue(UTCTimeBox.getValueForNextHour());
 		timeOut.setTitle("Punch Out");
-		
 
 		// Initialize Arrays
 		String names[] = { "Jacob", "Peter", "Megan", "Jeff" };
@@ -138,9 +136,10 @@ public class Time_Manager implements EntryPoint {
 			private void sendNameToServer() {
 				// First, we validate the input.
 				errorLabel.setText("");
-				//String textToServer = nameField.getText();
-				
-				String textToServer = createMessage(nameList.getValue(nameList.getSelectedIndex()), timeIn.getValue(), timeOut.getValue());
+				// String textToServer = nameField.getText();
+
+				String textToServer = createMessage(nameList.getValue(nameList.getSelectedIndex()), timeIn.getValue(),
+						timeOut.getValue());
 				if (!FieldVerifier.isValidName(textToServer)) {
 					errorLabel.setText("Please enter at least four characters");
 					return;
@@ -175,11 +174,10 @@ public class Time_Manager implements EntryPoint {
 		MyHandler handler = new MyHandler();
 		sendButton.addClickHandler(handler);
 	}
-	
-	
-	private String createMessage(String name, long timeIn, long timeOut){
-		
+
+	private String createMessage(String name, long timeIn, long timeOut) {
+
 		return name + " clocked in at: " + timeIn + " and clocked out at: " + timeOut;
 	}
-	
+
 }
