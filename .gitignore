@@ -52,4 +52,5 @@ gwt-unitCache
 .settings
 .classpath
 .project
-
+*.cache.js
+*.symbolMap
