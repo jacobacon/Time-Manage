@@ -19,16 +19,15 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 			throw new IllegalArgumentException("Name must be at least 4 characters long");
 		}
 
-		String serverInfo = getServletContext().getServerInfo();
-		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
+		//String serverInfo = getServletContext().getServerInfo();
+		//String userAgent = getThreadLocalRequest().getHeader("User-Agent");
 
 		// Escape data from the client to avoid cross-site script
 		// vulnerabilities.
 		input = escapeHtml(input);
-		userAgent = escapeHtml(userAgent);
+		//userAgent = escapeHtml(userAgent);
 
-		return "Hello, " + input + "!<br><br>I am running " + serverInfo + ".<br><br>It looks like you are using:<br>"
-				+ userAgent;
+		return input;
 	}
 
 	/**

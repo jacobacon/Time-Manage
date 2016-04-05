@@ -1,6 +1,11 @@
 package com.jacobacon.time_manager.client;
 
 import com.jacobacon.time_manager.shared.FieldVerifier;
+
+
+import java.util.ArrayList;
+import java.util.Date;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,6 +13,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -17,7 +25,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
+import com.tractionsoftware.gwt.user.client.ui.UTCTimeBox;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -36,7 +44,6 @@ public class Time_Manager implements EntryPoint {
 	 * service.
 	 */
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-	
 
 	/**
 	 * This is the entry point method.
@@ -46,19 +53,37 @@ public class Time_Manager implements EntryPoint {
 		final TextBox nameField = new TextBox();
 		nameField.setText("User");
 		final Label errorLabel = new Label();
-		final ListBox list = new ListBox();
+		final ListBox nameList = new ListBox();
+		final ListBox inTimeList = new ListBox();
+		final ListBox outTimeList = new ListBox();
+		final TextBox test = new TextBox();
+		test.setText("Test");
+		final UTCTimeBox timebox = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
+		
+		timebox.setValue(UTCTimeBox.getValueForNextHour());
+		timebox.setSize("100px", "100px");
+		
+		
+
+		// Initialize Arrays
+		String names[] = { "Jacob", "Peter", "Megan", "Jeff" };
+		String times[] = { "1", "2" , "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+		String days[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+		String misc[] = { "A.M.", "P.M." };
 
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		
-		
+
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
-		RootPanel.get("listContainer").add(list);
+		RootPanel.get("nameListContainer").add(nameList);
+		RootPanel.get("punchInTimeContainer").add(inTimeList);
+		RootPanel.get().add(test);
+		RootPanel.get().add(timebox);
 
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
@@ -92,10 +117,16 @@ public class Time_Manager implements EntryPoint {
 			}
 		});
 
-		list.addItem("one", "One");
-		list.addItem("two", "Two");
-		list.addItem("three", "Three");
-		list.addItem("four", "Four");
+		// Create Selection Boxes
+
+		// Create List of Names
+		for (int i = 0; i < names.length; i++) {
+			nameList.addItem(names[i], names[i]);
+		}
+		// Create Punch in Time Select.
+		for(int i = 0; i < times.length; i++){
+			inTimeList.addItem(times[i], times[i]);
+		}
 
 		// Create a handler for the sendButton and nameField
 		class MyHandler implements ClickHandler, KeyUpHandler {
@@ -122,7 +153,9 @@ public class Time_Manager implements EntryPoint {
 			private void sendNameToServer() {
 				// First, we validate the input.
 				errorLabel.setText("");
-				String textToServer = nameField.getText();
+				//String textToServer = nameField.getText();
+				
+				String textToServer = createMessage(nameList.getValue(nameList.getSelectedIndex()), timebox.getValue());
 				if (!FieldVerifier.isValidName(textToServer)) {
 					errorLabel.setText("Please enter at least four characters");
 					return;
@@ -130,7 +163,7 @@ public class Time_Manager implements EntryPoint {
 
 				// Then, we send the input to the server.
 				sendButton.setEnabled(false);
-				textToServerLabel.setText(list.getValue(list.getSelectedIndex()));
+				textToServerLabel.setText(nameList.getValue(nameList.getSelectedIndex()));
 				serverResponseLabel.setText("");
 				greetingService.greetServer(textToServer, new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
@@ -158,4 +191,11 @@ public class Time_Manager implements EntryPoint {
 		sendButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
 	}
+	
+	
+	private String createMessage(String name, Long time){
+		
+		return name + " clocked in at: " + time;
+	}
+	
 }
