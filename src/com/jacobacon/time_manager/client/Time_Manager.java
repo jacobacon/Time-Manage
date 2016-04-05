@@ -50,26 +50,20 @@ public class Time_Manager implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
-		nameField.setText("User");
 		final Label errorLabel = new Label();
 		final ListBox nameList = new ListBox();
-		final ListBox inTimeList = new ListBox();
-		final ListBox outTimeList = new ListBox();
-		final TextBox test = new TextBox();
-		test.setText("Test");
-		final UTCTimeBox timebox = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
+		final UTCTimeBox timeIn = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
+		final UTCTimeBox timeOut = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
 		
-		timebox.setValue(UTCTimeBox.getValueForNextHour());
-		timebox.setSize("100px", "100px");
+		timeIn.setValue(UTCTimeBox.getValueForNextHour());
+		timeIn.setTitle("Punch In");
 		
+		timeOut.setValue(UTCTimeBox.getValueForNextHour());
+		timeOut.setTitle("Punch Out");
 		
 
 		// Initialize Arrays
 		String names[] = { "Jacob", "Peter", "Megan", "Jeff" };
-		String times[] = { "1", "2" , "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-		String days[] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-		String misc[] = { "A.M.", "P.M." };
 
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
@@ -77,17 +71,14 @@ public class Time_Manager implements EntryPoint {
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 
-		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 		RootPanel.get("nameListContainer").add(nameList);
-		RootPanel.get("punchInTimeContainer").add(inTimeList);
-		RootPanel.get().add(test);
-		RootPanel.get().add(timebox);
+		RootPanel.get("punchInTimeContainer").add(timeIn);
+		RootPanel.get("punchOutTimeContainer").add(timeOut);
 
 		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
+		nameList.setFocus(true);
 
 		// Create the popup dialog box
 		final DialogBox dialogBox = new DialogBox();
@@ -117,15 +108,9 @@ public class Time_Manager implements EntryPoint {
 			}
 		});
 
-		// Create Selection Boxes
-
 		// Create List of Names
 		for (int i = 0; i < names.length; i++) {
 			nameList.addItem(names[i], names[i]);
-		}
-		// Create Punch in Time Select.
-		for(int i = 0; i < times.length; i++){
-			inTimeList.addItem(times[i], times[i]);
 		}
 
 		// Create a handler for the sendButton and nameField
@@ -155,7 +140,7 @@ public class Time_Manager implements EntryPoint {
 				errorLabel.setText("");
 				//String textToServer = nameField.getText();
 				
-				String textToServer = createMessage(nameList.getValue(nameList.getSelectedIndex()), timebox.getValue());
+				String textToServer = createMessage(nameList.getValue(nameList.getSelectedIndex()), timeIn.getValue(), timeOut.getValue());
 				if (!FieldVerifier.isValidName(textToServer)) {
 					errorLabel.setText("Please enter at least four characters");
 					return;
@@ -189,13 +174,12 @@ public class Time_Manager implements EntryPoint {
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
 		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
 	}
 	
 	
-	private String createMessage(String name, Long time){
+	private String createMessage(String name, long timeIn, long timeOut){
 		
-		return name + " clocked in at: " + time;
+		return name + " clocked in at: " + timeIn + " and clocked out at: " + timeOut;
 	}
 	
 }
