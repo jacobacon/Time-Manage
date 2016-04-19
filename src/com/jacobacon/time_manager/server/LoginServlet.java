@@ -45,8 +45,10 @@ public class LoginServlet extends HttpServlet {
 		
 		System.out.println(req.getParameter("nameListElement"));
 		System.out.println(req.getParameter("hiddenPunchIn"));
+		System.out.println(req.getParameter("hiddenPunchOut"));
+		System.out.println(req.getParameter("test"));
 		
-		/*
+		
 		Enumeration<String> names = req.getParameterNames();
 		
 		while(names.hasMoreElements()){
@@ -55,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 			
 		}
 		
-		*/
+		
 		
 		
 		
@@ -74,21 +76,19 @@ public class LoginServlet extends HttpServlet {
 		
 		resp.getWriter().println();
 		
-		
+		resp.sendRedirect("https://www.google.com");
 		
 
 	}
-	/*
 	@Entity
-	public class Car
+	public class Employee
 	{
 		@Id Long id;
 		@Index String license;
 		String color;
-		Car(String license, String color){
+		Employee(String name, String color){
 			this.license = license;
 			this.color = color;
 		}
 	}
-	*/
 }

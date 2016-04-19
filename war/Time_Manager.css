@@ -41,3 +41,8 @@ h1 {
 #nameFieldContainer{
 	text-align: center;
 }
+
+#webapp{
+	position: relative;
+	text-align: center;
+}
