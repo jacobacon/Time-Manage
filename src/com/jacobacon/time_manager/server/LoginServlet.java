@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 
 		String input = req.getReader().readLine();
 
-		resp.getWriter().println(input);
+		resp.getWriter().println(input + " This is a response from the server!");
 
 	}
 
