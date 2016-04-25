@@ -1,16 +1,44 @@
 package com.jacobacon.time_manager.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
+
+import com.google.api.client.googleapis.auth.oauth2.GoogleBrowserClientRequestUrl;
+import com.google.appengine.api.oauth.OAuthRequestException;
+import com.google.appengine.api.oauth.OAuthService;
+import com.google.appengine.api.oauth.OAuthServiceFactory;
+import com.google.appengine.api.oauth.OAuthServiceFailureException;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
+
+import com.google.gwt.dev.util.collect.HashSet;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
+	
+	private static Logger log = Logger.getLogger(LoginServlet.class.getCanonicalName());
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -60,29 +88,12 @@ public class LoginServlet extends HttpServlet {
 
 		// resp.getWriter().println();
 
-		String input = req.getReader().readLine();
-
-		resp.getWriter().println(input + " This is a response from the server!");
-
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-		resp.getWriter().println("<html><center>This Page is Not Valid!</center></html>");
-
+		resp.getWriter().write("<html>The Page You Requested is Not Valid</html>");
+		
 	};
+	
 
-	@Entity
-	public class Employee {
-		@Id
-		Long id;
-		@Index
-		String license;
-		String color;
-
-		Employee(String name, String color) {
-			this.license = name;
-			this.color = color;
-		}
-	}
 }

@@ -1,6 +1,12 @@
 package com.jacobacon.time_manager.client;
 
+import com.google.api.gwt.oauth2.client.Auth;
+import com.google.api.gwt.oauth2.client.AuthRequest;
+import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dev.util.collect.HashSet;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.Request;
@@ -9,32 +15,85 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.jacobacon.time_manager.client.mainview.MainView;
+import com.google.gwt.user.client.ui.TextBox;
+import com.jacobacon.time_manager.server.LoginServlet;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 
 public class Time_Manager implements EntryPoint {
+
 	/**
 	 * This is the entry point method.
 	 */
 
-	int number = 0;
+	final MainView mainView = new MainView();
+	final ManualPunchView manualPunchView = new ManualPunchView();
+	final ReportView reportView = new ReportView();
+
 
 	public void onModuleLoad() {
 
 		// Create RequestBuilder for POST
-		final String url = "login";
+		final String url = "punch";
 		final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 		builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 		// String for the RequestBuilder that holds the request data.
-		final String data = "Hurro";
+		final String data = "Default";
 
-		final MainView mainView = new MainView();
+		final HorizontalPanel headerPanel = new HorizontalPanel();
+		headerPanel.setWidth("50%");
+		headerPanel.setSpacing(5);
+		final PushButton mainViewButton = new PushButton("Home Page", new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				setContent(0);
+
+			}
+
+		});
+		final PushButton manualPunchView = new PushButton("Manual Punch", new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				setContent(1);
+
+			}
+		});
+		final PushButton reportsViewButton = new PushButton("Reporting", new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				setContent(2);
+
+			}
+		});
+		mainViewButton.setSize("150px", "50px");
+		manualPunchView.setSize("150px", "50px");
+		reportsViewButton.setSize("150px", "50px");
+
+		Image clockImage = new Image("images/clock-small.png");
+		clockImage.setPixelSize(74, 96);
+		headerPanel.add(clockImage);
+		headerPanel.add(mainViewButton);
+		headerPanel.add(manualPunchView);
+		headerPanel.add(reportsViewButton);
+		//headerPanel.getElement().getStyle().setBackgroundColor("orange");
+		
+		
 
 		// Initialize Arrays
 		// String names[] = { "Jacob", "Peter", "Megan", "Jeff" };
@@ -107,9 +166,12 @@ public class Time_Manager implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("Changin page!");
-				createApp();
-				postData(url, builder, data);
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("key1=JACOB");
+				sb.append("&key2=YAY");
+				sb.append("&key3=10:30");
+				postData(url, builder, sb.toString());
 
 			}
 		});
@@ -126,7 +188,7 @@ public class Time_Manager implements EntryPoint {
 
 		});
 
-		RootPanel.get("header").add(mainView.getHeaderPanel());
+		RootPanel.get("header").add(headerPanel);
 
 		RootPanel.get("content").add(b);
 
@@ -134,17 +196,28 @@ public class Time_Manager implements EntryPoint {
 
 	}
 
-	public void setContent() {
+	public void setContent(int viewNumber) {
+		switch (viewNumber) {
+		case 0:
+			System.out.println("Switching to the main view!");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(mainView.getMainPanel());
+			break;
 
-	}
+		case 1:
+			System.out.println("Switching to the 2nd view!");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(manualPunchView.getMainPanel());
+			break;
+			
+		case 2:
+			System.out.println("Switching to the 3rd view");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(reportView.getMainPanel());
+			break;
 
-	public void createApp() {
+		}
 
-		Label testLabel = new Label();
-		testLabel.setText("Hello!" + number);
-		RootPanel.get("content").clear();
-		RootPanel.get("content").add(testLabel);
-		number++;
 	}
 
 	public void postData(String url, RequestBuilder builder, String data) {

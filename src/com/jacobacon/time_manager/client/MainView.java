@@ -1,4 +1,4 @@
-package com.jacobacon.time_manager.client.mainview;
+package com.jacobacon.time_manager.client;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -22,6 +22,8 @@ public class MainView extends Composite {
 	public MainView() {
 
 		mainPanel.setSpacing(5);
+		//mainPanel.getElement().getStyle().setBackgroundColor("green");
+		mainPanel.setSize("300px", "300px");
 
 		headerPanel.add(headerHTML);
 		headerPanel.getElement().setAttribute("align", "center");
