@@ -1,12 +1,6 @@
 package com.jacobacon.time_manager.client;
 
-import com.google.api.gwt.oauth2.client.Auth;
-import com.google.api.gwt.oauth2.client.AuthRequest;
-import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.util.collect.HashSet;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.Request;
@@ -15,19 +9,11 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.jacobacon.time_manager.server.LoginServlet;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -43,7 +29,6 @@ public class Time_Manager implements EntryPoint {
 	final ManualPunchView manualPunchView = new ManualPunchView();
 	final ReportView reportView = new ReportView();
 
-
 	public void onModuleLoad() {
 
 		// Create RequestBuilder for POST
@@ -51,12 +36,13 @@ public class Time_Manager implements EntryPoint {
 		final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 		builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 		// String for the RequestBuilder that holds the request data.
+		@SuppressWarnings("unused")
 		final String data = "Default";
 
 		final HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.setWidth("50%");
 		headerPanel.setSpacing(5);
-		final PushButton mainViewButton = new PushButton("Home Page", new ClickHandler() {
+		final PushButton mainViewButton = new PushButton("Home", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -65,7 +51,7 @@ public class Time_Manager implements EntryPoint {
 			}
 
 		});
-		final PushButton manualPunchView = new PushButton("Manual Punch", new ClickHandler() {
+		final PushButton manualPunchView = new PushButton("Edit Time", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -91,9 +77,7 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.add(mainViewButton);
 		headerPanel.add(manualPunchView);
 		headerPanel.add(reportsViewButton);
-		//headerPanel.getElement().getStyle().setBackgroundColor("orange");
-		
-		
+		headerPanel.setBorderWidth(5);
 
 		// Initialize Arrays
 		// String names[] = { "Jacob", "Peter", "Megan", "Jeff" };
@@ -202,18 +186,21 @@ public class Time_Manager implements EntryPoint {
 			System.out.println("Switching to the main view!");
 			RootPanel.get("content").clear();
 			RootPanel.get("content").add(mainView.getMainPanel());
+			Window.setTitle("Home");
 			break;
 
 		case 1:
 			System.out.println("Switching to the 2nd view!");
 			RootPanel.get("content").clear();
 			RootPanel.get("content").add(manualPunchView.getMainPanel());
+			Window.setTitle("Edit Time");
 			break;
-			
+
 		case 2:
 			System.out.println("Switching to the 3rd view");
 			RootPanel.get("content").clear();
 			RootPanel.get("content").add(reportView.getMainPanel());
+			Window.setTitle("Reports");
 			break;
 
 		}

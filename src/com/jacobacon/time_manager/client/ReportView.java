@@ -2,33 +2,34 @@ package com.jacobacon.time_manager.client;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class MainView extends Composite {
+public class ReportView extends Composite {
 
 	private final HorizontalPanel mainPanel = new HorizontalPanel();
-	private final Label label = new Label("Punch In / Punch Out");
-	private final ListBox taskList = new ListBox();
-	private final String[] taskListArray = { "Film", "Edit", "Agenda Work", "Clips", "Video Production", "Other" };
+	private final HTML defaultHTML = new HTML("<p>Hello!</p>");
+
+	private final VerticalPanel headerPanel = new VerticalPanel();
+	private final HTML headerHTML = new HTML("<header><nav><a href='/login'>Click Me!</a>" + "&nbsp;"
+			+ "<a href='https://www.google.com'>Goes to Google!</a>" + "" + "" + "</nav></header>");
 
 	public final TextBox tb = new TextBox();
 	public final Button button = new Button();
 
-	public MainView() {
-
-		addTasks();
+	public ReportView() {
 
 		mainPanel.setSpacing(5);
 		// mainPanel.getElement().getStyle().setBackgroundColor("green");
 		mainPanel.setSize("300px", "300px");
 
-		mainPanel.getElement().setAttribute("align", "center");
+		headerPanel.add(headerHTML);
+		headerPanel.getElement().setAttribute("align", "center");
 
-		mainPanel.add(label);
-		mainPanel.add(taskList);
+		mainPanel.add(defaultHTML);
+		mainPanel.getElement().setAttribute("align", "center");
 
 		tb.setValue("Hello");
 		button.setText("Moo");
@@ -42,10 +43,8 @@ public class MainView extends Composite {
 		return mainPanel;
 	}
 
-	private void addTasks() {
-		for (int i = 0; i < taskListArray.length; i++) {
-			taskList.addItem(taskListArray[i]);
-		}
+	public VerticalPanel getHeaderPanel() {
+		return headerPanel;
 	}
 
 }
