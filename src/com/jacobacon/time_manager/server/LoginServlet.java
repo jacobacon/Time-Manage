@@ -18,7 +18,6 @@ public class LoginServlet extends HttpServlet {
 	static User user = userService.getCurrentUser();
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
 
 		String thisUrl = req.getRequestURI();
 
@@ -27,8 +26,7 @@ public class LoginServlet extends HttpServlet {
 			resp.getWriter().println("<p>Hello, " + req.getUserPrincipal().getName() + "!  You can <a href=\""
 					+ userService.createLogoutURL(thisUrl) + "\">sign out</a>.</p>");
 		} else {
-			resp.getWriter()
-					.println("<p>Please <a href=\"" + userService.createLoginURL("/") + "\">sign in</a>.</p>");
+			resp.getWriter().println("<p>Please <a href=\"" + userService.createLoginURL("/") + "\">sign in</a>.</p>");
 		}
 	}
 }

@@ -9,12 +9,12 @@
 		<servlet-name>loginServlet</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.LoginServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>punchServlet</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.PunchServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>loginService</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.LoginServiceImpl</servlet-class>
@@ -24,12 +24,12 @@
 		<servlet-name>loginServlet</servlet-name>
 		<url-pattern>/loginold</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>punchServlet</servlet-name>
 		<url-pattern>/punch</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>loginService</servlet-name>
 		<url-pattern>/time_manager/login</url-pattern>
@@ -40,18 +40,9 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
-	<!-- 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>profile</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>*</role-name>
-		</auth-constraint>
-	</security-constraint>
-	
-	-->
+	<!-- <security-constraint> <web-resource-collection> <web-resource-name>profile</web-resource-name> 
+		<url-pattern>/*</url-pattern> </web-resource-collection> <auth-constraint> 
+		<role-name>*</role-name> </auth-constraint> </security-constraint> -->
 
 	<filter>
 		<filter-name>ObjectifyFilter</filter-name>
