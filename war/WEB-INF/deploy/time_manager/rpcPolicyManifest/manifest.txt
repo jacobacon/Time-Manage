@@ -1,2 +1,3 @@
 # Module time_manager
 # RPC service class, partial path of RPC policy file
+com.jacobacon.time_manager.client.LoginService, D3F1123236AE37440C712C1D7DC59FE5.gwt.rpc

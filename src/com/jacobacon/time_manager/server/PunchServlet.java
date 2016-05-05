@@ -26,7 +26,7 @@ public class PunchServlet extends HttpServlet {
 		Car porsche = new Car("ZOOM", "Yellow", date);
 
 		savePunch(porsche);
-		resp.getWriter().println("The Color of the car is yo: " + getPunch(porsche));
+		resp.getWriter().println("The Color of the car is: " + getPunch(porsche));
 		resp.getWriter().println("The date the car was made was: " + dateFormat.format(getPunchDate(porsche)));
 		resp.getWriter().println(req.getParameter("key1"));
 		resp.getWriter().println(req.getParameter("key2"));

@@ -1,0 +1,2 @@
+serviceClass: com.jacobacon.time_manager.client.LoginService
+path: D3F1123236AE37440C712C1D7DC59FE5.gwt.rpc

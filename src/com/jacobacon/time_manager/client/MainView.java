@@ -31,7 +31,7 @@ public class MainView extends Composite {
 		mainPanel.add(taskList);
 
 		tb.setValue("Hello");
-		button.setText("Moo");
+		button.setText("Test");
 
 		mainPanel.add(tb);
 		mainPanel.add(button);
