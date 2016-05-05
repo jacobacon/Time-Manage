@@ -19,6 +19,8 @@
 	<!-- Other module inherits -->
 	<inherits name='com.tractionsoftware.gwt.user.UTCDateTime' />
 	<inherits name='com.google.api.gwt.oauth2.OAuth2' />
+	<inherits name="com.googlecode.gwt.charts.Charts"/>
+
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.jacobacon.time_manager.client.Time_Manager' />

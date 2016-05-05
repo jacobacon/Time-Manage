@@ -14,15 +14,25 @@
 		<servlet-name>punchServlet</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.PunchServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>loginService</servlet-name>
+		<servlet-class>com.jacobacon.time_manager.server.LoginServiceImpl</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>loginServlet</servlet-name>
-		<url-pattern>/login</url-pattern>
+		<url-pattern>/loginold</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>punchServlet</servlet-name>
 		<url-pattern>/punch</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>loginService</servlet-name>
+		<url-pattern>/time_manager/login</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
