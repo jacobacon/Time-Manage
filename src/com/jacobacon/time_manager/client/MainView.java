@@ -13,13 +13,16 @@ public class MainView extends Composite {
 	private final Label label = new Label("Punch In / Punch Out");
 	private final ListBox taskList = new ListBox();
 	private final String[] taskListArray = { "Film", "Edit", "Agenda Work", "Clips", "Video Production", "Other" };
+	
 
-	public final TextBox tb = new TextBox();
+	public final TextBox notes = new TextBox();
 	public final Button button = new Button();
 
 	public MainView() {
 
 		addTasks();
+		taskList.setTitle("Job");
+		notes.setTitle("Notes");
 
 		mainPanel.setSpacing(5);
 		// mainPanel.getElement().getStyle().setBackgroundColor("green");
@@ -30,10 +33,10 @@ public class MainView extends Composite {
 		mainPanel.add(label);
 		mainPanel.add(taskList);
 
-		tb.setValue("Hello");
+		notes.setValue("Enter Notes Here");
 		button.setText("Test");
 
-		mainPanel.add(tb);
+		mainPanel.add(notes);
 		mainPanel.add(button);
 
 	}

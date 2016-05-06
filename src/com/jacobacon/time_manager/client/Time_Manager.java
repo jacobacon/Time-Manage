@@ -179,75 +179,8 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.add(reportsViewButton);
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		headerPanel.add(signOutLink);
-		headerPanel.add(new Label(loginInfo.getNickname()));
+		headerPanel.add(new Label(loginInfo.getNickname() + loginInfo.getUserId()));
 		headerPanel.setBorderWidth(5);
-
-		// Initialize Arrays
-		// String names[] = { "Jacob", "Peter", "Megan", "Jeff" };
-
-		// Create Form Panel, and set its attributes.
-		// final FormPanel form = new FormPanel();
-		// form.setAction("/login");
-		// form.setMethod(FormPanel.METHOD_POST);
-
-		// Create a Horizontal Panel to hold the elements.
-		// HorizontalPanel panel = new HorizontalPanel();
-		// panel.getElement().setId("test");
-		// panel.getElement().setAttribute("align", "center");
-		// form.setWidget(panel);
-
-		// Create name list.
-		// final ListBox nameList = new ListBox();
-		// nameList.setName("nameListElement");
-		// panel.add(nameList);
-
-		// Create List of Names
-		// for (int i = 0; i < names.length; i++) {
-		// nameList.addItem(names[i], names[i]);
-		// }
-
-		// Create Punch in and Punch out.
-		// final UTCTimeBox timeIn = new
-		// UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
-		// final UTCTimeBox timeOut = new
-		// UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
-		// final Hidden hiddenPunchIn = new Hidden("hiddenPunchIn");
-		// final Hidden hiddenPunchOut = new Hidden("hiddenPunchOut");
-
-		// timeIn.setValue(UTCTimeBox.getValueForNextHour());
-		// timeIn.setTitle("Punch In");
-
-		// timeOut.setValue(UTCTimeBox.getValueForNextHour());
-		// timeOut.setTitle("Punch Out");
-
-		// panel.add(timeIn);
-		// panel.add(timeOut);
-		// panel.add(hiddenPunchIn);
-		// panel.add(hiddenPunchOut);
-
-		// panel.add(new Button("Submit", new ClickHandler() {
-
-		// @Override
-		// public void onClick(ClickEvent event) {
-
-		// Hacky way to send value of punch to server
-		// String hiddenIn = String.valueOf(timeIn.getValue());
-		// hiddenPunchIn.setValue(hiddenIn);
-		// String hiddenOut = String.valueOf(timeOut.getValue());
-		// hiddenPunchOut.setValue(hiddenOut);
-
-		// Window.alert("Your Manual Punch Has Been Submitted." +
-		// hiddenPunchIn.getValue());
-
-		// form.submit();
-
-		// }
-		// }));
-
-		// Focus the cursor on the name field when the app loads
-		// nameList.setFocus(true);
-
-		// RootPanel.get().add(form);
 
 		Button b = new Button("Click Me!", new ClickHandler() {
 
@@ -269,7 +202,7 @@ public class Time_Manager implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
 				Window.alert("Test");
-				postData(url, builder, mainView.tb.getValue());
+				postData(url, builder, mainView.notes.getValue());
 
 			}
 
