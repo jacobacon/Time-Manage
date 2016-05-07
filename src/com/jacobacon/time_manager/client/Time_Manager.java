@@ -13,6 +13,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -43,7 +44,25 @@ public class Time_Manager implements EntryPoint {
 
 	final String url = "punch";
 
+	@SuppressWarnings("unused")
+	private Employee employee = null;
+
+	private WorkDay work = new WorkDay();
+
+	// private DateBox dateBox = new DateBox();
+
+	// HourMinutePicker timePicker = new
+	// HourMinutePicker(PickerFormat._12_HOUR);
+
+	private final Grid grid = new Grid(5, 5);
+
+	private PunchServiceAsync punchService = GWT.create(PunchService.class);
+
 	public void onModuleLoad() {
+
+		// dateBox.setValue(new Date());
+		// dateBox.setFormat(new
+		// DateBox.DefaultFormat(DateTimeFormat.getFormat(PredefinedFormat.TIME_FULL)));
 
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
@@ -65,6 +84,22 @@ public class Time_Manager implements EntryPoint {
 
 			}
 
+		});
+
+		punchService.addWork(work, new AsyncCallback<String>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				Window.alert(result);
+
+			}
 		});
 
 	}
@@ -181,18 +216,64 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.add(signOutLink);
 		headerPanel.add(new Label(loginInfo.getNickname() + loginInfo.getUserId()));
 		headerPanel.setBorderWidth(5);
+		
+		
+		work.setNotes("Test Notes");
 
-		Button b = new Button("Click Me!", new ClickHandler() {
+		Button b = new Button("Click Me to Get Work", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 
-				StringBuilder sb = new StringBuilder();
-				sb.append("key1=JACOB");
-				sb.append("&key2=YAY");
-				sb.append("&key3=10:30");
-				postData(url, builder, sb.toString());
+				// StringBuilder sb = new StringBuilder();
+				// sb.append("key1=JACOB");
+				// sb.append("&key2=YAY");
+				// sb.append("&key3=10:30");
+				// postData(url, builder, sb.toString());
+				
 
+
+				punchService.getWork(work.id, new AsyncCallback<WorkDay>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(WorkDay result) {
+						// TODO Auto-generated method stub
+						Window.alert(result.notes);
+
+					}
+
+				});
+
+			}
+		});
+		
+		Button b2 = new Button("Click Me To Add Work", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				punchService.addWork(work, new AsyncCallback<String>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(String result) {
+						// TODO Auto-generated method stub
+						Window.alert("Work Added");
+						
+					}
+				});
+				
 			}
 		});
 
@@ -201,7 +282,7 @@ public class Time_Manager implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				Window.alert("Test");
+				// Window.alert(dateBox.getValue().toString());
 				postData(url, builder, mainView.notes.getValue());
 
 			}
@@ -211,6 +292,25 @@ public class Time_Manager implements EntryPoint {
 		RootPanel.get("header").add(headerPanel);
 
 		RootPanel.get("content").add(b);
+		RootPanel.get("content").add(b2);
+
+		// Put some values in the grid cells.
+		for (int row = 0; row < 5; ++row) {
+			for (int col = 0; col < 5; ++col)
+				grid.setText(row, col, "" + row + ", " + col);
+		}
+
+		// Just for good measure, let's put a button in the center.
+		grid.setWidget(2, 2, new Button("Does nothing, but could"));
+
+		// You can use the CellFormatter to affect the layout of the grid's
+		// cells.
+		grid.getCellFormatter().setWidth(0, 2, "256px");
+
+		grid.setVisible(false);
+
+		RootPanel.get("content").add(grid);
+		// RootPanel.get("content").add(timePicker);
 
 		RootPanel.get("content").add(mainView.getMainPanel());
 
