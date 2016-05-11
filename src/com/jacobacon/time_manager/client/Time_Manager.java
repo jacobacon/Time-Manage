@@ -1,9 +1,6 @@
 package com.jacobacon.time_manager.client;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.util.Date;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -53,12 +50,10 @@ public class Time_Manager implements EntryPoint {
 	@SuppressWarnings("unused")
 	private Employee employee = null;
 
-	private WorkDay work = new WorkDay("test", new Date(), new Date(), "Work", "Completed Stuff");
+	private WorkDay work;
+	// = new WorkDay("test", new Date(), new Date(), "Work", "Completed Stuff");
 
 	// private DateBox dateBox = new DateBox();
-
-	// HourMinutePicker timePicker = new
-	// HourMinutePicker(PickerFormat._12_HOUR);
 
 	private final Grid grid = new Grid(5, 5);
 
@@ -110,59 +105,10 @@ public class Time_Manager implements EntryPoint {
 
 	}
 
-	public void setContent(int viewNumber) {
-		switch (viewNumber) {
-		case 0:
-			System.out.println("Switching to the main view!");
-			RootPanel.get("content").clear();
-			RootPanel.get("content").add(mainView.getMainPanel());
-			Window.setTitle("Home");
-			break;
+	
 
-		case 1:
-			System.out.println("Switching to the 2nd view!");
-			RootPanel.get("content").clear();
-			RootPanel.get("content").add(manualPunchView.getMainPanel());
-			Window.setTitle("Edit Time");
-			break;
-
-		case 2:
-			System.out.println("Switching to the 3rd view");
-			RootPanel.get("content").clear();
-			RootPanel.get("content").add(reportView.getMainPanel());
-			Window.setTitle("Reports");
-			break;
-
-		}
-
-	}
-
-	public void postData(String url, RequestBuilder builder, String data) {
-		try {
-			@SuppressWarnings("unused")
-			Request request = builder.sendRequest(data, new RequestCallback() {
-
-				@Override
-				public void onResponseReceived(Request request, Response response) {
-					// TODO Auto-generated method stub
-					Window.alert(response.getText());
-
-				}
-
-				@Override
-				public void onError(Request request, Throwable exception) {
-					// TODO Auto-generated method stub
-
-				}
-
-			});
-		} catch (RequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
+	
+	//Shows the login page if the user needs to login.
 	public void loadLogin() {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
@@ -170,6 +116,7 @@ public class Time_Manager implements EntryPoint {
 		RootPanel.get("content").add(loginPanel);
 	}
 
+	//Method that shows the actual app after login.
 	public void showApp() {
 
 		// Create RequestBuilder for POST
@@ -193,7 +140,7 @@ public class Time_Manager implements EntryPoint {
 			}
 
 		});
-		final PushButton manualPunchView = new PushButton("Edit Time", new ClickHandler() {
+		final PushButton manualPunchViewButton = new PushButton("Edit Time", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -210,22 +157,19 @@ public class Time_Manager implements EntryPoint {
 			}
 		});
 		mainViewButton.setSize("150px", "50px");
-		manualPunchView.setSize("150px", "50px");
+		manualPunchViewButton.setSize("150px", "50px");
 		reportsViewButton.setSize("150px", "50px");
 
 		Image clockImage = new Image("images/clock-small.png");
 		clockImage.setPixelSize(74, 96);
 		headerPanel.add(clockImage);
 		headerPanel.add(mainViewButton);
-		headerPanel.add(manualPunchView);
+		headerPanel.add(manualPunchViewButton);
 		headerPanel.add(reportsViewButton);
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		headerPanel.add(signOutLink);
 		headerPanel.add(new Label(loginInfo.getNickname() + loginInfo.getUserId()));
 		headerPanel.setBorderWidth(5);
-		
-		
-		
 
 		Button b = new Button("Click Me to Get Work", new ClickHandler() {
 
@@ -237,8 +181,6 @@ public class Time_Manager implements EntryPoint {
 				// sb.append("&key2=YAY");
 				// sb.append("&key3=10:30");
 				// postData(url, builder, sb.toString());
-				
-
 
 				punchService.getWork("test", new AsyncCallback<WorkDay>() {
 
@@ -251,8 +193,9 @@ public class Time_Manager implements EntryPoint {
 					@Override
 					public void onSuccess(WorkDay result) {
 						// TODO Auto-generated method stub
-						Window.alert("You completed: " + result.getTaskCompleted() + "Your Notes are: " + result.getNotes()
-								);
+						Window.alert("You completed: " + result.getTaskCompleted() + "\nYour Notes are: "
+								+ result.getNotes() + "\nYou clocked in at: " + result.getStartTime()
+								+ "\nAnd clocked out at: " + result.getEndTime());
 
 					}
 
@@ -260,44 +203,38 @@ public class Time_Manager implements EntryPoint {
 
 			}
 		});
-		
 
-		
 		Button b2 = new Button("Click Me To Add Work", new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
+
+				Date dateIn = new Date(mainView.timeIn.getValue());
+				Date dateOut = new Date(mainView.timeOut.getValue());
+
+				work = new WorkDay("test", dateIn, dateOut, mainView.taskList.getSelectedItemText(),
+						mainView.notes.getValue());
+
 				punchService.addWork(work, new AsyncCallback<String>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
 						// TODO Auto-generated method stub
-						
+
 					}
 
 					@Override
 					public void onSuccess(String result) {
 						// TODO Auto-generated method stub
 						Window.alert("Work Added");
-						
+
 					}
 				});
-				
+
 			}
 		});
 
-		mainView.button.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				// Window.alert(dateBox.getValue().toString());
-				postData(url, builder, mainView.notes.getValue());
-
-			}
-
-		});
 
 		RootPanel.get("header").add(headerPanel);
 
@@ -325,6 +262,63 @@ public class Time_Manager implements EntryPoint {
 
 		RootPanel.get("content").add(mainView.getMainPanel());
 
+		// Still working on stuff so disable some buttons.
+
 	}
 
+	//Changes the content of the page to the different views.
+	public void setContent(int viewNumber) {
+		switch (viewNumber) {
+		case 0:
+			System.out.println("Switching to the main view!");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(mainView.getMainPanel());
+			Window.setTitle("Home");
+			break;
+
+		case 1:
+			System.out.println("Switching to the 2nd view!");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(manualPunchView.getMainPanel());
+			Window.setTitle("Edit Time");
+			break;
+
+		case 2:
+			System.out.println("Switching to the 3rd view");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(reportView.getMainPanel());
+			Window.setTitle("Reports");
+			break;
+
+		}
+
+	}
+	
+	//Old Method of sending the data to the server. Use PunchService instead.
+	@Deprecated
+	public void postData(String url, RequestBuilder builder, String data) {
+		try {
+			@SuppressWarnings("unused")
+			Request request = builder.sendRequest(data, new RequestCallback() {
+
+				@Override
+				public void onResponseReceived(Request request, Response response) {
+					// TODO Auto-generated method stub
+					Window.alert(response.getText());
+
+				}
+
+				@Override
+				public void onError(Request request, Throwable exception) {
+					// TODO Auto-generated method stub
+
+				}
+
+			});
+		} catch (RequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }

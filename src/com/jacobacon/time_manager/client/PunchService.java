@@ -5,13 +5,11 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.jacobacon.time_manager.shared.WorkDay;
 
 @RemoteServiceRelativePath("punch")
-public interface PunchService extends RemoteService{
+public interface PunchService extends RemoteService {
 	public void saveWork(WorkDay work);
-	
+
 	public String addWork(WorkDay work);
-	
+
 	public WorkDay getWork(String id);
-	
-	
 
 }

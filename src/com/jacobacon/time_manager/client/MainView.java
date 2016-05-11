@@ -1,11 +1,14 @@
 package com.jacobacon.time_manager.client;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -16,20 +19,19 @@ public class MainView extends Composite {
 	//private final HorizontalPanel mainPanel = new HorizontalPanel();
 	private final FlowPanel mainPanel = new FlowPanel();
 	private final Label label = new Label("Punch In / Punch Out");
-	private final ListBox taskList = new ListBox();
+	public final ListBox taskList = new ListBox();
 	private final String[] taskListArray = { "Film", "Edit", "Agenda Work", "Clips", "Video Production", "Other" };
 	
-	private final UTCTimeBox timeIn = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
-	private final UTCTimeBox timeOut = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
+	public final UTCTimeBox timeIn = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
+	public final UTCTimeBox timeOut = new UTCTimeBox(DateTimeFormat.getFormat("hh:mm a"));
 	
-	//private final CheckBox enabled = new CheckBox("Include Break");
+	private final CheckBox enabled = new CheckBox("Break Included");
 	
 	
 	private final UTCTimeBox mealStart = new UTCTimeBox();
 	private final UTCTimeBox mealEnd = new UTCTimeBox();
 	
 	public final TextBox notes = new TextBox();
-	public final Button button = new Button("Test");
 
 	public MainView() {
 
@@ -56,10 +58,13 @@ public class MainView extends Composite {
 		mainPanel.add(timeOut);
 		mainPanel.add(taskList);
 
+		mainPanel.add(new HTML("</br>"));
 		notes.setValue("Enter Notes Here");
 
+		
+		mainPanel.add(enabled);
+		enabled.getElement().getStyle().setPaddingRight(5, Unit.PX);
 		mainPanel.add(notes);
-		mainPanel.add(button);
 		
 		notes.addClickHandler(new ClickHandler() {
 			
