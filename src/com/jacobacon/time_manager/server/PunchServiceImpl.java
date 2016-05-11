@@ -4,7 +4,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.ObjectifyService;
 import com.jacobacon.time_manager.client.PunchService;
-import com.jacobacon.time_manager.client.WorkDay;
+import com.jacobacon.time_manager.shared.WorkDay;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class PunchServiceImpl extends RemoteServiceServlet implements PunchService{
@@ -33,7 +34,7 @@ public class PunchServiceImpl extends RemoteServiceServlet implements PunchServi
 		return "The Work Has Been Saved";
 	}
 	
-	public WorkDay getWork(Long id){
+	public WorkDay getWork(String id){
 		
 		WorkDay fetched = ofy().load().type(WorkDay.class).id(id).now();
 		

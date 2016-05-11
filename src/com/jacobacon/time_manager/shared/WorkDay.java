@@ -1,4 +1,4 @@
-package com.jacobacon.time_manager.client;
+package com.jacobacon.time_manager.shared;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,16 +14,17 @@ public class WorkDay implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	Long id;
+	public String id;
 	Date startTime;
 	Date endTime;
 	Date mealStart;
 	Date mealEnd;
 	String taskCompleted;
-	String notes;
+	public String notes;
 
 	// Default Constructor
 	public WorkDay() {
+		this.id = "Default";
 		startTime = new Date();
 		endTime = new Date();
 		mealStart = new Date();
@@ -33,7 +34,8 @@ public class WorkDay implements Serializable{
 	}
 
 	// Constructor with Meal
-	public WorkDay(Date startTime, Date endTime, Date mealStart, Date mealEnd, String taskCompleted, String notes) {
+	public WorkDay(String id, Date startTime, Date endTime, Date mealStart, Date mealEnd, String taskCompleted, String notes) {
+		this.id = id;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.mealStart = mealStart;
@@ -43,7 +45,8 @@ public class WorkDay implements Serializable{
 	}
 
 	// Constructor with No Meal
-	public WorkDay(Date startTime, Date endTime, String taskCompleted, String notes) {
+	public WorkDay(String id, Date startTime, Date endTime, String taskCompleted, String notes) {
+		this.id = id;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.taskCompleted = taskCompleted;

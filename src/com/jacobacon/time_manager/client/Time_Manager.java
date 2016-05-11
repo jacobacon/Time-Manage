@@ -1,5 +1,9 @@
 package com.jacobacon.time_manager.client;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
+import java.util.Date;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,6 +24,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.jacobacon.time_manager.shared.Employee;
+import com.jacobacon.time_manager.shared.WorkDay;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -47,7 +53,7 @@ public class Time_Manager implements EntryPoint {
 	@SuppressWarnings("unused")
 	private Employee employee = null;
 
-	private WorkDay work = new WorkDay();
+	private WorkDay work = new WorkDay("test", new Date(), new Date(), "Work", "Completed Stuff");
 
 	// private DateBox dateBox = new DateBox();
 
@@ -56,7 +62,7 @@ public class Time_Manager implements EntryPoint {
 
 	private final Grid grid = new Grid(5, 5);
 
-	private PunchServiceAsync punchService = GWT.create(PunchService.class);
+	private PunchServiceAsync punchService;
 
 	public void onModuleLoad() {
 
@@ -168,6 +174,7 @@ public class Time_Manager implements EntryPoint {
 
 		// Create RequestBuilder for POST
 
+		punchService = GWT.create(PunchService.class);
 		final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, "punch");
 		builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 		// String for the RequestBuilder that holds the request data.
@@ -218,7 +225,7 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.setBorderWidth(5);
 		
 		
-		work.setNotes("Test Notes");
+		
 
 		Button b = new Button("Click Me to Get Work", new ClickHandler() {
 
@@ -233,7 +240,7 @@ public class Time_Manager implements EntryPoint {
 				
 
 
-				punchService.getWork(work.id, new AsyncCallback<WorkDay>() {
+				punchService.getWork("test", new AsyncCallback<WorkDay>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -244,7 +251,8 @@ public class Time_Manager implements EntryPoint {
 					@Override
 					public void onSuccess(WorkDay result) {
 						// TODO Auto-generated method stub
-						Window.alert(result.notes);
+						Window.alert("You completed: " + result.getTaskCompleted() + "Your Notes are: " + result.getNotes()
+								);
 
 					}
 
@@ -252,6 +260,8 @@ public class Time_Manager implements EntryPoint {
 
 			}
 		});
+		
+
 		
 		Button b2 = new Button("Click Me To Add Work", new ClickHandler() {
 			
@@ -293,6 +303,7 @@ public class Time_Manager implements EntryPoint {
 
 		RootPanel.get("content").add(b);
 		RootPanel.get("content").add(b2);
+		
 
 		// Put some values in the grid cells.
 		for (int row = 0; row < 5; ++row) {
