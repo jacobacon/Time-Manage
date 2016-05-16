@@ -1,6 +1,8 @@
 package com.jacobacon.time_manager.client;
 
 import java.util.Date;
+import java.util.List;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -182,7 +184,7 @@ public class Time_Manager implements EntryPoint {
 				// sb.append("&key3=10:30");
 				// postData(url, builder, sb.toString());
 
-				punchService.getWork("test", new AsyncCallback<WorkDay>() {
+				punchService.getWork("jacob", new AsyncCallback<WorkDay>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -213,7 +215,7 @@ public class Time_Manager implements EntryPoint {
 				Date dateIn = new Date(mainView.timeIn.getValue());
 				Date dateOut = new Date(mainView.timeOut.getValue());
 
-				work = new WorkDay("test", dateIn, dateOut, mainView.taskList.getSelectedItemText(),
+				work = new WorkDay("jacob", dateIn, dateOut, mainView.taskList.getSelectedItemText(),
 						mainView.notes.getValue());
 
 				punchService.addWork(work, new AsyncCallback<String>() {
@@ -234,12 +236,72 @@ public class Time_Manager implements EntryPoint {
 
 			}
 		});
+		
+		Button b3 = new Button("CLick me to test the query", new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				punchService.getWorkQuery(new AsyncCallback<WorkDay>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(WorkDay result) {
+						// TODO Auto-generated method stub
+						Window.alert(result.getNotes() + result.getId());
+						
+					}
+					
+				});
+				
+			}
+		}){
+			
+		};
+		
+		Button b4 = new Button("Batch Query", new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				punchService.getWorkDayBulk(new AsyncCallback<List<WorkDay>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(List<WorkDay> result) {
+						// TODO Auto-generated method stub
+						String output = "";
+						for(int i = 0; i < result.size(); i++){
+							WorkDay workDay = result.get(i);
+							output += workDay.getNotes();
+						}
+						Window.alert(output);
+						
+					}
+				});
+				
+			}
+			
+		});
+		
 
 
 		RootPanel.get("header").add(headerPanel);
 
 		RootPanel.get("content").add(b);
 		RootPanel.get("content").add(b2);
+		RootPanel.get("content").add(b3);
+		RootPanel.get("content").add(b4);
 		
 
 		// Put some values in the grid cells.

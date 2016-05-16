@@ -15,8 +15,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -34,6 +32,8 @@ public class ReportView extends Composite {
 
 	// private PieChart pieChart;
 	// private SimpleLayoutPanel layoutPanel = new SimpleLayoutPanel();
+	
+	private Button getPunch = new Button("Clicke Me to Get Punch");
 
 	private static final List<Contact> CONTACTS = Arrays.asList(new Contact("Jose", new Date(80, 4, 12), "123 Main Street"),
 			new Contact("Jacob", new Date(80, 4, 12), "1514 Baker Street"), new Contact("Peter", new Date(80, 4, 12), "1045, MLK Jr. Dr")

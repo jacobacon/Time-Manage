@@ -5,8 +5,10 @@ import java.util.Date;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
+@Index
 public class WorkDay implements Serializable{
 
 	/**
@@ -14,7 +16,8 @@ public class WorkDay implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	public String id;
+	public Long id;
+	public String employeeName;
 	Date startTime;
 	Date endTime;
 	Date mealStart;
@@ -24,7 +27,7 @@ public class WorkDay implements Serializable{
 
 	// Default Constructor
 	public WorkDay() {
-		this.id = "Default";
+		employeeName = "Default";
 		startTime = new Date();
 		endTime = new Date();
 		mealStart = new Date();
@@ -34,8 +37,8 @@ public class WorkDay implements Serializable{
 	}
 
 	// Constructor with Meal
-	public WorkDay(String id, Date startTime, Date endTime, Date mealStart, Date mealEnd, String taskCompleted, String notes) {
-		this.id = id;
+	public WorkDay(String employeeName, Date startTime, Date endTime, Date mealStart, Date mealEnd, String taskCompleted, String notes) {
+		this.employeeName = employeeName;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.mealStart = mealStart;
@@ -45,16 +48,28 @@ public class WorkDay implements Serializable{
 	}
 
 	// Constructor with No Meal
-	public WorkDay(String id, Date startTime, Date endTime, String taskCompleted, String notes) {
-		this.id = id;
+	public WorkDay(String employeeName, Date startTime, Date endTime, String taskCompleted, String notes) {
+		this.employeeName = employeeName;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.taskCompleted = taskCompleted;
 		this.notes = notes;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
 	public Date getStartTime(){
 		return startTime;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
 	}
 
 	public Date getEndTime() {
