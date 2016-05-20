@@ -13,11 +13,9 @@ public interface PunchService extends RemoteService {
 	public String addWork(WorkDay work);
 
 	public WorkDay getWork(String id);
-	
+
 	public WorkDay getWorkQuery();
-	
+
 	public List<WorkDay> getWorkDayBulk();
-	
-	public List<String> testList();
 
 }

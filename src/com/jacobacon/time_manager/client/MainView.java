@@ -32,6 +32,8 @@ public class MainView extends Composite {
 	private final UTCTimeBox mealEnd = new UTCTimeBox();
 	
 	public final TextBox notes = new TextBox();
+	
+	public final Button submit = new Button("Submit");
 
 	public MainView() {
 
@@ -76,6 +78,7 @@ public class MainView extends Composite {
 			}
 		});
 		
+		mainPanel.add(submit);
 
 	}
 

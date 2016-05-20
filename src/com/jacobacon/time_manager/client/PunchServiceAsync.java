@@ -11,11 +11,9 @@ public interface PunchServiceAsync {
 	public void addWork(WorkDay work, AsyncCallback<String> async);
 
 	public void getWork(String id, AsyncCallback<WorkDay> async);
-	
+
 	public void getWorkQuery(AsyncCallback<WorkDay> async);
-	
+
 	public void getWorkDayBulk(AsyncCallback<List<WorkDay>> async);
-	
-	public void testList(AsyncCallback<List<String>> async);
 
 }

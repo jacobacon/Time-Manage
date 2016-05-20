@@ -1,5 +1,6 @@
 package com.jacobacon.time_manager.client;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -7,11 +8,6 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestCallback;
-import com.google.gwt.http.client.RequestException;
-import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
@@ -23,7 +19,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.jacobacon.time_manager.shared.Employee;
 import com.jacobacon.time_manager.shared.WorkDay;
 
 /**
@@ -49,23 +44,17 @@ public class Time_Manager implements EntryPoint {
 
 	final String url = "punch";
 
-	@SuppressWarnings("unused")
-	private Employee employee = null;
-
 	private WorkDay work;
-	// = new WorkDay("test", new Date(), new Date(), "Work", "Completed Stuff");
-
-	// private DateBox dateBox = new DateBox();
 
 	private final Grid grid = new Grid(5, 5);
 
 	private PunchServiceAsync punchService;
 
-	public void onModuleLoad() {
+	private static List<WorkDay> WORKDAYS = Arrays.asList(new WorkDay(), new WorkDay(), new WorkDay());
 
-		// dateBox.setValue(new Date());
-		// dateBox.setFormat(new
-		// DateBox.DefaultFormat(DateTimeFormat.getFormat(PredefinedFormat.TIME_FULL)));
+	private static List<WorkDay> days;
+
+	public void onModuleLoad() {
 
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
@@ -80,6 +69,7 @@ public class Time_Manager implements EntryPoint {
 			public void onSuccess(LoginInfo result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
+					setUp();
 					showApp();
 				} else {
 					loadLogin();
@@ -89,28 +79,9 @@ public class Time_Manager implements EntryPoint {
 
 		});
 
-		punchService.addWork(work, new AsyncCallback<String>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				Window.alert(result);
-
-			}
-		});
-
 	}
 
-	
-
-	
-	//Shows the login page if the user needs to login.
+	// Shows the login page if the user needs to login.
 	public void loadLogin() {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
@@ -118,20 +89,15 @@ public class Time_Manager implements EntryPoint {
 		RootPanel.get("content").add(loginPanel);
 	}
 
-	//Method that shows the actual app after login.
+	// Method that shows the actual app after login.
 	public void showApp() {
 
 		// Create RequestBuilder for POST
 
 		punchService = GWT.create(PunchService.class);
-		final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, "punch");
-		builder.setHeader("Content-type", "application/x-www-form-urlencoded");
-		// String for the RequestBuilder that holds the request data.
-		@SuppressWarnings("unused")
-		final String data = "Default";
 
 		final HorizontalPanel headerPanel = new HorizontalPanel();
-		headerPanel.setWidth("50%");
+		headerPanel.setWidth("100%");
 		headerPanel.setSpacing(5);
 		final PushButton mainViewButton = new PushButton("Home", new ClickHandler() {
 
@@ -168,9 +134,9 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.add(mainViewButton);
 		headerPanel.add(manualPunchViewButton);
 		headerPanel.add(reportsViewButton);
+		headerPanel.add(new Label(loginInfo.getNickname()));
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		headerPanel.add(signOutLink);
-		headerPanel.add(new Label(loginInfo.getNickname() + loginInfo.getUserId()));
 		headerPanel.setBorderWidth(5);
 
 		Button b = new Button("Click Me to Get Work", new ClickHandler() {
@@ -206,11 +172,112 @@ public class Time_Manager implements EntryPoint {
 			}
 		});
 
-		Button b2 = new Button("Click Me To Add Work", new ClickHandler() {
+		Button b4 = new Button("Batch Query", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
+				punchService.getWorkDayBulk(new AsyncCallback<List<WorkDay>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(List<WorkDay> result) {
+						// TODO Auto-generated method stub
+						String output = "";
+						for (int i = 0; i < result.size(); i++) {
+							WorkDay workDay = result.get(i);
+							output += workDay.getNotes();
+						}
+						Window.alert(output);
+
+					}
+				});
+
+			}
+
+		});
+
+		RootPanel.get("header").add(headerPanel);
+
+		// Put some values in the grid cells.
+		for (int row = 0; row < 5; ++row) {
+			for (int col = 0; col < 5; ++col)
+				grid.setText(row, col, "" + row + ", " + col);
+		}
+
+		// Just for good measure, let's put a button in the center.
+		grid.setWidget(2, 2, new Button("Does nothing, but could"));
+
+		// You can use the CellFormatter to affect the layout of the grid's
+		// cells.
+		grid.getCellFormatter().setWidth(0, 2, "256px");
+
+		grid.setVisible(false);
+
+		RootPanel.get("content").add(grid);
+
+		setContent(0);
+
+		// Temporary Buttons for Testing
+		RootPanel.get("content").add(b);
+		RootPanel.get("content").add(b4);
+
+	}
+
+	// Changes the content of the page to the different views.
+	public void setContent(int viewNumber) {
+		switch (viewNumber) {
+		case 0:
+			System.out.println("Switching to the main view!");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(mainView.getMainPanel());
+
+			Window.setTitle("Home");
+			break;
+
+		case 1:
+			System.out.println("Switching to the 2nd view!");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(manualPunchView.getMainPanel());
+			Window.setTitle("Edit Time");
+			break;
+
+		case 2:
+			System.out.println("Switching to the 3rd view");
+			RootPanel.get("content").clear();
+			RootPanel.get("content").add(reportView.getMainPanel());
+
+			
+
+			reportView.table.setRowCount(15);
+
+			// reportView.table.setRowData(0, days);
+
+			reportView.table.flush();
+
+			Window.setTitle("Reports");
+			break;
+
+		}
+
+	}
+	
+	
+	public void setUp(){
+		
+		//Add Submit Button Login
+		
+		mainView.submit.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				Window.alert("Hello");
 
 				Date dateIn = new Date(mainView.timeIn.getValue());
 				Date dateOut = new Date(mainView.timeOut.getValue());
@@ -229,7 +296,7 @@ public class Time_Manager implements EntryPoint {
 					@Override
 					public void onSuccess(String result) {
 						// TODO Auto-generated method stub
-						Window.alert("Work Added");
+						Window.alert("Work Saved");
 
 					}
 				});
@@ -237,150 +304,11 @@ public class Time_Manager implements EntryPoint {
 			}
 		});
 		
-		Button b3 = new Button("CLick me to test the query", new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				punchService.getWorkQuery(new AsyncCallback<WorkDay>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(WorkDay result) {
-						// TODO Auto-generated method stub
-						Window.alert(result.getNotes() + result.getId());
-						
-					}
-					
-				});
-				
-			}
-		}){
-			
-		};
 		
-		Button b4 = new Button("Batch Query", new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				punchService.getWorkDayBulk(new AsyncCallback<List<WorkDay>>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(List<WorkDay> result) {
-						// TODO Auto-generated method stub
-						String output = "";
-						for(int i = 0; i < result.size(); i++){
-							WorkDay workDay = result.get(i);
-							output += workDay.getNotes();
-						}
-						Window.alert(output);
-						
-					}
-				});
-				
-			}
-			
-		});
 		
-
-
-		RootPanel.get("header").add(headerPanel);
-
-		RootPanel.get("content").add(b);
-		RootPanel.get("content").add(b2);
-		RootPanel.get("content").add(b3);
-		RootPanel.get("content").add(b4);
 		
-
-		// Put some values in the grid cells.
-		for (int row = 0; row < 5; ++row) {
-			for (int col = 0; col < 5; ++col)
-				grid.setText(row, col, "" + row + ", " + col);
-		}
-
-		// Just for good measure, let's put a button in the center.
-		grid.setWidget(2, 2, new Button("Does nothing, but could"));
-
-		// You can use the CellFormatter to affect the layout of the grid's
-		// cells.
-		grid.getCellFormatter().setWidth(0, 2, "256px");
-
-		grid.setVisible(false);
-
-		RootPanel.get("content").add(grid);
-		// RootPanel.get("content").add(timePicker);
-
-		RootPanel.get("content").add(mainView.getMainPanel());
-
-		// Still working on stuff so disable some buttons.
-
+		
+		
 	}
 
-	//Changes the content of the page to the different views.
-	public void setContent(int viewNumber) {
-		switch (viewNumber) {
-		case 0:
-			System.out.println("Switching to the main view!");
-			RootPanel.get("content").clear();
-			RootPanel.get("content").add(mainView.getMainPanel());
-			Window.setTitle("Home");
-			break;
-
-		case 1:
-			System.out.println("Switching to the 2nd view!");
-			RootPanel.get("content").clear();
-			RootPanel.get("content").add(manualPunchView.getMainPanel());
-			Window.setTitle("Edit Time");
-			break;
-
-		case 2:
-			System.out.println("Switching to the 3rd view");
-			RootPanel.get("content").clear();
-			RootPanel.get("content").add(reportView.getMainPanel());
-			Window.setTitle("Reports");
-			break;
-
-		}
-
-	}
-	
-	//Old Method of sending the data to the server. Use PunchService instead.
-	@Deprecated
-	public void postData(String url, RequestBuilder builder, String data) {
-		try {
-			@SuppressWarnings("unused")
-			Request request = builder.sendRequest(data, new RequestCallback() {
-
-				@Override
-				public void onResponseReceived(Request request, Response response) {
-					// TODO Auto-generated method stub
-					Window.alert(response.getText());
-
-				}
-
-				@Override
-				public void onError(Request request, Throwable exception) {
-					// TODO Auto-generated method stub
-
-				}
-
-			});
-		} catch (RequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 }
