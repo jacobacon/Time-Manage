@@ -13,7 +13,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -35,8 +34,6 @@ public class Time_Manager implements EntryPoint {
 	final MainView mainView = new MainView();
 	final ManualPunchView manualPunchView = new ManualPunchView();
 	final ReportView reportView = new ReportView();
-	
-	final TestView testView = new TestView();
 
 	// Setup Login
 	private LoginInfo loginInfo = null;
@@ -98,8 +95,6 @@ public class Time_Manager implements EntryPoint {
 		// Create RequestBuilder for POST
 
 		punchService = GWT.create(PunchService.class);
-		
-		
 
 		final HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.setWidth("100%");
@@ -149,6 +144,12 @@ public class Time_Manager implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 
+				// StringBuilder sb = new StringBuilder();
+				// sb.append("key1=JACOB");
+				// sb.append("&key2=YAY");
+				// sb.append("&key3=10:30");
+				// postData(url, builder, sb.toString());
+
 				punchService.getWork("jacob", new AsyncCallback<WorkDay>() {
 
 					@Override
@@ -159,6 +160,7 @@ public class Time_Manager implements EntryPoint {
 
 					@Override
 					public void onSuccess(WorkDay result) {
+						// TODO Auto-generated method stub
 						Window.alert("You completed: " + result.getTaskCompleted() + "\nYour Notes are: "
 								+ result.getNotes() + "\nYou clocked in at: " + result.getStartTime()
 								+ "\nAnd clocked out at: " + result.getEndTime());
@@ -170,11 +172,31 @@ public class Time_Manager implements EntryPoint {
 			}
 		});
 
-		Button b4 = new Button("Test", new ClickHandler() {
+		Button b4 = new Button("Batch Query", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setContent(3);
+				// TODO Auto-generated method stub
+				punchService.getWorkDayBulk(new AsyncCallback<List<WorkDay>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(List<WorkDay> result) {
+						// TODO Auto-generated method stub
+						String output = "";
+						for (int i = 0; i < result.size(); i++) {
+							WorkDay workDay = result.get(i);
+							output += workDay.getNotes();
+						}
+						Window.alert(output);
+
+					}
+				});
 
 			}
 
@@ -230,6 +252,8 @@ public class Time_Manager implements EntryPoint {
 			RootPanel.get("content").clear();
 			RootPanel.get("content").add(reportView.getMainPanel());
 
+			
+
 			reportView.table.setRowCount(15);
 
 			// reportView.table.setRowData(0, days);
@@ -238,21 +262,16 @@ public class Time_Manager implements EntryPoint {
 
 			Window.setTitle("Reports");
 			break;
-		case 3:
-			RootPanel.get("content").clear();
-			RootPanel.get("content").add(testView.getMainPanel());
-			
-			Window.setTitle("Test");
-			break;
 
 		}
 
 	}
-
-	public void setUp() {
-
-		// Add Submit Button Login
-
+	
+	
+	public void setUp(){
+		
+		//Add Submit Button Login
+		
 		mainView.submit.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -284,7 +303,12 @@ public class Time_Manager implements EntryPoint {
 
 			}
 		});
-
+		
+		
+		
+		
+		
+		
 	}
 
 }

@@ -20,25 +20,13 @@ h1 {
 	text-align: center;
 }
 
-
+#webapp {
+	position: relative;
+	text-align: center;
+}
 
 #header {
 	position: relative;
 	text-align: center;
 	float: center;
-}
-
-.flexTable {
-	position: relative;
-	text-align: center;
-	float: center;
-	background-color: green;
-	
-}
-
-.fuck {
-	position: relative;
-	text-align: center;
-	float: center;
-	background-color: green;
 }
