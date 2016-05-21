@@ -12,7 +12,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -46,7 +45,7 @@ public class Time_Manager implements EntryPoint {
 
 	private WorkDay work;
 
-	private final Grid grid = new Grid(5, 5);
+	// private final Grid grid = new Grid(5, 5);
 
 	private PunchServiceAsync punchService;
 
@@ -204,23 +203,6 @@ public class Time_Manager implements EntryPoint {
 
 		RootPanel.get("header").add(headerPanel);
 
-		// Put some values in the grid cells.
-		for (int row = 0; row < 5; ++row) {
-			for (int col = 0; col < 5; ++col)
-				grid.setText(row, col, "" + row + ", " + col);
-		}
-
-		// Just for good measure, let's put a button in the center.
-		grid.setWidget(2, 2, new Button("Does nothing, but could"));
-
-		// You can use the CellFormatter to affect the layout of the grid's
-		// cells.
-		grid.getCellFormatter().setWidth(0, 2, "256px");
-
-		grid.setVisible(false);
-
-		RootPanel.get("content").add(grid);
-
 		setContent(0);
 
 		// Temporary Buttons for Testing
@@ -252,8 +234,6 @@ public class Time_Manager implements EntryPoint {
 			RootPanel.get("content").clear();
 			RootPanel.get("content").add(reportView.getMainPanel());
 
-			
-
 			reportView.table.setRowCount(15);
 
 			// reportView.table.setRowData(0, days);
@@ -266,23 +246,22 @@ public class Time_Manager implements EntryPoint {
 		}
 
 	}
-	
-	
-	public void setUp(){
-		
-		//Add Submit Button Login
-		
+
+	public void setUp() {
+
+		// Add Submit Button Logic
+
 		mainView.submit.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				Window.alert("Hello");
-
 				Date dateIn = new Date(mainView.timeIn.getValue());
 				Date dateOut = new Date(mainView.timeOut.getValue());
 
-				work = new WorkDay("jacob", dateIn, dateOut, mainView.taskList.getSelectedItemText(),
+				Date breakStart = new Date(mainView.mealStart.getValue());
+				Date breakEnd = new Date(mainView.mealEnd.getValue());
+
+				work = new WorkDay(loginInfo.getNickname(), dateIn, dateOut, mainView.taskList.getSelectedItemText(),
 						mainView.notes.getValue());
 
 				punchService.addWork(work, new AsyncCallback<String>() {
@@ -303,12 +282,7 @@ public class Time_Manager implements EntryPoint {
 
 			}
 		});
-		
-		
-		
-		
-		
-		
+
 	}
 
 }

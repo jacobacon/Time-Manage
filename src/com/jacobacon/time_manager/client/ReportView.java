@@ -157,6 +157,7 @@ public class ReportView extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
+				
 				dataProvider.getList().get(0).notes = "Hello";
 				dataProvider.refresh();
 			}
