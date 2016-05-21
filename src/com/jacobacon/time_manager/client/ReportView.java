@@ -163,7 +163,6 @@ public class ReportView extends Composite {
 
 		});
 
-		
 		Button testButton2 = new Button("Query Data", new ClickHandler() {
 
 			@Override
@@ -193,7 +192,6 @@ public class ReportView extends Composite {
 
 		mainPanel.add(testButton);
 		mainPanel.add(testButton2);
-		
 
 	}
 
