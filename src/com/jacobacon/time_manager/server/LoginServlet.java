@@ -51,6 +51,8 @@ public class LoginServlet extends HttpServlet {
 		
 		resp.getWriter().println("<p> The color of the Car is: " + fetched.color + "</p>");
 		
+		System.out.println(req.getParameterNames());
+		
 		
 		
 

@@ -43,6 +43,8 @@ public class Time_Manager implements EntryPoint {
 	 * service.
 	 */
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+	
+	
 
 	/**
 	 * This is the entry point method.
