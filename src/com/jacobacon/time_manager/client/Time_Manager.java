@@ -13,6 +13,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -39,12 +40,12 @@ public class Time_Manager implements EntryPoint {
 	private Label loginLabel = new Label("Please Sign in to your Google Account to Access this Application");
 	private Anchor signInLink = new Anchor("Sign In");
 	private Anchor signOutLink = new Anchor("Sign Out");
-	
+
 	private final static String LOGIN_STATUS_COOKIE = "false";
 	private final static String AUTH_ID_COOKIE = "";
-	
 
-	public static boolean loginStatus = true;
+	private static boolean authPage = false;
+	private static boolean loginStatus = false;
 
 	final String url = "punch";
 
@@ -60,11 +61,7 @@ public class Time_Manager implements EntryPoint {
 
 	public void onModuleLoad() {
 		Date date = new Date(System.currentTimeMillis() + 99999);
-		
-		Cookies.setCookie("test", "test", date, null, "/", false);
 
-		/*
-		
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 
@@ -96,45 +93,11 @@ public class Time_Manager implements EntryPoint {
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);
 		RootPanel.get("content").add(loginPanel);
-	*/
-		
-		
-		LoginServiceOAuthAsync loginOAuth = GWT.create(LoginServiceOAuth.class);
-		
-		if(loginStatus == false){
-		loginOAuth.getAuthUrl(new AsyncCallback<String>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				Window.Location.replace(result);
-				
-			}
-			
-			
-		});
-		
-		
-		
-		}
-		
-		else
-			showApp();
-		
 	}
-	
-	
 
 	// Method that shows the actual app after login.
 	public void showApp() {
-
-		// Create RequestBuilder for POST
 
 		punchService = GWT.create(PunchService.class);
 
@@ -177,8 +140,8 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.add(mainViewButton);
 		headerPanel.add(manualPunchViewButton);
 		headerPanel.add(reportsViewButton);
-		//headerPanel.add(new Label(loginInfo.getNickname()));
-		//signOutLink.setHref(loginInfo.getLogoutUrl());
+		headerPanel.add(new Label(loginInfo.getNickname()));
+		signOutLink.setHref(loginInfo.getLogoutUrl());
 		headerPanel.add(signOutLink);
 		headerPanel.setBorderWidth(5);
 
@@ -186,12 +149,6 @@ public class Time_Manager implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
-
-				// StringBuilder sb = new StringBuilder();
-				// sb.append("key1=JACOB");
-				// sb.append("&key2=YAY");
-				// sb.append("&key3=10:30");
-				// postData(url, builder, sb.toString());
 
 				punchService.getWork("jacob", new AsyncCallback<WorkDay>() {
 
@@ -305,10 +262,12 @@ public class Time_Manager implements EntryPoint {
 				Date breakStart = new Date(mainView.mealStart.getValue());
 				Date breakEnd = new Date(mainView.mealEnd.getValue());
 
-				//work = new WorkDay(loginInfo.getNickname(), dateIn, dateOut, mainView.taskList.getSelectedItemText(),
-				//		mainView.notes.getValue());
-				
-				work = new WorkDay("jacob", dateIn, dateOut, mainView.taskList.getSelectedItemText(),mainView.notes.getValue());
+				// work = new WorkDay(loginInfo.getNickname(), dateIn, dateOut,
+				// mainView.taskList.getSelectedItemText(),
+				// mainView.notes.getValue());
+
+				work = new WorkDay("jacob", dateIn, dateOut, mainView.taskList.getSelectedItemText(),
+						mainView.notes.getValue());
 
 				punchService.addWork(work, new AsyncCallback<String>() {
 
@@ -329,17 +288,5 @@ public class Time_Manager implements EntryPoint {
 			}
 		});
 
-	}
-
-	// Used for OAuth
-	public static void setAuthValue(String authCode, String state) {
-
-		System.out.println(authCode + "\n" + state);
-		Date date = new Date(System.currentTimeMillis() + 999999);
-		
-		Cookies.setCookie("test", "test", date, null, "/", false);
-		
-		
-		
 	}
 }

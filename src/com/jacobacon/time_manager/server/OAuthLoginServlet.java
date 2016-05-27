@@ -13,7 +13,7 @@ import com.google.gwt.user.client.Cookies;
 import com.jacobacon.time_manager.client.Time_Manager;
 
 
-public class OAuthLoginServlet extends HttpServlet {
+class OAuthLoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -25,10 +25,6 @@ public class OAuthLoginServlet extends HttpServlet {
 		
 		String authCode = req.getParameter("code");
 		String state = req.getParameter("state");
-		
-		Time_Manager.setAuthValue(authCode, state);
-		
-		Time_Manager.loginStatus = true;
 		
 		
 		resp.sendRedirect("/");
