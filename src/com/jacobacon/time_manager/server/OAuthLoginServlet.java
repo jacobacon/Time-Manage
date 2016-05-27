@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import com.jacobacon.time_manager.client.Time_Manager;
 
 
 public class OAuthLoginServlet extends HttpServlet {
@@ -21,6 +21,11 @@ public class OAuthLoginServlet extends HttpServlet {
 		resp.getWriter().println("This URL is only used for handling OAuth2 Callbacks");
 		
 		//resp.getWriter().println("Parameters: " + req.getParameter("test"));
+		
+		String authCode = req.getParameter("code");
+		String state = req.getParameter("state");
+		
+		Time_Manager.setAuthValue(authCode, state);
 		
 		resp.sendRedirect("/");
 		

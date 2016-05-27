@@ -18,11 +18,12 @@ public class LoginServiceOAuthImpl extends RemoteServiceServlet implements Login
 	// static UserService userService = UserServiceFactory.getUserService();
 	// static User user = userService.getCurrentUser();
 
-	final String clientId = "864208257744-kqvqlki3bp32ocsr494uard5gp23hnhl.apps.googleusercontent.com";
-	final String clientSecret = "rykXuQJ5JurthOmnYtYNB_8X";
+	final String clientId = "864208257744-o40h5k5b0d275c7llpgs3sq9vh913vb7.apps.googleusercontent.com";
+	final String clientSecret = "7aISZWYkWhXiI_xfTOLuqGzc";
 	final String secretState = "secret" + new Random().nextInt(999_999);
+	final String callbackUrl = "http://localhost:8888/oauthcallback";
 	final OAuth20Service service = new ServiceBuilder().apiKey(clientId).apiSecret(clientSecret).scope("profile")
-			.state(secretState).callback("http://example.com/callback").build(GoogleApi20.instance());
+			.state(secretState).callback(callbackUrl).build(GoogleApi20.instance());
 
 	final Map<String, String> additionalParams = new HashMap<>();
 
@@ -35,9 +36,6 @@ public class LoginServiceOAuthImpl extends RemoteServiceServlet implements Login
 
 	@Override
 	public String getAuthUrl() {
-
-		// Obtain the Authorization URL
-		System.out.println("Fetching the Authorization URL...");
 		// pass access_type=offline to get refresh token
 		// https://developers.google.com/identity/protocols/OAuth2WebServer#preparing-to-start-the-oauth-20-flow
 		additionalParams.put("access_type", "offline");
