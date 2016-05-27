@@ -8,6 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
@@ -38,8 +39,12 @@ public class Time_Manager implements EntryPoint {
 	private Label loginLabel = new Label("Please Sign in to your Google Account to Access this Application");
 	private Anchor signInLink = new Anchor("Sign In");
 	private Anchor signOutLink = new Anchor("Sign Out");
+	
+	private final static String LOGIN_STATUS_COOKIE = "false";
+	private final static String AUTH_ID_COOKIE = "";
+	
 
-	private boolean loginStatus = false;
+	public static boolean loginStatus = true;
 
 	final String url = "punch";
 
@@ -54,6 +59,9 @@ public class Time_Manager implements EntryPoint {
 	private static List<WorkDay> days;
 
 	public void onModuleLoad() {
+		Date date = new Date(System.currentTimeMillis() + 99999);
+		
+		Cookies.setCookie("test", "test", date, null, "/", false);
 
 		/*
 		
@@ -93,7 +101,7 @@ public class Time_Manager implements EntryPoint {
 		
 		LoginServiceOAuthAsync loginOAuth = GWT.create(LoginServiceOAuth.class);
 		
-		if(!loginStatus){
+		if(loginStatus == false){
 		loginOAuth.getAuthUrl(new AsyncCallback<String>() {
 
 			@Override
@@ -115,6 +123,9 @@ public class Time_Manager implements EntryPoint {
 		
 		
 		}
+		
+		else
+			showApp();
 		
 	}
 	
@@ -144,6 +155,7 @@ public class Time_Manager implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				setContent(1);
+				Window.alert(Cookies.getCookie("test"));
 
 			}
 		});
@@ -323,5 +335,6 @@ public class Time_Manager implements EntryPoint {
 	public static void setAuthValue(String authCode, String state) {
 
 		System.out.println(authCode + "\n" + state);
+		
 	}
 }
