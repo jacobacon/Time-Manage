@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("oauth")
 public interface LoginServiceOAuth extends RemoteService {
 	
-	public void login();
+	public String login(String authCode, String state);
 
 	public String getAuthUrl();
 }

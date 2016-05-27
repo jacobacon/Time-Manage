@@ -335,6 +335,11 @@ public class Time_Manager implements EntryPoint {
 	public static void setAuthValue(String authCode, String state) {
 
 		System.out.println(authCode + "\n" + state);
+		Date date = new Date(System.currentTimeMillis() + 999999);
+		
+		Cookies.setCookie("test", "test", date, null, "/", false);
+		
+		
 		
 	}
 }

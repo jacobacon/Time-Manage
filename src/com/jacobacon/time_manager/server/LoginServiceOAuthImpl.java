@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 import com.github.scribejava.apis.GoogleApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jacobacon.time_manager.client.LoginServiceOAuth;
@@ -28,9 +32,18 @@ public class LoginServiceOAuthImpl extends RemoteServiceServlet implements Login
 	final Map<String, String> additionalParams = new HashMap<>();
 
 	@Override
-	public void login() {
+	public String login(String authCode, String state) {
 		// TODO Auto-generated method stub
+		OAuth2AccessToken accessToken = service.getAccessToken(authCode);
+		accessToken = service.refreshAccessToken(accessToken.getRefreshToken());
+
+		String url = PROTECTED_RESOURCE_URL + "?fields=name";
+		final OAuthRequest request = new OAuthRequest(Verb.GET, url, service);
+		service.signRequest(accessToken, request);
 		
+		final Response response = request.send();
+		
+		return response.getBody();
 
 	}
 
@@ -49,4 +62,5 @@ public class LoginServiceOAuthImpl extends RemoteServiceServlet implements Login
 	}
 	
 	
+
 }
