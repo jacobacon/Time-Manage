@@ -6,8 +6,8 @@
 
 	<!-- Servlets -->
 	<servlet>
-		<servlet-name>loginServlet</servlet-name>
-		<servlet-class>com.jacobacon.time_manager.server.LoginServlet</servlet-class>
+		<servlet-name>oauthLoginServlet</servlet-name>
+		<servlet-class>com.jacobacon.time_manager.server.OAuthLoginServlet</servlet-class>
 	</servlet>
 
 	<servlet>
@@ -31,8 +31,8 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>loginServlet</servlet-name>
-		<url-pattern>/loginold</url-pattern>
+		<servlet-name>oauthLoginServlet</servlet-name>
+		<url-pattern>/oauthcallback</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

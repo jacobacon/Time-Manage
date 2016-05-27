@@ -10,6 +10,8 @@ import com.jacobacon.time_manager.client.LoginService;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 
+
+
 	public LoginInfo login(String requestUri) {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
@@ -27,5 +29,4 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 		}
 		return loginInfo;
 	}
-
 }

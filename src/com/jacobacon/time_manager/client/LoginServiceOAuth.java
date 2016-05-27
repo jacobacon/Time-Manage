@@ -6,4 +6,6 @@ public interface LoginServiceOAuth extends RemoteService {
 	
 	public void login();
 
+	public String getAuthUrl();
+
 }
