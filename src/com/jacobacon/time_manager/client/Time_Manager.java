@@ -40,6 +40,8 @@ public class Time_Manager implements EntryPoint {
 	private Label loginLabel = new Label("Please Sign in to your Google Account to Access this Application");
 	private Anchor signInLink = new Anchor("Sign In");
 	private Anchor signOutLink = new Anchor("Sign Out");
+	
+	private boolean loginStatus = false;
 
 	final String url = "punch";
 
