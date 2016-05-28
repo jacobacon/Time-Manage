@@ -13,21 +13,24 @@ import com.google.gwt.user.client.Cookies;
 import com.jacobacon.time_manager.client.Time_Manager;
 
 
-class OAuthLoginServlet extends HttpServlet {
+public class OAuthLoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-		resp.getWriter().println("This URL is only used for handling OAuth2 Callbacks");
 		
-		//resp.getWriter().println("Parameters: " + req.getParameter("test"));
 		
 		String authCode = req.getParameter("code");
 		String state = req.getParameter("state");
 		
+		if(authCode != null && state != null){
+		resp.sendRedirect("/" + "?code=" + authCode + "&state=" + state);
+		}
 		
-		resp.sendRedirect("/");
+		else
+			resp.getWriter().println("This URL is only used for handling OAuth2 Callbacks");
+			
 		
 	}
 		

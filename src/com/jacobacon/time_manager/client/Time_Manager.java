@@ -2,8 +2,14 @@ package com.jacobacon.time_manager.client;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
+import com.github.scribejava.apis.GoogleApi20;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.oauth.OAuth20Service;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -54,47 +60,97 @@ public class Time_Manager implements EntryPoint {
 	// private final Grid grid = new Grid(5, 5);
 
 	private PunchServiceAsync punchService;
-
+	private LoginServiceOAuthAsync loginService;
 	private static List<WorkDay> WORKDAYS = Arrays.asList(new WorkDay(), new WorkDay(), new WorkDay());
 
 	private static List<WorkDay> days;
 
 	public void onModuleLoad() {
-		Date date = new Date(System.currentTimeMillis() + 99999);
 
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
+		/*
+		 * 
+		 * //Test if the App is loading from a OAuth Callback or loading for the
+		 * first time. if ((Window.Location.getParameter("code") != null) &&
+		 * (Window.Location.getParameter("state") != null)) {
+		 * 
+		 * Window.alert("Hello");
+		 * 
+		 * //long duration = (60*60*1000); //Date expires = new
+		 * Date(System.currentTimeMillis() + duration);
+		 * 
+		 * 
+		 * //Cookies.setCookie("loggedIn", "true", expires); } else {
+		 * Window.alert("No Parameters");
+		 * 
+		 * showApp();
+		 * 
+		 * String sessionID = Cookies.getCookie("loggedIn"); if
+		 * (sessionID.equals(false) || sessionID == null) { loadLogin();
+		 * 
+		 * } else { showApp(); } }
+		 * 
+		 */
+
+		
+		 LoginServiceAsync loginService = GWT.create(LoginService.class);
+		 loginService.login(GWT.getHostPageBaseURL(), new
+		 AsyncCallback<LoginInfo>() {
+		  
+		 @Override public void onFailure(Throwable caught) { // TODO //
+		 //Auto-generated method stub
+		 
+		 }
+		 
+		 @Override public void onSuccess(LoginInfo result) { loginInfo =
+		 result; if (loginInfo.isLoggedIn()) { setUp(); showApp(); } else {
+		 loadLogin(); }
+		 
+		 }
+		 
+		 });
+		 
+		 }
+		 
+		 // Shows the login page if the user needs to login. public void
+		 public void loadLogin() 
+		 { signInLink.setHref(loginInfo.getLoginUrl());
+		 loginPanel.add(loginLabel); loginPanel.add(signInLink);
+		 RootPanel.get("content").add(loginPanel);
+		 
+		 }
+		 
+		 
+
+	
+/*
+	public void loadLogin() {
+
+		loginService = GWT.create(LoginServiceOAuth.class);
+
+		loginService.getAuthUrl(new AsyncCallback<String>() {
 
 			@Override
-			public void onFailure(Throwable caught) { // TODO
-				// Auto-generated method stub
+			public void onFailure(Throwable caught) {
+				System.out.println(caught);
 
 			}
 
 			@Override
-			public void onSuccess(LoginInfo result) {
-				loginInfo = result;
-				if (loginInfo.isLoggedIn()) {
-					setUp();
-					showApp();
-				} else {
-					loadLogin();
-				}
+			public void onSuccess(String result) {
+				Window.Location.replace(result);
 
 			}
 
 		});
 
-	}
-
-	// Shows the login page if the user needs to login.
-	public void loadLogin() {
-		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);
-		RootPanel.get("content").add(loginPanel);
+		RootPanel.get("content").add(loginLabel);
+
+		// Window.alert(authURL);
 
 	}
+	*/
 
 	// Method that shows the actual app after login.
 	public void showApp() {
@@ -287,6 +343,11 @@ public class Time_Manager implements EntryPoint {
 
 			}
 		});
+
+	}
+
+	public void saveAuthCookies() {
+		Cookies.setCookie("", "");
 
 	}
 }
