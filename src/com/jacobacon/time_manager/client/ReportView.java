@@ -198,44 +198,10 @@ public class ReportView extends Composite {
 
 	}
 
-	// RootLayoutPanel.get().add(getSimpleLayoutPanel());
 
-	// ChartLoader chartLoader = new ChartLoader(ChartPackage.CORECHART);
-	// chartLoader.loadApi(new Runnable() {
-
-	// @Override
-	// public void run() {
-	// layoutPanel.setWidget(pieChart);
-	// drawPieChart();
-
-	// }
-	// });
-
-	// mainPanel.add(layoutPanel);
-
-	private void drawPieChart() {
-		DataTable dataTable = DataTable.create();
-		dataTable.addColumn(ColumnType.STRING, "Subject");
-		dataTable.addColumn(ColumnType.NUMBER, "Number of Students");
-		dataTable.addRows(4);
-		dataTable.setValue(0, 0, "History");
-		dataTable.setValue(1, 0, "Computers");
-		dataTable.setValue(2, 0, "Managment");
-		dataTable.setValue(3, 0, "Politics");
-		dataTable.setValue(0, 1, 20);
-		dataTable.setValue(1, 1, 25);
-		dataTable.setValue(2, 1, 30);
-		dataTable.setValue(3, 1, 35);
-		// pieChart.draw(dataTable);
-
-	}
 
 	public HorizontalPanel getMainPanel() {
 		return mainPanel;
-	}
-
-	public void drawTable() {
-
 	}
 
 }
