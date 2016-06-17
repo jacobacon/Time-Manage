@@ -3,7 +3,7 @@ package com.jacobacon.time_manager.server;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.ObjectifyService;
-import com.jacobacon.time_manager.client.PunchService;
+import com.jacobacon.time_manager.client.service.PunchService;
 import com.jacobacon.time_manager.shared.WorkDay;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;

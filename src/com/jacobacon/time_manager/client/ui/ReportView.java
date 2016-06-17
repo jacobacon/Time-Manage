@@ -1,4 +1,4 @@
-package com.jacobacon.time_manager.client;
+package com.jacobacon.time_manager.client.ui;
 
 import java.util.List;
 import java.util.Arrays;
@@ -22,6 +22,8 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.googlecode.gwt.charts.client.ColumnType;
 import com.googlecode.gwt.charts.client.DataTable;
+import com.jacobacon.time_manager.client.service.ReportService;
+import com.jacobacon.time_manager.client.service.ReportServiceAsync;
 import com.jacobacon.time_manager.shared.WorkDay;
 
 public class ReportView extends Composite {

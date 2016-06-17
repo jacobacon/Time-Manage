@@ -6,7 +6,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jacobacon.time_manager.client.LoginInfo;
-import com.jacobacon.time_manager.client.LoginService;
+import com.jacobacon.time_manager.client.service.LoginService;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 

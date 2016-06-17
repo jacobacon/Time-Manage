@@ -1,4 +1,4 @@
-package com.jacobacon.time_manager.client;
+package com.jacobacon.time_manager.client.ui;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;

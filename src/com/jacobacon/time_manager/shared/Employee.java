@@ -6,6 +6,7 @@ public class Employee {
 
 	private String name;
 	private String id;
+	private String passHash;
 
 	public String getId() {
 		return id;

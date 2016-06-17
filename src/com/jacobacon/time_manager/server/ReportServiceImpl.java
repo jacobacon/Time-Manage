@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.ObjectifyService;
-import com.jacobacon.time_manager.client.ReportService;
+import com.jacobacon.time_manager.client.service.ReportService;
 import com.jacobacon.time_manager.shared.WorkDay;
 
 public class ReportServiceImpl extends RemoteServiceServlet implements ReportService {

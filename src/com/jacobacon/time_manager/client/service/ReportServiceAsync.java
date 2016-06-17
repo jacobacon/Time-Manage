@@ -1,4 +1,4 @@
-package com.jacobacon.time_manager.client;
+package com.jacobacon.time_manager.client.service;
 
 import java.util.List;
 

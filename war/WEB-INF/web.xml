@@ -6,11 +6,6 @@
 
 	<!-- Servlets -->
 	<servlet>
-		<servlet-name>oauthLoginServlet</servlet-name>
-		<servlet-class>com.jacobacon.time_manager.server.OAuthLoginServlet</servlet-class>
-	</servlet>
-
-	<servlet>
 		<servlet-name>punchServlet</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.PunchServlet</servlet-class>
 	</servlet>

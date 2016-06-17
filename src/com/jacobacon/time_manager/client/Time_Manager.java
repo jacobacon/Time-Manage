@@ -26,6 +26,13 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.jacobacon.time_manager.client.service.LoginService;
+import com.jacobacon.time_manager.client.service.LoginServiceAsync;
+import com.jacobacon.time_manager.client.service.PunchService;
+import com.jacobacon.time_manager.client.service.PunchServiceAsync;
+import com.jacobacon.time_manager.client.ui.MainView;
+import com.jacobacon.time_manager.client.ui.ManualPunchView;
+import com.jacobacon.time_manager.client.ui.ReportView;
 import com.jacobacon.time_manager.shared.WorkDay;
 
 /**
@@ -60,97 +67,72 @@ public class Time_Manager implements EntryPoint {
 	// private final Grid grid = new Grid(5, 5);
 
 	private PunchServiceAsync punchService;
-	private LoginServiceOAuthAsync loginService;
 	private static List<WorkDay> WORKDAYS = Arrays.asList(new WorkDay(), new WorkDay(), new WorkDay());
 
 	private static List<WorkDay> days;
 
 	public void onModuleLoad() {
 
-		/*
-		 * 
-		 * //Test if the App is loading from a OAuth Callback or loading for the
-		 * first time. if ((Window.Location.getParameter("code") != null) &&
-		 * (Window.Location.getParameter("state") != null)) {
-		 * 
-		 * Window.alert("Hello");
-		 * 
-		 * //long duration = (60*60*1000); //Date expires = new
-		 * Date(System.currentTimeMillis() + duration);
-		 * 
-		 * 
-		 * //Cookies.setCookie("loggedIn", "true", expires); } else {
-		 * Window.alert("No Parameters");
-		 * 
-		 * showApp();
-		 * 
-		 * String sessionID = Cookies.getCookie("loggedIn"); if
-		 * (sessionID.equals(false) || sessionID == null) { loadLogin();
-		 * 
-		 * } else { showApp(); } }
-		 * 
-		 */
-
-		
-		 LoginServiceAsync loginService = GWT.create(LoginService.class);
-		 loginService.login(GWT.getHostPageBaseURL(), new
-		 AsyncCallback<LoginInfo>() {
-		  
-		 @Override public void onFailure(Throwable caught) { // TODO //
-		 //Auto-generated method stub
-		 
-		 }
-		 
-		 @Override public void onSuccess(LoginInfo result) { loginInfo =
-		 result; if (loginInfo.isLoggedIn()) { setUp(); showApp(); } else {
-		 loadLogin(); }
-		 
-		 }
-		 
-		 });
-		 
-		 }
-		 
-		 // Shows the login page if the user needs to login. public void
-		 public void loadLogin() 
-		 { signInLink.setHref(loginInfo.getLoginUrl());
-		 loginPanel.add(loginLabel); loginPanel.add(signInLink);
-		 RootPanel.get("content").add(loginPanel);
-		 
-		 }
-		 
-		 
-
-	
-/*
-	public void loadLogin() {
-
-		loginService = GWT.create(LoginServiceOAuth.class);
-
-		loginService.getAuthUrl(new AsyncCallback<String>() {
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
+		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 
 			@Override
-			public void onFailure(Throwable caught) {
-				System.out.println(caught);
+			public void onFailure(Throwable caught) { // TODO //
+				// Auto-generated method stub
 
 			}
 
 			@Override
-			public void onSuccess(String result) {
-				Window.Location.replace(result);
+			public void onSuccess(LoginInfo result) {
+				loginInfo = result;
+				if (loginInfo.isLoggedIn()) {
+					setUp();
+					showApp();
+				} else {
+					loadLogin();
+				}
 
 			}
 
 		});
 
+	}
+
+	// Shows the login page if the user needs to login. public void
+	public void loadLogin() {
+		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);
-		RootPanel.get("content").add(loginLabel);
-
-		// Window.alert(authURL);
+		RootPanel.get("content").add(loginPanel);
 
 	}
-	*/
+
+	/*
+	 * public void loadLogin() {
+	 * 
+	 * loginService = GWT.create(LoginServiceOAuth.class);
+	 * 
+	 * loginService.getAuthUrl(new AsyncCallback<String>() {
+	 * 
+	 * @Override public void onFailure(Throwable caught) {
+	 * System.out.println(caught);
+	 * 
+	 * }
+	 * 
+	 * @Override public void onSuccess(String result) {
+	 * Window.Location.replace(result);
+	 * 
+	 * }
+	 * 
+	 * });
+	 * 
+	 * loginPanel.add(loginLabel); loginPanel.add(signInLink);
+	 * RootPanel.get("content").add(loginLabel);
+	 * 
+	 * // Window.alert(authURL);
+	 * 
+	 * }
+	 */
 
 	// Method that shows the actual app after login.
 	public void showApp() {
@@ -290,12 +272,6 @@ public class Time_Manager implements EntryPoint {
 			System.out.println("Switching to the 3rd view");
 			RootPanel.get("content").clear();
 			RootPanel.get("content").add(reportView.getMainPanel());
-
-			reportView.table.setRowCount(15);
-
-			// reportView.table.setRowData(0, days);
-
-			reportView.table.flush();
 
 			Window.setTitle("Reports");
 			break;

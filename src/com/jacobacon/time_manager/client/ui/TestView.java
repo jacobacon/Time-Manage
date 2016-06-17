@@ -1,4 +1,4 @@
-package com.jacobacon.time_manager.client;
+package com.jacobacon.time_manager.client.ui;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;

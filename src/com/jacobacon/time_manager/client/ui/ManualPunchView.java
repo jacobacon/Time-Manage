@@ -1,4 +1,4 @@
-package com.jacobacon.time_manager.client;
+package com.jacobacon.time_manager.client.ui;
 
 
 import java.util.Arrays;
