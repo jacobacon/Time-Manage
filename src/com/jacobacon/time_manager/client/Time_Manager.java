@@ -16,6 +16,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
@@ -70,8 +71,16 @@ public class Time_Manager implements EntryPoint {
 	private static List<WorkDay> WORKDAYS = Arrays.asList(new WorkDay(), new WorkDay(), new WorkDay());
 
 	private static List<WorkDay> days;
+	
+	private static String userAgent;
+	private static String platform;
+	
+	private static boolean mobile;
 
 	public void onModuleLoad() {
+		
+		//System.out.println(Navigator.getPlatform());
+		//System.out.println(Navigator.getUserAgent());
 
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {

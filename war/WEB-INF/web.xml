@@ -24,16 +24,6 @@
 		<servlet-name>reportService</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.ReportServiceImpl</servlet-class>
 	</servlet>
-	
-	<servlet>
-		<servlet-name>oauthService</servlet-name>
-		<servlet-class>com.jacobacon.time_manager.server.LoginServiceOAuthImpl</servlet-class>	
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>oauthLoginServlet</servlet-name>
-		<url-pattern>/oauthcallback</url-pattern>
-	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>punchServlet</servlet-name>
@@ -53,11 +43,6 @@
 	<servlet-mapping>
 		<servlet-name>reportService</servlet-name>
 		<url-pattern>/time_manager/report</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>oauthService</servlet-name>
-		<url-pattern>/time_manager/oauth</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
