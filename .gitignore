@@ -54,3 +54,4 @@ gwt-unitCache
 .project
 *.cache.js
 *.symbolMap
+/target/
