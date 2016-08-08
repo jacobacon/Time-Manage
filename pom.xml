@@ -5,4 +5,34 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Time Manager</name>
+  <properties>
+   		<gwtbootstarp.version>0.9.3</gwtbootstarp.version>
+  </properties>
+ 
+  
+  <dependencies>
+  
+  		
+  
+		<dependency>
+		    <groupId>org.gwtbootstrap3</groupId>
+		    <artifactId>gwtbootstrap3</artifactId>
+		    <version>${gwtbootstarp.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+  
+	    <dependency>
+		    <groupId>org.gwtbootstrap3</groupId>
+		    <artifactId>gwtbootstrap3-extras</artifactId>
+		    <version>${gwtbootstarp.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+  
+  
+  
+  
+  </dependencies>
+
+  
+  
 </project>

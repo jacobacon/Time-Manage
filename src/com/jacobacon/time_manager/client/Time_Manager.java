@@ -34,6 +34,7 @@ import com.jacobacon.time_manager.client.service.PunchServiceAsync;
 import com.jacobacon.time_manager.client.ui.MainView;
 import com.jacobacon.time_manager.client.ui.ManualPunchView;
 import com.jacobacon.time_manager.client.ui.ReportView;
+import com.jacobacon.time_manager.client.ui.Test;
 import com.jacobacon.time_manager.shared.WorkDay;
 
 /**
@@ -79,8 +80,8 @@ public class Time_Manager implements EntryPoint {
 
 	public void onModuleLoad() {
 		
-		//System.out.println(Navigator.getPlatform());
-		//System.out.println(Navigator.getUserAgent());
+		userAgent = Navigator.getUserAgent();
+		platform = Navigator.getPlatform();
 
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
@@ -115,33 +116,6 @@ public class Time_Manager implements EntryPoint {
 		RootPanel.get("content").add(loginPanel);
 
 	}
-
-	/*
-	 * public void loadLogin() {
-	 * 
-	 * loginService = GWT.create(LoginServiceOAuth.class);
-	 * 
-	 * loginService.getAuthUrl(new AsyncCallback<String>() {
-	 * 
-	 * @Override public void onFailure(Throwable caught) {
-	 * System.out.println(caught);
-	 * 
-	 * }
-	 * 
-	 * @Override public void onSuccess(String result) {
-	 * Window.Location.replace(result);
-	 * 
-	 * }
-	 * 
-	 * });
-	 * 
-	 * loginPanel.add(loginLabel); loginPanel.add(signInLink);
-	 * RootPanel.get("content").add(loginLabel);
-	 * 
-	 * // Window.alert(authURL);
-	 * 
-	 * }
-	 */
 
 	// Method that shows the actual app after login.
 	public void showApp() {
@@ -187,7 +161,7 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.add(mainViewButton);
 		headerPanel.add(manualPunchViewButton);
 		headerPanel.add(reportsViewButton);
-		headerPanel.add(new Label(loginInfo.getNickname()));
+		headerPanel.add(new Label(loginInfo.getNickname() + " is on: " + platform ));
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		headerPanel.add(signOutLink);
 		headerPanel.setBorderWidth(5);
@@ -248,6 +222,18 @@ public class Time_Manager implements EntryPoint {
 			}
 
 		});
+		
+		Button b5 = new Button("Test UIBinder", new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				
+				RootPanel.get("content").clear();
+				RootPanel.get("content").add(new Test());
+			}
+			
+		});
 
 		RootPanel.get("header").add(headerPanel);
 
@@ -256,6 +242,7 @@ public class Time_Manager implements EntryPoint {
 		// Temporary Buttons for Testing
 		RootPanel.get("content").add(b);
 		RootPanel.get("content").add(b4);
+		RootPanel.get("content").add(b5);
 
 	}
 
