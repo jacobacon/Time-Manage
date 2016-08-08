@@ -24,6 +24,7 @@ import com.jacobacon.time_manager.client.service.PunchService;
 import com.jacobacon.time_manager.client.service.PunchServiceAsync;
 import com.jacobacon.time_manager.client.ui.MainView;
 import com.jacobacon.time_manager.client.ui.ManualPunchView;
+import com.jacobacon.time_manager.client.ui.MobileView;
 import com.jacobacon.time_manager.client.ui.ReportView;
 import com.jacobacon.time_manager.client.ui.Test;
 import com.jacobacon.time_manager.shared.WorkDay;
@@ -66,7 +67,10 @@ public class Time_Manager implements EntryPoint {
 			mobile = false;
 
 		setUp();
-		showApp();
+		if(!mobile)
+			showApp();
+		else
+			RootPanel.get().add(new MobileView());
 
 	}
 
