@@ -2,14 +2,10 @@ package com.jacobacon.time_manager.client;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
-import com.github.scribejava.apis.GoogleApi20;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.oauth.OAuth20Service;
+import org.gwtbootstrap3.extras.notify.client.ui.Notify;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,17 +14,12 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.jacobacon.time_manager.client.service.LoginService;
-import com.jacobacon.time_manager.client.service.LoginServiceAsync;
 import com.jacobacon.time_manager.client.service.PunchService;
 import com.jacobacon.time_manager.client.service.PunchServiceAsync;
 import com.jacobacon.time_manager.client.ui.MainView;
@@ -42,25 +33,9 @@ import com.jacobacon.time_manager.shared.WorkDay;
  */
 
 public class Time_Manager implements EntryPoint {
-	static String authCode = "";
-	static String state = "";
-
 	final MainView mainView = new MainView();
 	final ManualPunchView manualPunchView = new ManualPunchView();
 	final ReportView reportView = new ReportView();
-
-	// Setup Login
-	private LoginInfo loginInfo = null;
-	private VerticalPanel loginPanel = new VerticalPanel();
-	private Label loginLabel = new Label("Please Sign in to your Google Account to Access this Application");
-	private Anchor signInLink = new Anchor("Sign In");
-	private Anchor signOutLink = new Anchor("Sign Out");
-
-	private final static String LOGIN_STATUS_COOKIE = "false";
-	private final static String AUTH_ID_COOKIE = "";
-
-	private static boolean authPage = false;
-	private static boolean loginStatus = false;
 
 	final String url = "punch";
 
@@ -72,48 +47,26 @@ public class Time_Manager implements EntryPoint {
 	private static List<WorkDay> WORKDAYS = Arrays.asList(new WorkDay(), new WorkDay(), new WorkDay());
 
 	private static List<WorkDay> days;
-	
+
 	private static String userAgent;
 	private static String platform;
-	
+
 	private static boolean mobile;
 
 	public void onModuleLoad() {
-		
+
+		// Check if user is on mobile or desktop.
 		userAgent = Navigator.getUserAgent();
 		platform = Navigator.getPlatform();
 
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
+		if (userAgent.toLowerCase().contains("android") || (userAgent.toLowerCase().contains("iphone"))
+				|| (userAgent.toLowerCase().contains("mobile")))
+			mobile = true;
+		else
+			mobile = false;
 
-			@Override
-			public void onFailure(Throwable caught) { // TODO //
-				// Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(LoginInfo result) {
-				loginInfo = result;
-				if (loginInfo.isLoggedIn()) {
-					setUp();
-					showApp();
-				} else {
-					loadLogin();
-				}
-
-			}
-
-		});
-
-	}
-
-	// Shows the login page if the user needs to login. public void
-	public void loadLogin() {
-		signInLink.setHref(loginInfo.getLoginUrl());
-		loginPanel.add(loginLabel);
-		loginPanel.add(signInLink);
-		RootPanel.get("content").add(loginPanel);
+		setUp();
+		showApp();
 
 	}
 
@@ -161,9 +114,8 @@ public class Time_Manager implements EntryPoint {
 		headerPanel.add(mainViewButton);
 		headerPanel.add(manualPunchViewButton);
 		headerPanel.add(reportsViewButton);
-		headerPanel.add(new Label(loginInfo.getNickname() + " is on: " + platform ));
-		signOutLink.setHref(loginInfo.getLogoutUrl());
-		headerPanel.add(signOutLink);
+		headerPanel.add(new Label("You are using: " + platform + " Mobile: " + mobile));
+		headerPanel.add(new Label("Sign Out Link Will Go Here."));
 		headerPanel.setBorderWidth(5);
 
 		Button b = new Button("Click Me to Get Work", new ClickHandler() {
@@ -222,17 +174,18 @@ public class Time_Manager implements EntryPoint {
 			}
 
 		});
-		
+
 		Button b5 = new Button("Test UIBinder", new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				
+
 				RootPanel.get("content").clear();
+				Notify.notify("The Button Was Clicked!", "You clicked a button!");
 				RootPanel.get("content").add(new Test());
 			}
-			
+
 		});
 
 		RootPanel.get("header").add(headerPanel);
@@ -318,8 +271,4 @@ public class Time_Manager implements EntryPoint {
 
 	}
 
-	public void saveAuthCookies() {
-		Cookies.setCookie("", "");
-
-	}
 }

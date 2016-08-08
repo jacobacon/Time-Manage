@@ -20,8 +20,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
-import com.googlecode.gwt.charts.client.ColumnType;
-import com.googlecode.gwt.charts.client.DataTable;
 import com.jacobacon.time_manager.client.service.ReportService;
 import com.jacobacon.time_manager.client.service.ReportServiceAsync;
 import com.jacobacon.time_manager.shared.WorkDay;
