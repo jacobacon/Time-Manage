@@ -8,12 +8,14 @@
 	</ui:style>
 	<g:HTMLPanel>
 	    
-	    <b:NavTabs justified="true">
+	    <b:NavTabs justified="true" height="200px">
 		  <b:AnchorListItem active="true" href="http://www.google.com">Item 1</b:AnchorListItem>
 		  <b:AnchorListItem href="tab2">Item 2</b:AnchorListItem>
 		  <b:AnchorListItem>Item 3</b:AnchorListItem>
 		  <b:AnchorListItem enabled="false">Item 4</b:AnchorListItem>
 		</b:NavTabs>
+		
+	    <g:TextBox ui:field="loginBox"/>
 	    
 	    
 	    

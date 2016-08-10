@@ -18,7 +18,6 @@
 
 	<!-- Other module inherits -->
 	<inherits name='com.tractionsoftware.gwt.user.UTCDateTime' />
-	<inherits name='com.googlecode.gwt.charts.Charts'/>
 	
  	<inherits name="org.gwtbootstrap3.GwtBootstrap3"/>
  	

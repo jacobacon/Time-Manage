@@ -19,6 +19,11 @@
 		<servlet-name>reportService</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.ReportServiceImpl</servlet-class>
 	</servlet>
+	
+	<servlet>
+	    <servlet-name>loginService</servlet-name>
+	    <servlet-class>com.jacobacon.time_manager.server.LoginServiceImpl</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>punchServlet</servlet-name>
@@ -33,6 +38,11 @@
 	<servlet-mapping>
 		<servlet-name>reportService</servlet-name>
 		<url-pattern>/time_manager/report</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	    <servlet-name>loginService</servlet-name>
+	    <url-pattern>/time_manager/login</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
@@ -51,6 +61,24 @@
 	<filter-mapping>
 		<filter-name>ObjectifyFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<listener>
+    	<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+	
+	<filter>
+	    <filter-name>ShiroFilter</filter-name>
+	    <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+	    <filter-name>ShiroFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	    <dispatcher>REQUEST</dispatcher>
+	    <dispatcher>FORWARD</dispatcher>
+	    <dispatcher>INCLUDE</dispatcher>
+	    <dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
 

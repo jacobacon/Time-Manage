@@ -1,0 +1,35 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+
+	.center {
+		margin: auto;
+		width: 50%;
+		border: 3px solid green;
+		padding: 10px;
+	}
+
+	.test{
+		color: green;
+	}
+	</ui:style>
+	
+	<g:HTMLPanel>
+	    <div align="center">
+			<g:VerticalPanel width="200px" height="auto">
+		            <g:Label text="Username:" width="100%" height="auto" />
+		            <g:TextBox ui:field="username" width="100%" height="auto"/>
+		            <g:Label text="Password:" width="100%" height="auto"/>
+		            <g:PasswordTextBox ui:field="password" width="100%" height="auto" />
+		            <g:Cell horizontalAlignment="ALIGN_RIGHT">
+		                <g:Button text="Login" ui:field="button" height="25px"/>
+		            </g:Cell>
+		     </g:VerticalPanel>
+	     </div>
+     </g:HTMLPanel>
+
+</ui:UiBinder> 

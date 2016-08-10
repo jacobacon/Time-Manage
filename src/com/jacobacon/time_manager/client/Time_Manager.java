@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -22,6 +24,7 @@ import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.jacobacon.time_manager.client.service.PunchService;
 import com.jacobacon.time_manager.client.service.PunchServiceAsync;
+import com.jacobacon.time_manager.client.ui.LoginDesktop;
 import com.jacobacon.time_manager.client.ui.MainView;
 import com.jacobacon.time_manager.client.ui.ManualPunchView;
 import com.jacobacon.time_manager.client.ui.MobileView;
@@ -34,17 +37,17 @@ import com.jacobacon.time_manager.shared.WorkDay;
  */
 
 public class Time_Manager implements EntryPoint {
-	final MainView mainView = new MainView();
-	final ManualPunchView manualPunchView = new ManualPunchView();
-	final ReportView reportView = new ReportView();
+	final static MainView mainView = new MainView();
+	final static ManualPunchView manualPunchView = new ManualPunchView();
+	final static ReportView reportView = new ReportView();
 
 	final String url = "punch";
 
-	private WorkDay work;
+	private static WorkDay work;
 
 	// private final Grid grid = new Grid(5, 5);
 
-	private PunchServiceAsync punchService;
+	private static PunchServiceAsync punchService;
 	private static List<WorkDay> WORKDAYS = Arrays.asList(new WorkDay(), new WorkDay(), new WorkDay());
 
 	private static List<WorkDay> days;
@@ -54,6 +57,9 @@ public class Time_Manager implements EntryPoint {
 
 	private static boolean mobile;
 
+	// Test login service
+	private boolean loginTestDisable = false;
+
 	public void onModuleLoad() {
 
 		// Check if user is on mobile or desktop.
@@ -61,21 +67,25 @@ public class Time_Manager implements EntryPoint {
 		platform = Navigator.getPlatform();
 
 		if (userAgent.toLowerCase().contains("android") || (userAgent.toLowerCase().contains("iphone"))
-				|| (userAgent.toLowerCase().contains("mobile")))
+				|| (userAgent.toLowerCase().contains("ipad")) || (userAgent.toLowerCase().contains("mobile")))
 			mobile = true;
 		else
 			mobile = false;
 
-		setUp();
-		if(!mobile)
-			showApp();
+		if (loginTestDisable) {
+			setUp();
+			if (!mobile)
+				showApp();
+			else
+				RootPanel.get().add(new MobileView());
+		}
 		else
-			RootPanel.get().add(new MobileView());
+			RootPanel.get().add(new LoginDesktop());
 
 	}
 
 	// Method that shows the actual app after login.
-	public void showApp() {
+	public static void showApp() {
 
 		punchService = GWT.create(PunchService.class);
 
@@ -204,7 +214,7 @@ public class Time_Manager implements EntryPoint {
 	}
 
 	// Changes the content of the page to the different views.
-	public void setContent(int viewNumber) {
+	public static void setContent(int viewNumber) {
 		switch (viewNumber) {
 		case 0:
 			System.out.println("Switching to the main view!");
@@ -233,7 +243,7 @@ public class Time_Manager implements EntryPoint {
 
 	}
 
-	public void setUp() {
+	public static void setUp() {
 
 		// Add Submit Button Logic
 

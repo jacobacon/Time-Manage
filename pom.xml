@@ -27,10 +27,6 @@
 		    <version>${gwtbootstarp.version}</version>
 		    <scope>provided</scope>
 		</dependency>
-  
-  
-  
-  
   </dependencies>
 
   
