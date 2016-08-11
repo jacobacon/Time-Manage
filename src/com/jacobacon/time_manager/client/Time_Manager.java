@@ -86,6 +86,9 @@ public class Time_Manager implements EntryPoint {
 
 	// Method that shows the actual app after login.
 	public static void showApp() {
+		
+		//Clear the panel just in case.
+		RootPanel.get().clear();
 
 		punchService = GWT.create(PunchService.class);
 
