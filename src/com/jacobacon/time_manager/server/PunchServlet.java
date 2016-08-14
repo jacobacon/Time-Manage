@@ -13,6 +13,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.guice.web.ShiroWebModule;
 import org.apache.shiro.mgt.SecurityManager;
@@ -107,23 +108,44 @@ public class PunchServlet extends HttpServlet {
 
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken("lonestarr", "vespa");
-		// token.setRememberMe(true);
+		token.setRememberMe(true);
 		try {
 			subject.login(token);
 		} catch (AuthenticationException ae) {
 			out.println(ae);
 		}
 
-		if (subject.isAuthenticated())
+		if (subject.isAuthenticated()){
+			out.println("You are logged in");
 			log.info("You are logged in!");
+		}
 
+	
+		
+		if(subject.hasRole("schwartz")){
+			out.println("You have the schwartz");
+			log.info("You have the schwartz");
+		}
+		
+		test();
+		
 		subject.logout();
 		
-		if(subject.hasRole("schwartz"))
-			log.info("You have the schwartz");
+		
 
-		if (!subject.isAuthenticated())
+		if (!subject.isAuthenticated()){
+			out.println("you logged out.");
 			log.info("You are logged out.");
+		}
+		
+		log.info("The Subject has permission: " + subject.hasRole("schwartz"));
+		
+		test();
 
+	}
+	
+	@RequiresRoles("schwartz")
+	public void test(){
+		log.info("Test Method Ran");
 	}
 }
