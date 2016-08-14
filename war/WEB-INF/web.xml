@@ -9,40 +9,40 @@
 		<servlet-name>punchServlet</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.PunchServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>punchService</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.PunchServiceImpl</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>reportService</servlet-name>
 		<servlet-class>com.jacobacon.time_manager.server.ReportServiceImpl</servlet-class>
 	</servlet>
-	
+
 	<servlet>
-	    <servlet-name>loginService</servlet-name>
-	    <servlet-class>com.jacobacon.time_manager.server.LoginServiceImpl</servlet-class>
+		<servlet-name>loginService</servlet-name>
+		<servlet-class>com.jacobacon.time_manager.server.LoginServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>punchServlet</servlet-name>
 		<url-pattern>/punch</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>punchService</servlet-name>
 		<url-pattern>/time_manager/punch</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>reportService</servlet-name>
 		<url-pattern>/time_manager/report</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
-	    <servlet-name>loginService</servlet-name>
-	    <url-pattern>/time_manager/login</url-pattern>
+		<servlet-name>loginService</servlet-name>
+		<url-pattern>/time_manager/login</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
@@ -62,23 +62,33 @@
 		<filter-name>ObjectifyFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<listener>
-    	<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
 	</listener>
-	
+
 	<filter>
-	    <filter-name>ShiroFilter</filter-name>
-	    <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
-	    <filter-name>ShiroFilter</filter-name>
-	    <url-pattern>/*</url-pattern>
-	    <dispatcher>REQUEST</dispatcher>
-	    <dispatcher>FORWARD</dispatcher>
-	    <dispatcher>INCLUDE</dispatcher>
-	    <dispatcher>ERROR</dispatcher>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>guiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>guiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 

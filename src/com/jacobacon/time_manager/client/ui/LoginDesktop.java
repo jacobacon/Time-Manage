@@ -1,5 +1,7 @@
 package com.jacobacon.time_manager.client.ui;
 
+import org.apache.shiro.guice.web.ShiroWebModule;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -13,7 +15,6 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.jacobacon.time_manager.client.Time_Manager;
 import com.jacobacon.time_manager.client.service.LoginService;
 import com.jacobacon.time_manager.client.service.LoginServiceAsync;
 
@@ -31,19 +32,17 @@ public class LoginDesktop extends Composite implements HasText {
 		Window.setTitle("Login");
 	}
 	
-	private AsyncCallback loginCallback = new AsyncCallback(){
-		
-		@Override
-		public void onSuccess(Object result) {
-			Window.alert("Show App");
-			Time_Manager.setUp();
-			Time_Manager.showApp();
-			
-		}
+	private AsyncCallback<String> loginCallback = new AsyncCallback<String>(){
 		
 		@Override
 		public void onFailure(Throwable caught){
-			
+			Window.alert("Something went wrong! The message was: " + caught.getMessage());
+		}
+
+		@Override
+		public void onSuccess(String result) {
+			// TODO Auto-generated method stub
+			Window.alert(result);
 		}
 
 
@@ -66,14 +65,21 @@ public class LoginDesktop extends Composite implements HasText {
 
 	@UiHandler("button")
 	void onClick(ClickEvent e) {
+		//Temporary while testing.
+		Window.alert("Trying to login!");
 		
-		Window.alert("Hello!");
-		
-		Time_Manager.setUp();
-		Time_Manager.showApp();
-		
+		loginService.login(getUsername(), getPassword(), loginCallback);
 		
 		
+		
+	}
+	
+	public String getUsername(){
+		return username.getValue();
+	}
+	
+	public String getPassword(){
+		return password.getValue();
 	}
 
 	@Override

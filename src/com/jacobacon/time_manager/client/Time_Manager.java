@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -22,6 +20,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.inject.Guice;
 import com.jacobacon.time_manager.client.service.PunchService;
 import com.jacobacon.time_manager.client.service.PunchServiceAsync;
 import com.jacobacon.time_manager.client.ui.LoginDesktop;
@@ -61,6 +60,8 @@ public class Time_Manager implements EntryPoint {
 	private boolean loginTestDisable = false;
 
 	public void onModuleLoad() {
+		
+		
 
 		// Check if user is on mobile or desktop.
 		userAgent = Navigator.getUserAgent();
@@ -78,16 +79,15 @@ public class Time_Manager implements EntryPoint {
 				showApp();
 			else
 				RootPanel.get().add(new MobileView());
-		}
-		else
+		} else
 			RootPanel.get().add(new LoginDesktop());
 
 	}
 
 	// Method that shows the actual app after login.
 	public static void showApp() {
-		
-		//Clear the panel just in case.
+
+		// Clear the panel just in case.
 		RootPanel.get().clear();
 
 		punchService = GWT.create(PunchService.class);
