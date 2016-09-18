@@ -2,26 +2,15 @@ package com.jacobacon.timemanage.client;
 
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
-import com.jacobacon.timemanage.shared.FieldVerifier;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -46,7 +35,9 @@ public class TimeManage implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-
+		
+		Window.setTitle("Loading App...");
+		
 		RootPanel.get("webApp").add(new Label("Hello World"));
 
 		loginService.isLoggedIn(new AsyncCallback<Boolean>() {
@@ -64,11 +55,40 @@ public class TimeManage implements EntryPoint {
 					RootPanel.get("webApp").add(new Label("Welcome to the App"));
 				} else {
 					RootPanel.get("webApp").add(new Label("You Are not Logged In Yet!"));
+					RootPanel.get("webApp").add(new Login());
+					Window.setTitle("Login Page");
 				}
 			}
 
 		});
+		
+		if(!userLoginCheck()){
+			RootPanel.get("webApp").add(new Label("You are Still Not Logged In, just checking a different way."));
+		} else{
+			RootPanel.get("webApp").add(new Label("You Somehow Logged In?"));
+		}
 
 	}
 
+	
+	//Used to pass user login status to the Client GUI
+	private Boolean loginStatus = false;
+	public Boolean userLoginCheck(){
+		loginService.isLoggedIn(new AsyncCallback<Boolean>() {
+			@Override
+			public void onSuccess(Boolean result){
+				loginStatus = result;
+			}
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				loginStatus = false;
+				log.error(arg0.getLocalizedMessage());
+			}
+			
+			
+		});
+		
+		return loginStatus;
+	}
 }

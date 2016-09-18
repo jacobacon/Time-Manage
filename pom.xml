@@ -83,6 +83,16 @@
     	<artifactId>slf4j-simple</artifactId>
     	<version>1.7.21</version>
     </dependency>
+    <dependency>
+    	<groupId>org.gwtbootstrap3</groupId>
+    	<artifactId>gwtbootstrap3</artifactId>
+    	<version>0.9.3</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.gwtbootstrap3</groupId>
+    	<artifactId>gwtbootstrap3-extras</artifactId>
+    	<version>0.9.3</version>
+    </dependency>
   </dependencies>
   
   <build>
