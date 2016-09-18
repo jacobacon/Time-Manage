@@ -20,6 +20,8 @@
   <!-- Other module inherits                                      -->
   <!-- Inherit the UiBinder module.                               -->
   <inherits name="com.google.gwt.uibinder.UiBinder"/>
+  <inherits name="ru.finam.slf4jgwt.logging.gwt.Logging"/>
+  <set-property name="gwt.logging.enabled" value="TRUE"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.jacobacon.timemanage.client.TimeManage'/>
