@@ -35,10 +35,8 @@ public class TimeManage implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		
+
 		Window.setTitle("Loading App...");
-		
-		RootPanel.get("webApp").add(new Label("Hello World"));
 
 		loginService.isLoggedIn(new AsyncCallback<Boolean>() {
 
@@ -54,29 +52,24 @@ public class TimeManage implements EntryPoint {
 				if (result == true) {
 					RootPanel.get("webApp").add(new Label("Welcome to the App"));
 				} else {
-					RootPanel.get("webApp").add(new Label("You Are not Logged In Yet!"));
+					// RootPanel.get("webApp").add(new Label("You Are not Logged
+					// In Yet!"));
 					RootPanel.get("webApp").add(new Login());
 					Window.setTitle("Login Page");
 				}
 			}
 
 		});
-		
-		if(!userLoginCheck()){
-			RootPanel.get("webApp").add(new Label("You are Still Not Logged In, just checking a different way."));
-		} else{
-			RootPanel.get("webApp").add(new Label("You Somehow Logged In?"));
-		}
 
 	}
 
-	
-	//Used to pass user login status to the Client GUI
+	// Used to pass user login status to the Client GUI
 	private Boolean loginStatus = false;
-	public Boolean userLoginCheck(){
+
+	public Boolean userLoginCheck() {
 		loginService.isLoggedIn(new AsyncCallback<Boolean>() {
 			@Override
-			public void onSuccess(Boolean result){
+			public void onSuccess(Boolean result) {
 				loginStatus = result;
 			}
 
@@ -85,10 +78,35 @@ public class TimeManage implements EntryPoint {
 				loginStatus = false;
 				log.error(arg0.getLocalizedMessage());
 			}
-			
-			
+
+		});
+
+		return loginStatus;
+	}
+	
+	private Boolean loginAttempt = false;
+	public Boolean loginProxy(String username, String password, Boolean remember){
+		
+		loginService.tryLogIn(username, password, remember, new AsyncCallback<Boolean>() {
+
+			@Override
+			public void onFailure(Throwable result) {
+				// TODO Auto-generated method stub
+				loginAttempt = false;
+				log.error(result.getLocalizedMessage());
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				// TODO Auto-generated method stub
+				loginAttempt = result;
+			}
 		});
 		
-		return loginStatus;
+		
+		
+		
+		
+		return loginAttempt;
 	}
 }
