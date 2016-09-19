@@ -11,6 +11,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -55,6 +56,7 @@ public class TimeManage implements EntryPoint {
 			public void onSuccess(Boolean result) {
 				log.info("The user is logged in: " + result.toString());
 				if (result == true) {
+					History.newItem("home");
 					RootPanel.get("webApp").add(new Label("Welcome to the App"));
 					RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
 						
@@ -70,6 +72,7 @@ public class TimeManage implements EntryPoint {
 
 								@Override
 								public void onSuccess(Void arg0) {
+									Window.Location.reload();
 									Notify.notify("Logged out successfully");
 									
 								}
@@ -78,8 +81,7 @@ public class TimeManage implements EntryPoint {
 						}
 					}));
 				} else {
-					// RootPanel.get("webApp").add(new Label("You Are not Logged
-					// In Yet!"));
+					History.newItem("login");
 					RootPanel.get("webApp").add(new Login());
 					Window.setTitle("Login Page");
 				}
