@@ -2,13 +2,18 @@ package com.jacobacon.timemanage.client;
 
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
+
+import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -27,7 +32,7 @@ public class TimeManage implements EntryPoint {
 	 * Create a loginService object to communicate with the LoginService Server
 	 * Service.
 	 */
-	private final LoginServiceAsync loginService = GWT.create(LoginService.class);
+	private final static LoginServiceAsync loginService = GWT.create(LoginService.class);
 
 	private static final Logger log = LoggerFactory.getLogger(TimeManage.class);
 
@@ -51,6 +56,27 @@ public class TimeManage implements EntryPoint {
 				log.info("The user is logged in: " + result.toString());
 				if (result == true) {
 					RootPanel.get("webApp").add(new Label("Welcome to the App"));
+					RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent arg0) {
+							loginService.logout(new AsyncCallback<Void>() {
+
+								@Override
+								public void onFailure(Throwable arg0) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(Void arg0) {
+									Notify.notify("Logged out successfully");
+									
+								}
+							});
+							
+						}
+					}));
 				} else {
 					// RootPanel.get("webApp").add(new Label("You Are not Logged
 					// In Yet!"));
@@ -82,31 +108,5 @@ public class TimeManage implements EntryPoint {
 		});
 
 		return loginStatus;
-	}
-	
-	private Boolean loginAttempt = false;
-	public Boolean loginProxy(String username, String password, Boolean remember){
-		
-		loginService.tryLogIn(username, password, remember, new AsyncCallback<Boolean>() {
-
-			@Override
-			public void onFailure(Throwable result) {
-				// TODO Auto-generated method stub
-				loginAttempt = false;
-				log.error(result.getLocalizedMessage());
-			}
-
-			@Override
-			public void onSuccess(Boolean result) {
-				// TODO Auto-generated method stub
-				loginAttempt = result;
-			}
-		});
-		
-		
-		
-		
-		
-		return loginAttempt;
 	}
 }

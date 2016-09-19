@@ -3,4 +3,5 @@
   <application>time-manager-1263</application>
   <version>1</version>
   <threadsafe>true</threadsafe>
+  <sessions-enabled>true</sessions-enabled>
 </appengine-web-app>
