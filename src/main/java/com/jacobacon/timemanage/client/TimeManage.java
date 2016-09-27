@@ -24,12 +24,6 @@ import com.google.gwt.user.client.ui.RootPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class TimeManage implements EntryPoint {
-	/**
-	 * The message displayed to the user when the server cannot be reached or
-	 * returns an error.
-	 */
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network " + "connection and try again.";
 
 	/**
 	 * Create a loginService object to communicate with the LoginService Server
@@ -43,25 +37,24 @@ public class TimeManage implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		
-		
-		 History.addValueChangeHandler(new ValueChangeHandler<String>() {
-		      public void onValueChange(ValueChangeEvent<String> event) {
-		        String historyToken = event.getValue();
 
-		        // Parse the history token
-		        try {
-		          if (historyToken.substring(0, 5).equals("login")) {
-		            RootPanel.get().add(new Label("Login Page"));
-		          } else {
-		            RootPanel.get("webApp").add(new Label("You are at the home page."));
-		          }
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
+			public void onValueChange(ValueChangeEvent<String> event) {
+				String historyToken = event.getValue();
 
-		        } catch (IndexOutOfBoundsException e) {
-		          RootPanel.get().add(new Label("Home Page"));
-		        }
-		      }
-		    });
+				// Parse the history token
+				try {
+					if (historyToken.substring(0, 5).equals("login")) {
+						RootPanel.get().add(new Label("Login Page"));
+					} else {
+						RootPanel.get("webApp").add(new Label("You are at the home page."));
+					}
+
+				} catch (IndexOutOfBoundsException e) {
+					RootPanel.get().add(new Label("Home Page"));
+				}
+			}
+		});
 
 		Window.setTitle("Loading App...");
 
@@ -80,7 +73,7 @@ public class TimeManage implements EntryPoint {
 					History.newItem("home");
 					RootPanel.get("webApp").add(new Label("Welcome to the App"));
 					RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
-						
+
 						@Override
 						public void onClick(ClickEvent arg0) {
 							loginService.logout(new AsyncCallback<Void>() {
@@ -88,17 +81,17 @@ public class TimeManage implements EntryPoint {
 								@Override
 								public void onFailure(Throwable arg0) {
 									// TODO Auto-generated method stub
-									
+
 								}
 
 								@Override
 								public void onSuccess(Void arg0) {
 									Window.Location.reload();
 									Notify.notify("Logged out successfully");
-									
+
 								}
 							});
-							
+
 						}
 					}));
 				} else {

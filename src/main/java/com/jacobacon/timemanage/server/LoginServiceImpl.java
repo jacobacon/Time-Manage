@@ -18,6 +18,8 @@ import com.jacobacon.timemanage.client.services.LoginService;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 
+	private static final long serialVersionUID = 1284756406544822869L;
+
 	private static final Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
 
 	private Subject currentUser;
@@ -67,7 +69,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 			}
 
 		}
-		log.error("Everything is broken!");
+		log.error("User Couldn't Log In.");
 		// For some reason you couldn't log in.
 		return false;
 	}
