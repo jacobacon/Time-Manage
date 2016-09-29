@@ -4,6 +4,10 @@ import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyEvent;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -53,7 +57,7 @@ public class Login extends Composite {
 
 	@UiField
 	Label completionLabel2;
-	
+
 	@UiField
 	CheckBox myCheckBox;
 
@@ -61,34 +65,7 @@ public class Login extends Composite {
 
 	@UiHandler("buttonSubmit")
 	void doClickSubmit(ClickEvent event) {
-		if (!tooShort) {
-			loginService.tryLogIn(loginBox.getValue().trim().toLowerCase(), passwordBox.getValue().trim().toLowerCase(), myCheckBox.getValue(), new AsyncCallback<Boolean>() {
-
-				@Override
-				public void onFailure(Throwable arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onSuccess(Boolean result) {
-					
-					if(result){
-						Notify.notify("You logged in Successfully");
-						History.newItem("home");
-						TimeManage.showApp();
-					}
-					else{
-						Notify.notify("Couldn't log you in.");
-					}
-					
-				}
-			});
-			
-		} else {
-			Window.alert("Login or Password is too short!");
-		}
-
+		tryLogin();
 	}
 
 	@UiHandler("loginBox")
@@ -103,6 +80,20 @@ public class Login extends Composite {
 
 	}
 
+	@UiHandler("loginBox")
+	void handleEnterUsername(KeyPressEvent event) {
+		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+			tryLogin();
+		}
+	}
+
+	@UiHandler("passwordBox")
+	void handleEnterPassword(KeyPressEvent event) {
+		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+			tryLogin();
+		}
+	}
+
 	@UiHandler("passwordBox")
 	void handlePasswordChange(ValueChangeEvent<String> event) {
 		if (event.getValue().length() < 3) {
@@ -111,6 +102,37 @@ public class Login extends Composite {
 		} else {
 			tooShort = false;
 			completionLabel2.setText("");
+		}
+
+	}
+
+	void tryLogin() {
+		if (!tooShort) {
+			loginService.tryLogIn(loginBox.getValue().trim().toLowerCase(), passwordBox.getValue().trim().toLowerCase(),
+					myCheckBox.getValue(), new AsyncCallback<Boolean>() {
+
+						@Override
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onSuccess(Boolean result) {
+
+							if (result) {
+								Notify.notify("You logged in Successfully");
+								History.newItem("home");
+								TimeManage.showApp();
+							} else {
+								Notify.notify("Couldn't log you in.");
+							}
+
+						}
+					});
+
+		} else {
+			Window.alert("Login or Password is too short!");
 		}
 
 	}

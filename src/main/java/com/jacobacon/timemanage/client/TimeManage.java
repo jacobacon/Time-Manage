@@ -2,6 +2,7 @@ package com.jacobacon.timemanage.client;
 
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
+import com.jacobacon.timemanage.client.ui.Home;
 import com.jacobacon.timemanage.client.ui.Login;
 
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
@@ -97,8 +98,9 @@ public class TimeManage implements EntryPoint {
 	public static void showApp() {
 		RootPanel.get("webApp").clear();
 
+		
 		Window.setTitle("Home");
-		RootPanel.get("webApp").add(new Label("Welcome to the App"));
+		RootPanel.get("webApp").add(new Home());
 		RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
 
 			@Override
