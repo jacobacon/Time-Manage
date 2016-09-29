@@ -2,6 +2,7 @@ package com.jacobacon.timemanage.client;
 
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
+import com.jacobacon.timemanage.client.ui.Login;
 
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 import org.slf4j.Logger;

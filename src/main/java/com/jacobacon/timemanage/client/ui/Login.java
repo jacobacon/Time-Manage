@@ -1,4 +1,4 @@
-package com.jacobacon.timemanage.client;
+package com.jacobacon.timemanage.client.ui;
 
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 
@@ -19,8 +19,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.jacobacon.timemanage.client.TimeManage;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
+import com.jacobacon.timemanage.client.ui.resources.LoginResources;
 
 public class Login extends Composite {
 
