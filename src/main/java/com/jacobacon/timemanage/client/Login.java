@@ -9,6 +9,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -35,6 +36,7 @@ public class Login extends Composite {
 		this.res = GWT.create(LoginResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
+		
 	}
 
 	@UiField
@@ -70,6 +72,7 @@ public class Login extends Composite {
 					
 					if(result){
 						Notify.notify("You logged in Successfully");
+						History.newItem("home");
 						TimeManage.showApp();
 					}
 					else{

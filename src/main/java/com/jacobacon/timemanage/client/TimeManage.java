@@ -38,24 +38,6 @@ public class TimeManage implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
-		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-			public void onValueChange(ValueChangeEvent<String> event) {
-				String historyToken = event.getValue();
-
-				// Parse the history token
-				try {
-					if (historyToken.substring(0, 5).equals("login")) {
-						RootPanel.get().add(new Label("Login Page"));
-					} else {
-						RootPanel.get("webApp").add(new Label("You are at the home page."));
-					}
-
-				} catch (IndexOutOfBoundsException e) {
-					RootPanel.get().add(new Label("Home Page"));
-				}
-			}
-		});
-
 		Window.setTitle("Loading App...");
 
 		loginService.isLoggedIn(new AsyncCallback<Boolean>() {
@@ -70,13 +52,43 @@ public class TimeManage implements EntryPoint {
 			public void onSuccess(Boolean result) {
 				log.info("The user is logged in: " + result.toString());
 				if (result == true) {
+					History.newItem("home");
 					showApp();
 				} else {
+					History.newItem("login");
 					showLogin();
 				}
 			}
 
 		});
+
+		/*
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
+			public void onValueChange(ValueChangeEvent<String> event) {
+				String historyToken = event.getValue();
+
+				// Parse the history token
+				try {
+					if (historyToken.substring(0, 5).equals("login")) {
+						if (!userLoginCheck()) {
+							showLogin();
+						} else
+							showApp();
+					} else if (historyToken.substring(0, 4).equals("home")) {
+
+						showApp();
+					} else {
+						RootPanel.get().add(new Label("You are at a weird spot."));
+					}
+				}
+
+				catch (IndexOutOfBoundsException e) {
+					showLogin();
+				}
+			}
+		});
+		
+		*/
 
 	}
 
@@ -84,7 +96,6 @@ public class TimeManage implements EntryPoint {
 	public static void showApp() {
 		RootPanel.get("webApp").clear();
 
-		History.newItem("home");
 		Window.setTitle("Home");
 		RootPanel.get("webApp").add(new Label("Welcome to the App"));
 		RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
@@ -115,30 +126,29 @@ public class TimeManage implements EntryPoint {
 	public static void showLogin() {
 		RootPanel.get("webApp").clear();
 
-		History.newItem("login");
 		Window.setTitle("Login Page");
 		RootPanel.get("webApp").add(new Login());
 
 	}
 
 	// Used to pass user login status to the Client GUI
-	private Boolean loginStatus = false;
+	private Boolean loginStatusCheck = false;
 
 	public Boolean userLoginCheck() {
 		loginService.isLoggedIn(new AsyncCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
-				loginStatus = result;
+				loginStatusCheck = result;
 			}
 
 			@Override
 			public void onFailure(Throwable arg0) {
-				loginStatus = false;
+				loginStatusCheck = false;
 				log.error(arg0.getLocalizedMessage());
 			}
 
 		});
 
-		return loginStatus;
+		return loginStatusCheck;
 	}
 }
