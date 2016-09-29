@@ -2,8 +2,12 @@ package com.jacobacon.timemanage.client;
 
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.ImageResource;
 
 public interface LoginResources extends ClientBundle{
+	
+	@Source("images/clock.png")
+	ImageResource clock();
 	
 	
 	public interface MyCss extends CssResource {
@@ -16,6 +20,8 @@ public interface LoginResources extends ClientBundle{
 	      String box();
 
 	      String background();
+	      
+	      String clock();
 	   }
 
 	   @Source("Login.css")

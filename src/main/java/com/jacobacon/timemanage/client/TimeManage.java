@@ -70,38 +70,54 @@ public class TimeManage implements EntryPoint {
 			public void onSuccess(Boolean result) {
 				log.info("The user is logged in: " + result.toString());
 				if (result == true) {
-					History.newItem("home");
-					RootPanel.get("webApp").add(new Label("Welcome to the App"));
-					RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
-
-						@Override
-						public void onClick(ClickEvent arg0) {
-							loginService.logout(new AsyncCallback<Void>() {
-
-								@Override
-								public void onFailure(Throwable arg0) {
-									// TODO Auto-generated method stub
-
-								}
-
-								@Override
-								public void onSuccess(Void arg0) {
-									Window.Location.reload();
-									Notify.notify("Logged out successfully");
-
-								}
-							});
-
-						}
-					}));
+					showApp();
 				} else {
-					History.newItem("login");
-					RootPanel.get("webApp").add(new Login());
-					Window.setTitle("Login Page");
+					showLogin();
 				}
 			}
 
 		});
+
+	}
+
+	// Shows the app after user logs in.
+	public static void showApp() {
+		RootPanel.get("webApp").clear();
+
+		History.newItem("home");
+		Window.setTitle("Home");
+		RootPanel.get("webApp").add(new Label("Welcome to the App"));
+		RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				loginService.logout(new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(Void arg0) {
+						Window.Location.reload();
+						Notify.notify("Logged out successfully");
+
+					}
+				});
+
+			}
+		}));
+	}
+
+	// Shows login page.
+	public static void showLogin() {
+		RootPanel.get("webApp").clear();
+
+		History.newItem("login");
+		Window.setTitle("Login Page");
+		RootPanel.get("webApp").add(new Login());
 
 	}
 

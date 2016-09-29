@@ -70,9 +70,10 @@ public class Login extends Composite {
 					
 					if(result){
 						Notify.notify("You logged in Successfully");
+						TimeManage.showApp();
 					}
 					else{
-						Notify.notify("Couldn't log you in");
+						Notify.notify("Couldn't log you in.");
 					}
 					
 				}
