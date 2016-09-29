@@ -7,11 +7,12 @@
 	
 	<ui:style>
 
+
 	</ui:style>
 
 	<g:HTMLPanel>
 		<div align="center">
-			<g:VerticalPanel res:styleName="style.background">
+			<g:VerticalPanel addStyleNames='{res.style.background}'>
 				<g:Image resource="{res.clock}" altText="Clock" res:styleName="style.clock"/>
 				<g:Label text="Login" res:styleName="style.blackText" />
 				<g:TextBox ui:field="loginBox" res:styleName="style.box" />

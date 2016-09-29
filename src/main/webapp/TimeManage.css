@@ -10,7 +10,13 @@ h1 {
   text-align: center;
 }
 
+#html {
+	height: 100%
+	
+}
+
 #webApp {
 	position: relative;
 	text-align: center;
 }
+

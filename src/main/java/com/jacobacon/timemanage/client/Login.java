@@ -4,6 +4,8 @@ import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -36,7 +38,6 @@ public class Login extends Composite {
 		this.res = GWT.create(LoginResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
-		
 	}
 
 	@UiField
