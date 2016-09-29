@@ -120,14 +120,14 @@
               <goal>compile</goal>
             </goals>
           </execution>
-          <execution>
-            <!-- Run tests through gwt:test, this allows reusing the plugin configuration for GWTTestCases -->
+          <!-- To enable Tests uncomment <execution>
             <id>gwt-tests</id>
             <phase>test</phase>
             <goals>
               <goal>test</goal>
             </goals>
           </execution>
+          -->
         </executions>
         <!-- Plugin configuration. There are many available options, 
              see gwt-maven-plugin documentation at codehaus.org --> 
@@ -141,6 +141,7 @@
           <compileReport>true</compileReport>
           <!-- Run tests using HtmlUnit -->
           <mode>htmlunit</mode>
+          
           <!-- Tests patterns -->
           <includes>**/Test*.java,**/*Test.java,**/*TestCase.java</includes>
         </configuration>

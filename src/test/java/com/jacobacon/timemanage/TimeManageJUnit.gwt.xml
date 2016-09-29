@@ -10,6 +10,8 @@
   <inherits name='com.jacobacon.timemanage.TimeManage'/>
 
   <!-- Specify the path to any remote services.                   -->
-  <servlet path="/timemanage/greet" class="com.jacobacon.timemanage.server.GreetingServiceImpl" />
+   
+  <servlet path="/timemanage/login" class="com.jacobacon.timemanage.server.LoginServiceImpl" />
+
 
 </module>

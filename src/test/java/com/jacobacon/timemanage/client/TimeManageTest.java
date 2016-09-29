@@ -1,68 +1,50 @@
 package com.jacobacon.timemanage.client;
 
-import com.jacobacon.timemanage.shared.FieldVerifier;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.jacobacon.timemanage.client.services.LoginService;
+import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 
 /**
  * GWT JUnit tests must extend GWTTestCase.
  */
 public class TimeManageTest extends GWTTestCase {
 
-  /**
-   * Must refer to a valid module that sources this class.
-   */
-  public String getModuleName() {
-    return "com.jacobacon.timemanage.TimeManageJUnit";
-  }
+	/**
+	 * Must refer to a valid module that sources this class.
+	 */
+	public String getModuleName() {
+		return "com.jacobacon.timemanage.TimeManageJUnit";
+	}
 
-  /**
-   * Tests the FieldVerifier.
-   */
-  public void testFieldVerifier() {
-    assertFalse(FieldVerifier.isValidName(null));
-    assertFalse(FieldVerifier.isValidName(""));
-    assertFalse(FieldVerifier.isValidName("a"));
-    assertFalse(FieldVerifier.isValidName("ab"));
-    assertFalse(FieldVerifier.isValidName("abc"));
-    assertTrue(FieldVerifier.isValidName("abcd"));
-  }
+	/*
+	 *Tests are disabled in the POM file.
+	 *To enable them uncomment the test goal. 
+	 */
 
-  /**
-   * This test will send a request to the server using the greetServer method in
-   * GreetingService and verify the response.
-   */
-  public void testGreetingService() {
-    // Create the service that we will test.
-    GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-    ServiceDefTarget target = (ServiceDefTarget) greetingService;
-    target.setServiceEntryPoint(GWT.getModuleBaseURL() + "timemanage/greet");
+	public void testLoginServiceLogin() {
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
+		ServiceDefTarget target = (ServiceDefTarget) loginService;
+		target.setServiceEntryPoint(GWT.getModuleBaseURL() + "timemanage/login");
 
-    // Since RPC calls are asynchronous, we will need to wait for a response
-    // after this test method returns. This line tells the test runner to wait
-    // up to 10 seconds before timing out.
-    delayTestFinish(10000);
+		delayTestFinish(10000);
 
-    // Send a request to the server.
-    greetingService.greetServer("GWT User", new AsyncCallback<String>() {
-      public void onFailure(Throwable caught) {
-        // The request resulted in an unexpected error.
-        fail("Request failure: " + caught.getMessage());
-      }
+		loginService.tryLogIn("jacob", "test", false, new AsyncCallback<Boolean>() {
 
-      public void onSuccess(String result) {
-        // Verify that the response is correct.
-        assertTrue(result.startsWith("Hello, GWT User!"));
+			@Override
+			public void onFailure(Throwable caught) {
+				fail("Request Failure: " + caught.getMessage());
 
-        // Now that we have received a response, we need to tell the test runner
-        // that the test is complete. You must call finishTest() after an
-        // asynchronous test finishes successfully, or the test will time out.
-        finishTest();
-      }
-    });
-  }
+			}
 
+			@Override
+			public void onSuccess(Boolean result) {
+				assertTrue(result == true);
+				finishTest();
+			}
+		});
 
+	}
 }

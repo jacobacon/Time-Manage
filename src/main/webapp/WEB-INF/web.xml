@@ -6,11 +6,6 @@
 
 	<!-- Servlets -->
 	<servlet>
-		<servlet-name>greetServlet</servlet-name>
-		<servlet-class>com.jacobacon.timemanage.server.GreetingServiceImpl</servlet-class>
-	</servlet>
-	
-	<servlet>
 		<servlet-name>loginService</servlet-name>
 		<servlet-class>com.jacobacon.timemanage.server.LoginServiceImpl</servlet-class>
 	</servlet>
@@ -19,11 +14,6 @@
 		<servlet-name>testServlet</servlet-name>
 		<servlet-class>com.jacobacon.timemanage.server.TestServlet</servlet-class>
 	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>greetServlet</servlet-name>
-		<url-pattern>/timemanage/greet</url-pattern>
-	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>loginService</servlet-name>
