@@ -15,21 +15,21 @@
 				<g:Cell horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_MIDDLE">
 				<g:VerticalPanel>
 				<g:Image resource="{res.clock}" altText="Clock"
-					res:styleName="style.clock" />
-				<g:Label text="Login" res:styleName="style.blackText" />
-				<g:TextBox ui:field="loginBox" res:styleName="style.box" />
-				<g:Label text="Password" res:styleName="style.blackText" />
+					res:styleName="{res.style.clock}" />
+				<g:Label text="Login" res:styleName="{res.style.blackText}" />
+				<g:TextBox ui:field="loginBox" res:styleName="{res.style.box}" />
+				<g:Label text="Password" res:styleName="{res.style.blackText}" />
 				<g:PasswordTextBox ui:field="passwordBox"
-					res:styleName="style.box" />
+					res:styleName="{res.style.box}" />
 				<g:HorizontalPanel verticalAlignment="middle">
 					<g:Button ui:field="buttonSubmit" text="Submit"
-						res:styleName="style.loginButton" />
+						res:styleName="{res.style.loginButton}" />
 					<g:CheckBox ui:field="myCheckBox" />
 					<g:Label ui:field="myLabel" text="Remember me"
-						res:styleName="style.blackText" />
+						res:styleName="{res.style.blackText}" />
 				</g:HorizontalPanel>
-				<g:Label ui:field="completionLabel1" res:styleName="style.blackText" />
-				<g:Label ui:field="completionLabel2" res:styleName="style.blackText" />
+				<g:Label ui:field="completionLabel1" res:styleName="{res.style.blackText}" />
+				<g:Label ui:field="completionLabel2" res:styleName="{res.style.blackText}" />
 				</g:VerticalPanel>
 				</g:Cell>
 			</g:VerticalPanel>
