@@ -88,6 +88,22 @@ public class TimeManage implements EntryPoint {
 						Window.alert("Showing Admin Page");
 						showApp();
 						break;
+					case "logout":
+						loginService.logout(new AsyncCallback<Void>() {
+
+							@Override
+							public void onFailure(Throwable arg0) {
+								// TODO Auto-generated method stub
+								Window.alert("You Couldn't Log Out. Try Again.");
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								showLogin();
+								Notify.notify("Logged Out Successfully");
+
+							}
+						});
 
 					}
 				}

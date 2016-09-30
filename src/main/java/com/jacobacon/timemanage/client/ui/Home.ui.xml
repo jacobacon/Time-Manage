@@ -43,7 +43,7 @@
 					<b:NavbarText pull="RIGHT">
 						<g:HTMLPanel>
 							Signed in as
-							<b:NavbarLink>John Snow</b:NavbarLink>
+							<b:NavbarLink href="#admin">John Snow</b:NavbarLink>
 						</g:HTMLPanel>
 					</b:NavbarText>
 				</b:NavbarCollapse>
