@@ -9,5 +9,6 @@ public interface LoginService extends RemoteService{
 	public Boolean tryLogIn(String username, String password, Boolean remember);
 	public void logout();
 	public void register(String username, String password);
+	public Long test();
 	
 }

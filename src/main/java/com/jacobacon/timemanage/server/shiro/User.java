@@ -6,6 +6,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -15,6 +16,7 @@ import com.googlecode.objectify.annotation.Id;
  * 
  */
 
+@Cache
 @Entity
 public class User implements Serializable {
 
@@ -25,14 +27,20 @@ public class User implements Serializable {
 	@Id
 	private String name;
 
-	private String passwordHash;
+	//private String passwordHash;
 
-	private Set<String> roles;
+	//private Set<String> roles;
 
-	private Set<String> permissions;
+	//private Set<String> permissions;
 
-	public User() {
+	public User(String name, String password) {
+		this.name = name;
+	//	this.passwordHash = password;
 
+	}
+	
+	public String getName(){
+		return name;
 	}
 
 }

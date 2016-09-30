@@ -111,22 +111,6 @@ public class TimeManage implements EntryPoint {
 			}
 		});
 
-		/*
-		 * History.addValueChangeHandler(new ValueChangeHandler<String>() {
-		 * public void onValueChange(ValueChangeEvent<String> event) { String
-		 * historyToken = event.getValue();
-		 * 
-		 * // Parse the history token try { if (historyToken.substring(0,
-		 * 5).equals("login")) { if (!userLoginCheck()) { showLogin(); } else
-		 * showApp(); } else if (historyToken.substring(0, 4).equals("home")) {
-		 * 
-		 * showApp(); } else { RootPanel.get().add(new
-		 * Label("You are at a weird spot.")); } }
-		 * 
-		 * catch (IndexOutOfBoundsException e) { showLogin(); } } });
-		 * 
-		 */
-
 	}
 
 	// Shows the app after user logs in.

@@ -15,12 +15,16 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jacobacon.timemanage.client.services.LoginService;
+import com.jacobacon.timemanage.server.shiro.User;
+import com.jacobacon.timemanage.server.shiro.UserDAO;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 
 	private static final long serialVersionUID = 1284756406544822869L;
 
 	private static final Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
+
+	private static final UserDAO userDAO = new UserDAO();
 
 	private Subject currentUser;
 
@@ -83,7 +87,13 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 
 	@Override
 	public void register(String username, String password) {
-		// TODO Auto-generated method stub
+		userDAO.saveUser(new User(username, password), true);
+
+	}
+
+	@Override
+	public Long test() {
+		return userDAO.getCount();
 
 	}
 
