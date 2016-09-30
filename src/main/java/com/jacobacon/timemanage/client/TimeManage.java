@@ -64,33 +64,52 @@ public class TimeManage implements EntryPoint {
 
 		});
 
-		/*
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
+
+			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				String historyToken = event.getValue();
-
-				// Parse the history token
-				try {
-					if (historyToken.substring(0, 5).equals("login")) {
-						if (!userLoginCheck()) {
-							showLogin();
-						} else
-							showApp();
-					} else if (historyToken.substring(0, 4).equals("home")) {
-
+				if (userLoginCheck()) {
+					switch (historyToken) {
+					case "login":
+						Window.alert("You are already logged in.");
 						showApp();
-					} else {
-						RootPanel.get().add(new Label("You are at a weird spot."));
+						History.newItem("home");
+						break;
+					case "home":
+						Window.alert("You are logged in, going home.");
+						showApp();
+						break;
+					case "reports":
+						Window.alert("Showing Report View");
+						showApp();
+						break;
+					case "admin":
+						Window.alert("Showing Admin Page");
+						showApp();
+						break;
+
 					}
 				}
 
-				catch (IndexOutOfBoundsException e) {
-					showLogin();
-				}
 			}
 		});
-		
-		*/
+
+		/*
+		 * History.addValueChangeHandler(new ValueChangeHandler<String>() {
+		 * public void onValueChange(ValueChangeEvent<String> event) { String
+		 * historyToken = event.getValue();
+		 * 
+		 * // Parse the history token try { if (historyToken.substring(0,
+		 * 5).equals("login")) { if (!userLoginCheck()) { showLogin(); } else
+		 * showApp(); } else if (historyToken.substring(0, 4).equals("home")) {
+		 * 
+		 * showApp(); } else { RootPanel.get().add(new
+		 * Label("You are at a weird spot.")); } }
+		 * 
+		 * catch (IndexOutOfBoundsException e) { showLogin(); } } });
+		 * 
+		 */
 
 	}
 
@@ -98,7 +117,6 @@ public class TimeManage implements EntryPoint {
 	public static void showApp() {
 		RootPanel.get("webApp").clear();
 
-		
 		Window.setTitle("Home");
 		RootPanel.get("webApp").add(new Home());
 		RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
