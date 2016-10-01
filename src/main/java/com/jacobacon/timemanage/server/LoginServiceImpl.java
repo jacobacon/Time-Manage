@@ -1,5 +1,7 @@
 package com.jacobacon.timemanage.server;
 
+import java.util.Set;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -86,8 +88,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	}
 
 	@Override
-	public void register(String username, String password) {
-		userDAO.saveUser(new User(username, password), true);
+	public void register(String username, String password, Set<String> roles, Set<String> permissions) {
+		userDAO.saveUser(new User(username, password, roles, permissions), true);
 
 	}
 

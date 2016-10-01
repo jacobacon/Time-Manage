@@ -1,9 +1,14 @@
 package com.jacobacon.timemanage.client.ui;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -37,6 +42,7 @@ public class Home extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
+	@RequiresPermissions("admin")
 	@UiHandler("testButton")
 	public void testButton(ClickEvent event){
 		loginService.test(new AsyncCallback<Long>() {
@@ -57,7 +63,10 @@ public class Home extends Composite {
 	
 	@UiHandler("registerButton")
 	public void registerButton(ClickEvent event){
-		loginService.register("jacob", "password", new AsyncCallback<Void>() {
+		
+		Set<String> permissions = new HashSet<String>();
+		permissions.add("admin");
+		loginService.register("test", "test", permissions, permissions, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable arg0) {
