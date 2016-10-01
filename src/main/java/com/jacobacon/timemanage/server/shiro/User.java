@@ -50,6 +50,9 @@ public class User implements Serializable {
 	private Date dateRegistered;
 
 	private Boolean isDisabled;
+	
+    static final int HASH_ITERATIONS = 1;
+    static final String HASH_ALGORITHM = Sha256Hash.ALGORITHM_NAME;
 
 	public User() {
 		this.roles = new HashSet<String>();
@@ -97,7 +100,7 @@ public class User implements Serializable {
 	
 	
 	private static String hash(String password, byte[] salt){
-		return (password == null) ? null : new Sha256Hash(password, new SimpleByteSource(salt), 1).toHex(); 
+		return (password == null) ? null : new Sha256Hash(password, new SimpleByteSource(salt), HASH_ITERATIONS).toHex(); 
 	}
 	
     @Override
