@@ -51,8 +51,8 @@ public class User implements Serializable {
 
 	private Boolean isDisabled;
 	
-    static final int HASH_ITERATIONS = 1;
-    static final String HASH_ALGORITHM = Sha256Hash.ALGORITHM_NAME;
+    public static final int HASH_ITERATIONS = 1;
+    public static final String HASH_ALGORITHM = Sha256Hash.ALGORITHM_NAME;
 
 	public User() {
 		this.roles = new HashSet<String>();

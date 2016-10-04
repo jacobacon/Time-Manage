@@ -21,9 +21,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.ui.resources.HomeResources;
+import com.jacobacon.timemanage.server.shiro.User;
 
 public class Home extends Composite {
-	
+
 	Logger log = LoggerFactory.getLogger(Home.class);
 
 	private static HomeUiBinder uiBinder = GWT.create(HomeUiBinder.class);
@@ -41,29 +42,50 @@ public class Home extends Composite {
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
-	@RequiresPermissions("admin")
+
 	@UiHandler("testButton")
-	public void testButton(ClickEvent event){
-		loginService.test(new AsyncCallback<Long>() {
-			
-			@Override
-			public void onSuccess(Long result) {
-				Window.alert(result.toString());
-				
-			}
-			
+	public void testButton(ClickEvent event) {
+
+		loginService.checkPermission("admin", new AsyncCallback<Boolean>() {
+
 			@Override
 			public void onFailure(Throwable arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				if (result == true) {
+
+					loginService.test(new AsyncCallback<Long>() {
+
+						@Override
+						public void onSuccess(Long result) {
+							Window.alert(result.toString());
+
+						}
+
+						@Override
+						public void onFailure(Throwable arg0) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+
+				} else {
+					Window.alert("You Don't Have Permission to do that!");
+				}
+
+			}
+
 		});
+
 	}
-	
+
 	@UiHandler("registerButton")
-	public void registerButton(ClickEvent event){
-		
+	public void registerButton(ClickEvent event) {
+
 		Set<String> permissions = new HashSet<String>();
 		permissions.add("admin");
 		loginService.register("test", "test", permissions, permissions, new AsyncCallback<Void>() {
@@ -71,13 +93,13 @@ public class Home extends Composite {
 			@Override
 			public void onFailure(Throwable arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onSuccess(Void result) {
 				Window.alert("Registered Successfully");
-				
+
 			}
 		});
 	}

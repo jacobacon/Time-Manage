@@ -99,4 +99,24 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 
 	}
 
+	@Override
+	public Boolean checkRole(String role) {
+		currentUser = SecurityUtils.getSubject();
+		if (currentUser.hasRole(role)) {
+			return true;
+		} else
+			return false;
+
+	}
+
+	@Override
+	public Boolean checkPermission(String permission) {
+		currentUser = SecurityUtils.getSubject();
+		if (currentUser.isPermitted(permission)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

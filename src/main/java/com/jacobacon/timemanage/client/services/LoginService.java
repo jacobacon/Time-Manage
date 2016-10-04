@@ -12,5 +12,8 @@ public interface LoginService extends RemoteService{
 	public void logout();
 	public void register(String username, String password, Set<String> roles, Set<String> permissions);
 	public Long test();
+	public Boolean checkPermission(String permission);
+	public Boolean checkRole(String role);
+	
 	
 }
