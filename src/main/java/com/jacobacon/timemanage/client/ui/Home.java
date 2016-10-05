@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.gwtbootstrap3.client.ui.AnchorListItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,6 +82,9 @@ public class Home extends Composite {
 
 		});
 
+		homeTab.setActive(false);
+		
+		homeTab.setEnabled(false);
 	}
 
 	@UiHandler("registerButton")
@@ -104,4 +108,9 @@ public class Home extends Composite {
 		});
 	}
 
+	@UiField
+	AnchorListItem homeTab;
+	
+	
+	
 }

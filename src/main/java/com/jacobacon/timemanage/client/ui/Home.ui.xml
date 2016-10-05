@@ -21,7 +21,7 @@
 
 				<b:NavbarCollapse b:id="navbar-collapse">
 					<b:NavbarNav>
-						<b:AnchorListItem active="true" href="#home">Item 1</b:AnchorListItem>
+						<b:AnchorListItem ui:field ="homeTab" active="true" href="#home">Item 1</b:AnchorListItem>
 						<b:AnchorListItem href="#test">Item 2</b:AnchorListItem>
 						<b:AnchorListItem href="#reports">Item 3</b:AnchorListItem>
 						<b:AnchorListItem href="#admin">Admin</b:AnchorListItem>
