@@ -96,10 +96,15 @@ public class Home extends Composite {
 		});
 
 		homeTab.setActive(false);
+<<<<<<< HEAD
 
 		homeTab.setEnabled(false);
 
 		homeTab.removeFromParent();
+=======
+		
+		homeTab.setEnabled(false);
+>>>>>>> ddd5227f3d0cfdab6ee393585bf852a077bf85f8
 	}
 
 	@UiHandler("registerButton")
@@ -123,4 +128,9 @@ public class Home extends Composite {
 		});
 	}
 
+	@UiField
+	AnchorListItem homeTab;
+	
+	
+	
 }

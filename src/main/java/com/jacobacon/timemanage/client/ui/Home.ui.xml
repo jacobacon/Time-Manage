@@ -21,10 +21,17 @@
 
 				<b:NavbarCollapse b:id="navbar-collapse">
 					<b:NavbarNav>
+<<<<<<< HEAD
 						<b:AnchorListItem ui:field ="homeTab" active="true" href="#home">Home</b:AnchorListItem>
 						<b:AnchorListItem ui:field = "timeTab" href="#timelog">Timelog</b:AnchorListItem>
 						<b:AnchorListItem ui:field = "reportTab" href="#reports">Reports</b:AnchorListItem>
 						<b:AnchorListItem ui:field = "adminTab" href="#admin">Admin</b:AnchorListItem>
+=======
+						<b:AnchorListItem ui:field ="homeTab" active="true" href="#home">Item 1</b:AnchorListItem>
+						<b:AnchorListItem href="#test">Item 2</b:AnchorListItem>
+						<b:AnchorListItem href="#reports">Item 3</b:AnchorListItem>
+						<b:AnchorListItem href="#admin">Admin</b:AnchorListItem>
+>>>>>>> ddd5227f3d0cfdab6ee393585bf852a077bf85f8
 
 						<b:ListDropDown>
 							<b:AnchorButton dataToggle="DROPDOWN">Dropdown</b:AnchorButton>
