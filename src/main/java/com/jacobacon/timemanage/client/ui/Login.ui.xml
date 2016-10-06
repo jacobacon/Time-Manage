@@ -18,10 +18,10 @@
 				<g:Image resource="{res.clock}" altText="Clock"
 					res:styleName="{res.style.clock}" />
 				<g:Label text="Login" res:styleName="{res.style.blackText}" />
-				<g:TextBox ui:field="loginBox" res:styleName="{res.style.box}" />
-				<g:Label text="Password" res:styleName="{res.style.blackText}" />
+				<g:TextBox ui:field="loginBox" res:styleName="{res.style.box}" name="username"/>
+				<g:Label text="Password" res:styleName="{res.style.blackText}"/>
 				<g:PasswordTextBox ui:field="passwordBox"
-					res:styleName="{res.style.box}" />
+					res:styleName="{res.style.box}" name="password"/>
 				<g:HorizontalPanel verticalAlignment="middle">
 					<g:Button ui:field="buttonSubmit" text="Submit"
 						res:styleName="{res.style.loginButton}" />

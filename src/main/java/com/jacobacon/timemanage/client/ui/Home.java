@@ -38,10 +38,23 @@ public class Home extends Composite {
 	@UiField(provided = true)
 	final HomeResources res;
 
+	@UiField
+	AnchorListItem homeTab;
+
+	@UiField
+	AnchorListItem timeTab;
+
+	@UiField
+	AnchorListItem reportTab;
+
+	@UiField
+	AnchorListItem adminTab;
+
 	public Home() {
 		this.res = GWT.create(HomeResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
+		adminTab.removeFromParent();
 	}
 
 	@UiHandler("testButton")
@@ -83,8 +96,10 @@ public class Home extends Composite {
 		});
 
 		homeTab.setActive(false);
-		
+
 		homeTab.setEnabled(false);
+
+		homeTab.removeFromParent();
 	}
 
 	@UiHandler("registerButton")
@@ -108,9 +123,4 @@ public class Home extends Composite {
 		});
 	}
 
-	@UiField
-	AnchorListItem homeTab;
-	
-	
-	
 }

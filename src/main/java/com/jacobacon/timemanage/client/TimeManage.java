@@ -80,6 +80,10 @@ public class TimeManage implements EntryPoint {
 						Window.alert("You are logged in, going home.");
 						showApp();
 						break;
+					case "timelog":
+						Window.alert("Going to the timelog page.");
+						showApp();
+						break;
 					case "reports":
 						Window.alert("Showing Report View");
 						showApp();
