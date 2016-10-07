@@ -9,20 +9,30 @@
 		<servlet-name>loginService</servlet-name>
 		<servlet-class>com.jacobacon.timemanage.server.LoginServiceImpl</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>testServlet</servlet-name>
 		<servlet-class>com.jacobacon.timemanage.server.TestServlet</servlet-class>
 	</servlet>
-	
+
+	<servlet>
+		<servlet-name>sslServlet</servlet-name>
+		<servlet-class>com.jacobacon.timemanage.server.SSLServlet</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>loginService</servlet-name>
 		<url-pattern>/timemanage/login</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>testServlet</servlet-name>
 		<url-pattern>/timemanage/test</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>sslServlet</servlet-name>
+		<url-pattern>/.well-known/acme-challenge/cEvPlfr1TqVL_D5QYNVRgepSNBlb7URZp4PqS5oM0zo</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
@@ -48,14 +58,24 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
-	
+
 	<filter>
-  		<filter-name>ObjectifyFilter</filter-name>
-  		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
 	</filter>
 	<filter-mapping>
-  		<filter-name>ObjectifyFilter</filter-name>
-  		<url-pattern>/*</url-pattern>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>webapp</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
 
 </web-app>
