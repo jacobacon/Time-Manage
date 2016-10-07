@@ -92,6 +92,10 @@ public class TimeManage implements EntryPoint {
 						Window.alert("Showing Admin Page");
 						showApp();
 						break;
+					case "settings":
+						Window.alert("Showing Settings Page");
+						showApp();
+						break;
 					case "logout":
 						loginService.logout(new AsyncCallback<Void>() {
 
@@ -122,7 +126,7 @@ public class TimeManage implements EntryPoint {
 		RootPanel.get("webApp").clear();
 
 		Window.setTitle("Home");
-		RootPanel.get("webApp").add(new Home());
+		RootPanel.get("webApp").add(new Home(1));
 		RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
 
 			@Override

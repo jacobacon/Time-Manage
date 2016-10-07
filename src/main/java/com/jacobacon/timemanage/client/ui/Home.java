@@ -66,6 +66,25 @@ public class Home extends Composite {
 		userData = new UserData();
 		nameLink.setText(userData.getName());
 	}
+	
+	public Home(int tabNumber){
+		this.res = GWT.create(HomeResources.class);
+		res.style().ensureInjected();
+		initWidget(uiBinder.createAndBindUi(this));
+		
+		switch(tabNumber){
+		//Home
+		case 0:
+			Window.alert("Tab 0");
+			break;
+		//
+		case 1:
+			Window.alert("Tab 1");
+			break;
+		}
+		
+		userData = new UserData();
+	}
 
 	@UiHandler("testButton")
 	public void testButton(ClickEvent event) {
