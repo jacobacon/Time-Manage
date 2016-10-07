@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.gwtbootstrap3.client.ui.AnchorListItem;
+import org.gwtbootstrap3.client.ui.NavbarLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +24,7 @@ import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.ui.resources.HomeResources;
 import com.jacobacon.timemanage.server.shiro.User;
+import com.jacobacon.timemanage.shared.UserData;
 
 public class Home extends Composite {
 
@@ -50,11 +52,19 @@ public class Home extends Composite {
 	@UiField
 	AnchorListItem adminTab;
 
+	@UiField
+	NavbarLink nameLink;
+
+	private UserData userData;
+
 	public Home() {
 		this.res = GWT.create(HomeResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		adminTab.removeFromParent();
+		
+		userData = new UserData();
+		nameLink.setText(userData.getName());
 	}
 
 	@UiHandler("testButton")
@@ -97,13 +107,9 @@ public class Home extends Composite {
 
 		homeTab.setActive(false);
 
-
 		homeTab.setEnabled(false);
 
 		homeTab.removeFromParent();
-
-		
-		homeTab.setEnabled(false);
 
 	}
 
@@ -112,7 +118,7 @@ public class Home extends Composite {
 
 		Set<String> permissions = new HashSet<String>();
 		permissions.add("admin");
-		loginService.register("test", "test", permissions, permissions, new AsyncCallback<Void>() {
+		loginService.register("test", "test", "Testy McTestUser", permissions, permissions, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable arg0) {
@@ -128,7 +134,4 @@ public class Home extends Composite {
 		});
 	}
 
-	
-	
-	
 }

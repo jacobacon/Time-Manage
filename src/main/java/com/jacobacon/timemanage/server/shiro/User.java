@@ -36,6 +36,8 @@ public class User implements Serializable {
 	private static final Logger log = LoggerFactory.getLogger(User.class);
 
 	@Id
+	private String username;
+	
 	private String name;
 
 	private String passwordHash;
@@ -59,22 +61,22 @@ public class User implements Serializable {
 		this.permissions = new HashSet<String>();
 	}
 
-	public User(String name) {
-		this(name, null, new HashSet<String>(), new HashSet<String>());
+	public User(String username) {
+		this(username, null, username,new HashSet<String>(), new HashSet<String>());
 	}
 
-	public User(String name, String password) {
-		this(name, password, new HashSet<String>(), new HashSet<String>());
-
-	}
-
-	public User(String name, Set<String> roles, Set<String> permissions) {
-		this(name, null, roles, permissions);
+	public User(String username, String password, String name) {
+		this(username, password, name,new HashSet<String>(), new HashSet<String>());
 
 	}
 
-	public User(String name, String password, Set<String> roles, Set<String> permissions) {
-		this.name = name;
+	public User(String username, Set<String> roles, Set<String> permissions) {
+		this(username, null, username,roles, permissions);
+
+	}
+
+	public User(String username, String password, String name,Set<String> roles, Set<String> permissions) {
+		this.username = username;
 		this.salt = salt().getBytes();
 		this.passwordHash = hash(password, salt);
 		this.roles = Collections.unmodifiableSet(roles);
@@ -85,6 +87,14 @@ public class User implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getUserName() {
+		return username;
 	}
 	
 	public void setPassword(String password){
@@ -107,7 +117,7 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (o instanceof User) {
             User u = (User)o;
-            return Objects.equal(getName(), u.getName()) &&
+            return Objects.equal(getUserName(), u.getUserName()) &&
                    Objects.equal(getPasswordHash(), u.getPasswordHash());
         } else {
             return false;
@@ -144,7 +154,7 @@ public class User implements Serializable {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, passwordHash);
+        return Objects.hashCode(username, passwordHash);
     }
 
 }

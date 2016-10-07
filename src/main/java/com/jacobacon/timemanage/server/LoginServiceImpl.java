@@ -19,6 +19,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.server.shiro.User;
 import com.jacobacon.timemanage.server.shiro.UserDAO;
+import com.jacobacon.timemanage.shared.UserData;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
 
@@ -42,10 +43,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 		currentUser = SecurityUtils.getSubject();
 
 		if (currentUser.isAuthenticated()) {
-			log.info("The user is logged in.");
+			log.debug("The user is logged in.");
 			return true;
 		} else {
-			log.info("The user is logged out.");
+			log.debug("The user is logged out.");
 			return false;
 		}
 	}
@@ -61,7 +62,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 
 			try {
 				currentUser.login(token);
-				log.info("User (" + currentUser.getPrincipal().toString() + ") is logged in.");
+				log.debug("User (" + currentUser.getPrincipal().toString() + ") is logged in.");
 				return true;
 			} catch (UnknownAccountException uae) {
 				log.error(uae.getLocalizedMessage());
@@ -84,12 +85,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	public void logout() {
 		currentUser = SecurityUtils.getSubject();
 		currentUser.logout();
-		log.info("User is logged out.");
+		log.debug("User is logged out.");
 	}
 
 	@Override
-	public void register(String username, String password, Set<String> roles, Set<String> permissions) {
-		userDAO.saveUser(new User(username, password, roles, permissions), true);
+	public void register(String username, String password, String name, Set<String> roles, Set<String> permissions) {
+		userDAO.saveUser(new User(username, password, name, roles, permissions), true);
 
 	}
 
@@ -117,6 +118,14 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public UserData getUserData(){
+		currentUser = SecurityUtils.getSubject();
+		User user = userDAO.findUser(currentUser.getPrincipal().toString());
+		UserData userData = new UserData("Testy McTestFace", "Usename");
+		return userData;
 	}
 
 }
