@@ -44,13 +44,13 @@ public class DatastoreRealm extends AuthorizingRealm {
 		User user = dao().findUser(username);
 
 		if (user == null) {
-			log.info("User: " + user.getName() + " is rejected");
+			log.info("User: " + user.getUserName() + " is rejected");
 			return null;
 		}
 
-		log.info("Found " + user.getName() + "in the Datastore");
+		log.info("Found " + user.getUserName() + "in the Datastore");
 
-		SimpleAccount account = new SimpleAccount(user.getName(), user.getPasswordHash(),
+		SimpleAccount account = new SimpleAccount(user.getUserName(), user.getPasswordHash(),
 				new SimpleByteSource(user.getSalt()), getName());
 
 		account.setRoles(user.getRoles());

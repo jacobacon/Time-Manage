@@ -10,7 +10,7 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class UserCounter {
 
-	static final String COUNTER_ID = "counter";
+	public static final String COUNTER_ID = "counter";
 
 	@Id
 	private String id;
@@ -23,7 +23,7 @@ public class UserCounter {
 		this(COUNTER_ID);
 	}
 
-	UserCounter(String id) {
+	public UserCounter(String id) {
 		this.id = id;
 		lastModified = new Date(0L);
 
