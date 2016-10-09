@@ -62,18 +62,18 @@ public class Home extends Composite {
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		adminTab.removeFromParent();
-		
+
 		userData = new UserData();
 		nameLink.setText(userData.getName());
 	}
-	
-	public Home(int tabNumber){
+
+	public Home(int tabNumber) {
 		this.res = GWT.create(HomeResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
-		
-		switch(tabNumber){
-		//Home
+
+		switch (tabNumber) {
+		// Home
 		case 0:
 			Window.alert("Tab 0");
 			break;
@@ -82,7 +82,7 @@ public class Home extends Composite {
 			Window.alert("Tab 1");
 			break;
 		}
-		
+
 		userData = new UserData();
 	}
 

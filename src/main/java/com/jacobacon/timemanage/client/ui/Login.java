@@ -1,6 +1,8 @@
 package com.jacobacon.timemanage.client.ui;
 
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -29,6 +31,8 @@ import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.ui.resources.LoginResources;
 
 public class Login extends Composite {
+
+	Logger log = LoggerFactory.getLogger(Login.class);
 
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 	private static LoginServiceAsync loginService = GWT.create(LoginService.class);

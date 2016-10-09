@@ -1,6 +1,5 @@
 package com.jacobacon.timemanage.server;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -13,22 +12,20 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gwt.user.client.Window;
 
-public class TestServlet extends HttpServlet{
-	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		
+public class TestServlet extends HttpServlet {
+
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
 		PrintWriter out = resp.getWriter();
 		out.println("Hello World!");
-		
+
 		String output = req.getContextPath();
-		
-		
+
 		Logger log = LoggerFactory.getLogger(TestServlet.class);
-		
+
 		log.info("Test");
 		log.info(output);
-		
+
 	}
-	
 
 }

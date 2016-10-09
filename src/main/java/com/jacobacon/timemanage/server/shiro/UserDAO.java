@@ -21,7 +21,7 @@ public class UserDAO extends BaseDAO<User> {
 	// Call the BaseDAO constructor.
 	public UserDAO() {
 		super(User.class);
-		log.info("User DAO Initialized.");
+		log.debug("User DAO Initialized.");
 	}
 
 	public User saveUser(final User user, final Boolean changeCount) {

@@ -21,7 +21,7 @@ public interface LoginService extends RemoteService {
 	public Boolean checkPermission(String permission);
 
 	public Boolean checkRole(String role);
-	
+
 	public UserData getUserData();
 
 }

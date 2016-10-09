@@ -13,15 +13,13 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 
-
-
 public class DatastoreRealm extends AuthorizingRealm {
 
 	private static Logger log = LoggerFactory.getLogger(DatastoreRealm.class);
 
 	public DatastoreRealm() {
 		super(new MemcacheManager(), theCredentials());
-		log.trace("Created instance of objectify realm for shiro.");
+		log.debug("Created instance of objectify realm for shiro.");
 
 	}
 

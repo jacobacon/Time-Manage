@@ -2,7 +2,7 @@ package com.jacobacon.timemanage.shared;
 
 import java.io.Serializable;
 
-public class UserData implements Serializable{
+public class UserData implements Serializable {
 
 	private String name;
 
