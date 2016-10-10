@@ -11,7 +11,7 @@
 
 
 	<g:VerticalPanel addStyleNames='{res.style.background}'
-		width="100%" height="100%">
+		width="100%" height="100%" ui:field="vp">
 		<g:Cell horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_TOP">
 			<b:Navbar>
 				<b:NavbarHeader>
@@ -25,6 +25,7 @@
 							href="#home">Home</b:AnchorListItem>
 						<b:AnchorListItem ui:field="timeTab" href="#timelog">Timelog</b:AnchorListItem>
 						<b:AnchorListItem ui:field="reportTab" href="#reports">Reports</b:AnchorListItem>
+						<b:AnchorListItem ui:field="settingsTab" href="#settings">Settings</b:AnchorListItem>
 						<b:AnchorListItem ui:field="adminTab" href="#admin">Admin</b:AnchorListItem>
 
 						<b:ListDropDown>
@@ -41,7 +42,7 @@
 					<b:NavbarText pull="RIGHT">
 						<g:HTMLPanel>
 							Signed in as
-							<b:NavbarLink href="#admin" ui:field="nameLink"></b:NavbarLink>
+							<b:NavbarLink href="#settings" ui:field="nameLink"></b:NavbarLink>
 						</g:HTMLPanel>
 					</b:NavbarText>
 				</b:NavbarCollapse>

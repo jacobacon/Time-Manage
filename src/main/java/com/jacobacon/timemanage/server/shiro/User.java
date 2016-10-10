@@ -38,6 +38,7 @@ public class User implements Serializable {
 	@Id
 	private String username;
 
+	@Index
 	private String name;
 
 	private String passwordHash;
