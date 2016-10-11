@@ -19,6 +19,7 @@ public class UserCounter {
 
 	private Date lastModified;
 
+	@SuppressWarnings("unused")
 	private UserCounter() {
 		this(COUNTER_ID);
 	}

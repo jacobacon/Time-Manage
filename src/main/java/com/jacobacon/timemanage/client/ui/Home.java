@@ -1,19 +1,18 @@
 package com.jacobacon.timemanage.client.ui;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.gwtbootstrap3.client.ui.AnchorListItem;
 import org.gwtbootstrap3.client.ui.NavbarLink;
-import org.gwtbootstrap3.client.ui.NavbarNav;
+import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -26,9 +25,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
+import com.jacobacon.timemanage.client.services.PunchService;
+import com.jacobacon.timemanage.client.services.PunchServiceAsync;
 import com.jacobacon.timemanage.client.ui.resources.HomeResources;
-import com.jacobacon.timemanage.server.shiro.User;
 import com.jacobacon.timemanage.shared.UserData;
+import com.jacobacon.timemanage.shared.WorkDay;
 
 public class Home extends Composite {
 
@@ -41,6 +42,7 @@ public class Home extends Composite {
 
 	private static HomeUiBinder uiBinder = GWT.create(HomeUiBinder.class);
 	private static LoginServiceAsync loginService = GWT.create(LoginService.class);
+	private static PunchServiceAsync punchService = GWT.create(PunchService.class);
 
 	@UiTemplate("Home.ui.xml")
 	interface HomeUiBinder extends UiBinder<Widget, Home> {
@@ -254,6 +256,48 @@ public class Home extends Composite {
 
 			}
 		});
+	}
+
+	@UiHandler("saveWorkButton")
+	public void saveWorkButton(ClickEvent event){
+		
+		punchService.saveWorkDay(new WorkDay("Jacob Beneski", "jacobacon", "000.000.000.000", new Date(), new Date()), new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				Window.alert("Couldn't Save Work Day");
+				
+			}
+
+			@Override
+			public void onSuccess(Void arg0) {
+				Notify.notify("Saved Work Day Successfully.");
+				
+			}
+			
+			
+			
+		});
+	}
+
+	@UiHandler("getWorkButton")
+	public void getWorkButton(ClickEvent event) {
+
+		punchService.getWorkDay("Jacob Beneski", new AsyncCallback<WorkDay>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				Notify.notify("Couln't Do It.");
+
+			}
+
+			@Override
+			public void onSuccess(WorkDay result) {
+				Notify.notify("Got Work Day For: " + result.getName() + "with un: " + result.getUsername());
+
+			}
+		});
+
 	}
 
 	public void setActiveTab(int activate) {

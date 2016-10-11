@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class UserData implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6119078866642173602L;
+
 	private String name;
 
 	private String username;
