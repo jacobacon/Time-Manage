@@ -143,51 +143,13 @@ public class Home extends Composite {
 
 			@Override
 			public void onSuccess(UserData result) {
-				userData = result;
+				Notify.notify(result.getName());
+				nameLink.setText(result.getName());
 
 			}
 		});
 
-		if ((userData == null) || (userData.getName() == null) || (userData.getUsername() == null)) {
-			userData = new UserData();
-		}
-
-		/*
-		 * homeTab.addClickHandler(new ClickHandler() {
-		 * 
-		 * @Override public void onClick(ClickEvent arg0) { setActiveTab(0);
-		 * 
-		 * }
-		 * 
-		 * });
-		 * 
-		 * timeTab.addClickHandler(new ClickHandler() {
-		 * 
-		 * @Override public void onClick(ClickEvent arg0) { setActiveTab(1);
-		 * 
-		 * } });
-		 * 
-		 * reportTab.addClickHandler(new ClickHandler() {
-		 * 
-		 * @Override public void onClick(ClickEvent arg0) { setActiveTab(2);
-		 * 
-		 * } });
-		 * 
-		 * settingsTab.addClickHandler(new ClickHandler() {
-		 * 
-		 * @Override public void onClick(ClickEvent arg0) { setActiveTab(3);
-		 * 
-		 * } });
-		 * 
-		 * adminTab.addClickHandler(new ClickHandler() {
-		 * 
-		 * @Override public void onClick(ClickEvent arg0) { setActiveTab(4);
-		 * 
-		 * } });
-		 * 
-		 */
-
-		nameLink.setText(userData.getName());
+		// nameLink.setText(userData.getName());
 
 	}
 
@@ -259,25 +221,24 @@ public class Home extends Composite {
 	}
 
 	@UiHandler("saveWorkButton")
-	public void saveWorkButton(ClickEvent event){
-		
-		punchService.saveWorkDay(new WorkDay("Jacob Beneski", "jacobacon", "000.000.000.000", new Date(), new Date()), new AsyncCallback<Void>() {
+	public void saveWorkButton(ClickEvent event) {
 
-			@Override
-			public void onFailure(Throwable arg0) {
-				Window.alert("Couldn't Save Work Day");
-				
-			}
+		punchService.saveWorkDay(new WorkDay("Jacob Beneski", "jacobacon", "000.000.000.000", new Date(), new Date()),
+				new AsyncCallback<Void>() {
 
-			@Override
-			public void onSuccess(Void arg0) {
-				Notify.notify("Saved Work Day Successfully.");
-				
-			}
-			
-			
-			
-		});
+					@Override
+					public void onFailure(Throwable arg0) {
+						Window.alert("Couldn't Save Work Day");
+
+					}
+
+					@Override
+					public void onSuccess(Void arg0) {
+						Notify.notify("Saved Work Day Successfully.");
+
+					}
+
+				});
 	}
 
 	@UiHandler("getWorkButton")
