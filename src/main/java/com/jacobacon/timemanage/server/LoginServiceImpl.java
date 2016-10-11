@@ -123,9 +123,16 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	@Override
 	public UserData getUserData() {
 		currentUser = SecurityUtils.getSubject();
+		UserData userData;
 		User user = userDAO.findUser(currentUser.getPrincipal().toString());
-		UserData userData = new UserData("Testy McTestFace", "Usename");
-		return userData;
+		if (user != null) {
+			userData = new UserData(user.getName(), user.getUserName());
+			log.debug("Created userdata");
+			return userData;
+		} else {
+			userData = new UserData("Testy McTestFace", "Usename");
+			return userData;
+		}
 	}
 
 }
