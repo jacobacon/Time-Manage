@@ -121,28 +121,6 @@ public class TimeManage implements EntryPoint {
 
 		Window.setTitle("Home");
 		RootPanel.get("webApp").add(new Home(tab));
-		RootPanel.get("webApp").add(new Button("Click Me", new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				loginService.logout(new AsyncCallback<Void>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onSuccess(Void arg0) {
-						Window.Location.reload();
-						Notify.notify("Logged out successfully");
-
-					}
-				});
-
-			}
-		}));
 	}
 
 	// Shows login page.

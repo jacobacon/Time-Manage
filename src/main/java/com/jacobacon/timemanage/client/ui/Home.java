@@ -72,34 +72,13 @@ public class Home extends Composite {
 	@UiField
 	VerticalPanel vp;
 
+	@UiField
+	AnchorListItem logoutButton;
+
 	private UserData userData;
 
 	public Home() {
-		this.res = GWT.create(HomeResources.class);
-		res.style().ensureInjected();
-		initWidget(uiBinder.createAndBindUi(this));
-		adminTab.removeFromParent();
-
-		loginService.getUserData(new AsyncCallback<UserData>() {
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				userData = new UserData();
-
-			}
-
-			@Override
-			public void onSuccess(UserData result) {
-				userData = result;
-
-			}
-		});
-
-		if ((userData == null) || (userData.getName() == null) || (userData.getUsername() == null)) {
-			userData = new UserData();
-		}
-
-		nameLink.setText(userData.getName());
+		this(0);
 	}
 
 	public Home(int tabNumber) {
@@ -197,6 +176,26 @@ public class Home extends Composite {
 
 		homeTab.removeFromParent();
 
+	}
+
+	@UiHandler("logoutButton")
+	public void logoutButton(ClickEvent event) {
+		loginService.logout(new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Window.Location.reload();
+				Notify.notify("Logged out");
+
+			}
+
+		});
 	}
 
 	@UiHandler("registerButton")

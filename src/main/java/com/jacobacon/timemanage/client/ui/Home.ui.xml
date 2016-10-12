@@ -28,36 +28,55 @@
 						<b:AnchorListItem ui:field="settingsTab" href="#settings">Settings</b:AnchorListItem>
 						<b:AnchorListItem ui:field="adminTab" href="#admin">Admin</b:AnchorListItem>
 
-						<b:ListDropDown>
-							<b:AnchorButton dataToggle="DROPDOWN">Dropdown</b:AnchorButton>
-							<b:DropDownMenu>
-								<b:AnchorListItem>Dropdown 1</b:AnchorListItem>
-								<b:AnchorListItem>Dropdown 2</b:AnchorListItem>
-								<b:AnchorListItem>Dropdown 3</b:AnchorListItem>
-							</b:DropDownMenu>
-						</b:ListDropDown>
+
 					</b:NavbarNav>
 
-
+					<b:NavbarNav pull="RIGHT">
+						<b:AnchorListItem ui:field="logoutButton">Logout</b:AnchorListItem>
+					</b:NavbarNav>
 					<b:NavbarText pull="RIGHT">
 						<g:HTMLPanel>
 							Signed in as
 							<b:NavbarLink href="#settings" ui:field="nameLink"></b:NavbarLink>
 						</g:HTMLPanel>
 					</b:NavbarText>
+
 				</b:NavbarCollapse>
-
-
-
 			</b:Navbar>
-
-
 		</g:Cell>
-		<g:Button ui:field="testButton" text="Test" />
-		<g:Button ui:field="registerButton" text="Register" />
-		<g:Button ui:field="saveWorkButton" text="Save Work" />
-		<g:Button ui:field="getWorkButton" text="Get Work" />
-	</g:VerticalPanel>
 
+		<g:Cell horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_MIDDLE">
+			<g:TabLayoutPanel barUnit="EM" barHeight="3">
+				<g:tab>
+					<g:header size='7'>
+						<b>HTML</b>
+						header
+					</g:header>
+					<g:Label>able</g:Label>
+				</g:tab>
+				<g:tab>
+					<g:header size='7'>
+						<b>HTML</b>
+					</g:header>
+					<g:Label>baker</g:Label>
+				</g:tab>
+
+			</g:TabLayoutPanel>
+		</g:Cell>
+
+		<g:VerticalPanel>
+			<g:Button ui:field="saveWorkButton" text="Save Work" />
+			<g:Button ui:field="getWorkButton" text="Get Work" />
+		</g:VerticalPanel>
+
+
+		<g:VerticalPanel>
+			<g:Button ui:field="testButton" text="Test" />
+			<g:Button ui:field="registerButton" text="Register" />
+		</g:VerticalPanel>
+
+
+
+	</g:VerticalPanel>
 
 </ui:UiBinder> 
