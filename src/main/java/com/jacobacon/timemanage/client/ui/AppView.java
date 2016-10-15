@@ -53,19 +53,19 @@ public class AppView extends Composite {
 	final HomeResources res;
 
 	@UiField
-	AnchorListItem homeTab;
+	static AnchorListItem homeTab;
 
 	@UiField
-	AnchorListItem timeTab;
+	static AnchorListItem timeTab;
 
 	@UiField
-	AnchorListItem reportTab;
+	static AnchorListItem reportTab;
 
 	@UiField
-	AnchorListItem settingsTab;
+	static AnchorListItem settingsTab;
 
 	@UiField
-	AnchorListItem adminTab;
+	static AnchorListItem adminTab;
 
 	@UiField
 	NavbarLink nameLink;
@@ -77,44 +77,15 @@ public class AppView extends Composite {
 	AnchorListItem logoutButton;
 
 	@UiField
-	HorizontalPanel appPanel;
+	static HorizontalPanel appPanel;
 
 	private UserData userData;
 
-	public AppView() {
-		this(0);
-	}
 
-	public AppView(int tabNumber) {
+	public AppView() {
 		this.res = GWT.create(HomeResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
-
-		switch (tabNumber) {
-		// Home
-		case 0:
-			setActiveTab(0);
-			appPanel.add(new HomeView());
-			break;
-		//
-		case 1:
-			setActiveTab(1);
-			appPanel.add(new TimeView());
-			break;
-
-		case 2:
-			setActiveTab(2);
-			appPanel.add(new ReportView());
-			break;
-		case 3:
-			setActiveTab(3);
-			appPanel.add(new SettingsView());
-			break;
-		case 4:
-			setActiveTab(4);
-			appPanel.add(new AdminView());
-			break;
-		}
 
 		loginService.getUserData(new AsyncCallback<UserData>() {
 
@@ -126,7 +97,7 @@ public class AppView extends Composite {
 
 			@Override
 			public void onSuccess(UserData result) {
-				Notify.notify(result.getName());
+				userData = result;
 				nameLink.setText(result.getName());
 
 			}
@@ -154,7 +125,7 @@ public class AppView extends Composite {
 		});
 	}
 
-	public void setActiveTab(int activate) {
+	public static void setActiveView(int activate) {
 
 		switch (activate) {
 		case 0:
@@ -163,6 +134,8 @@ public class AppView extends Composite {
 			reportTab.setActive(false);
 			settingsTab.setActive(false);
 			adminTab.setActive(false);
+			appPanel.clear();
+			appPanel.add(new HomeView());
 			break;
 		case 1:
 			homeTab.setActive(false);
@@ -170,6 +143,8 @@ public class AppView extends Composite {
 			reportTab.setActive(false);
 			settingsTab.setActive(false);
 			adminTab.setActive(false);
+			appPanel.clear();
+			appPanel.add(new TimeView());
 			break;
 		case 2:
 			homeTab.setActive(false);
@@ -177,6 +152,8 @@ public class AppView extends Composite {
 			reportTab.setActive(true);
 			settingsTab.setActive(false);
 			adminTab.setActive(false);
+			appPanel.clear();
+			appPanel.add(new ReportView());
 			break;
 		case 3:
 			homeTab.setActive(false);
@@ -184,6 +161,8 @@ public class AppView extends Composite {
 			reportTab.setActive(false);
 			settingsTab.setActive(true);
 			adminTab.setActive(false);
+			appPanel.clear();
+			appPanel.add(new SettingsView());
 			break;
 		case 4:
 			homeTab.setActive(false);
@@ -191,6 +170,8 @@ public class AppView extends Composite {
 			reportTab.setActive(false);
 			settingsTab.setActive(false);
 			adminTab.setActive(true);
+			appPanel.clear();
+			appPanel.add(new AdminView());
 			break;
 
 		}

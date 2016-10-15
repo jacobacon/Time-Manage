@@ -20,6 +20,7 @@ public class HomeView extends Composite implements HasText {
 
 	public HomeView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		Window.setTitle("Home");
 	}
 
 	@UiField

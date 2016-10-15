@@ -108,7 +108,7 @@ public class Login extends Composite {
 
 	void tryLogin() {
 		if (!tooShort) {
-			loginService.tryLogIn(loginBox.getValue().trim().toLowerCase(), passwordBox.getValue().trim().toLowerCase(),
+			loginService.tryLogIn(loginBox.getValue().trim().toLowerCase(), passwordBox.getValue().trim(),
 					myCheckBox.getValue(), new AsyncCallback<Boolean>() {
 
 						@Override
@@ -121,11 +121,11 @@ public class Login extends Composite {
 						public void onSuccess(Boolean result) {
 
 							if (result) {
-								Notify.notify("You logged in Successfully");
+								Notify.notify("Logged in Successfully");
 								History.newItem("home");
-								TimeManage.showApp(0);
+								TimeManage.showApp();
 							} else {
-								Notify.notify("Couldn't log you in.");
+								Notify.notify("Couldn't Log You In");
 							}
 
 						}

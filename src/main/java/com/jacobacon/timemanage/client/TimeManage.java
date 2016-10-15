@@ -55,7 +55,7 @@ public class TimeManage implements EntryPoint {
 				log.info("The user is logged in: " + result.toString());
 				if (result == true) {
 					History.newItem("home");
-					showApp(0);
+					showApp();
 				} else {
 					History.newItem("login");
 					showLogin();
@@ -72,23 +72,29 @@ public class TimeManage implements EntryPoint {
 				if (userLoginCheck()) {
 					switch (historyToken) {
 					case "login":
-						showApp(0);
+						//showApp();
+						AppView.setActiveView(0);
 						History.newItem("home");
 						break;
 					case "home":
-						showApp(0);
+						//showApp();
+						AppView.setActiveView(0);
 						break;
 					case "timelog":
-						showApp(1);
+						//showApp();
+						AppView.setActiveView(1);
 						break;
 					case "reports":
-						showApp(2);
+						//showApp();
+						AppView.setActiveView(2);
 						break;
 					case "settings":
-						showApp(3);
+						//showApp();
+						AppView.setActiveView(3);
 						break;
 					case "admin":
-						showApp(4);
+						//showApp();
+						AppView.setActiveView(4);
 						break;
 					case "logout":
 						loginService.logout(new AsyncCallback<Void>() {
@@ -116,11 +122,12 @@ public class TimeManage implements EntryPoint {
 	}
 
 	// Shows the app after user logs in.
-	public static void showApp(int tab) {
+	public static void showApp() {
 		RootPanel.get("webApp").clear();
 
 		Window.setTitle("Home");
-		RootPanel.get("webApp").add(new AppView(tab));
+		RootPanel.get("webApp").add(new AppView());
+		AppView.setActiveView(0);
 	}
 
 	// Shows login page.

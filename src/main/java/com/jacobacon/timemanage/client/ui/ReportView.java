@@ -20,6 +20,7 @@ public class ReportView extends Composite implements HasText {
 
 	public ReportView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		Window.setTitle("Reports");
 	}
 
 	@UiField

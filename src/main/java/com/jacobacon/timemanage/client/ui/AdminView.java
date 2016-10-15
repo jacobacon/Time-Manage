@@ -20,6 +20,7 @@ public class AdminView extends Composite implements HasText {
 
 	public AdminView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		Window.setTitle("Admin");
 	}
 
 	@UiField

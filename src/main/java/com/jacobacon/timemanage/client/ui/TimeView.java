@@ -45,7 +45,7 @@ public class TimeView extends Composite {
 		this.res = GWT.create(HomeResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
-
+		Window.setTitle("Time-Log");
 	}
 
 	@UiHandler("saveWorkButton")

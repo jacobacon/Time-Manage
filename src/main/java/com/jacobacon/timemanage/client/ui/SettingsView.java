@@ -20,6 +20,7 @@ public class SettingsView extends Composite implements HasText {
 
 	public SettingsView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		Window.setTitle("Settings");
 	}
 
 	@UiField
