@@ -2,7 +2,7 @@ package com.jacobacon.timemanage.client;
 
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
-import com.jacobacon.timemanage.client.ui.Home;
+import com.jacobacon.timemanage.client.ui.AppView;
 import com.jacobacon.timemanage.client.ui.Login;
 
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
@@ -120,7 +120,7 @@ public class TimeManage implements EntryPoint {
 		RootPanel.get("webApp").clear();
 
 		Window.setTitle("Home");
-		RootPanel.get("webApp").add(new Home(tab));
+		RootPanel.get("webApp").add(new AppView(tab));
 	}
 
 	// Shows login page.

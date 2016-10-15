@@ -20,6 +20,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -31,21 +32,21 @@ import com.jacobacon.timemanage.client.ui.resources.HomeResources;
 import com.jacobacon.timemanage.shared.UserData;
 import com.jacobacon.timemanage.shared.WorkDay;
 
-public class Home extends Composite {
+public class AppView extends Composite {
 
 	/*
 	 * 
 	 * Tabs: Home - 0 TimeLog - 1 Reports - 2 Settings - 3 Admin - 4
 	 */
 
-	Logger log = LoggerFactory.getLogger(Home.class);
+	Logger log = LoggerFactory.getLogger(AppView.class);
 
 	private static HomeUiBinder uiBinder = GWT.create(HomeUiBinder.class);
 	private static LoginServiceAsync loginService = GWT.create(LoginService.class);
 	private static PunchServiceAsync punchService = GWT.create(PunchService.class);
 
-	@UiTemplate("Home.ui.xml")
-	interface HomeUiBinder extends UiBinder<Widget, Home> {
+	@UiTemplate("AppView.ui.xml")
+	interface HomeUiBinder extends UiBinder<Widget, AppView> {
 	}
 
 	@UiField(provided = true)
@@ -75,13 +76,16 @@ public class Home extends Composite {
 	@UiField
 	AnchorListItem logoutButton;
 
+	@UiField
+	HorizontalPanel appPanel;
+
 	private UserData userData;
 
-	public Home() {
+	public AppView() {
 		this(0);
 	}
 
-	public Home(int tabNumber) {
+	public AppView(int tabNumber) {
 		this.res = GWT.create(HomeResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
@@ -90,25 +94,25 @@ public class Home extends Composite {
 		// Home
 		case 0:
 			setActiveTab(0);
-			vp.add(new Label("Home Page"));
+			appPanel.add(new HomeView());
 			break;
 		//
 		case 1:
 			setActiveTab(1);
-			vp.add(new Label("Time Page"));
+			appPanel.add(new TimeView());
 			break;
 
 		case 2:
 			setActiveTab(2);
-			vp.add(new Label("Reports Page"));
+			appPanel.add(new ReportView());
 			break;
 		case 3:
 			setActiveTab(3);
-			vp.add(new Label("Settings Page"));
+			appPanel.add(new SettingsView());
 			break;
 		case 4:
 			setActiveTab(4);
-			vp.add(new Label("Admin Page"));
+			appPanel.add(new AdminView());
 			break;
 		}
 
@@ -127,54 +131,6 @@ public class Home extends Composite {
 
 			}
 		});
-
-		// nameLink.setText(userData.getName());
-
-	}
-
-	@UiHandler("testButton")
-	public void testButton(ClickEvent event) {
-
-		loginService.checkPermission("admin", new AsyncCallback<Boolean>() {
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Boolean result) {
-				if (result == true) {
-
-					loginService.test(new AsyncCallback<Long>() {
-
-						@Override
-						public void onSuccess(Long result) {
-							Window.alert(result.toString());
-
-						}
-
-						@Override
-						public void onFailure(Throwable arg0) {
-							// TODO Auto-generated method stub
-
-						}
-					});
-
-				} else {
-					Window.alert("You Don't Have Permission to do that!");
-				}
-
-			}
-
-		});
-
-		homeTab.setActive(false);
-
-		homeTab.setEnabled(false);
-
-		homeTab.removeFromParent();
 
 	}
 
@@ -196,68 +152,6 @@ public class Home extends Composite {
 			}
 
 		});
-	}
-
-	@UiHandler("registerButton")
-	public void registerButton(ClickEvent event) {
-
-		Set<String> permissions = new HashSet<String>();
-		permissions.add("admin");
-		loginService.register("test", "test", "Testy McTestUser", permissions, permissions, new AsyncCallback<Void>() {
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				Window.alert("Registered Successfully");
-
-			}
-		});
-	}
-
-	@UiHandler("saveWorkButton")
-	public void saveWorkButton(ClickEvent event) {
-
-		punchService.saveWorkDay(new WorkDay("Jacob Beneski", "jacobacon", "000.000.000.000", new Date(), new Date()),
-				new AsyncCallback<Void>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						Window.alert("Couldn't Save Work Day");
-
-					}
-
-					@Override
-					public void onSuccess(Void arg0) {
-						Notify.notify("Saved Work Day Successfully.");
-
-					}
-
-				});
-	}
-
-	@UiHandler("getWorkButton")
-	public void getWorkButton(ClickEvent event) {
-
-		punchService.getWorkDay("Jacob Beneski", new AsyncCallback<WorkDay>() {
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				Notify.notify("Couln't Do It.");
-
-			}
-
-			@Override
-			public void onSuccess(WorkDay result) {
-				Notify.notify("Got Work Day For: " + result.getName() + "with un: " + result.getUsername());
-
-			}
-		});
-
 	}
 
 	public void setActiveTab(int activate) {

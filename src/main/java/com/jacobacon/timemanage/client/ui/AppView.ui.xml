@@ -6,7 +6,7 @@
 		field="res"></ui:with>
 
 	<ui:style>
-
+	
 	</ui:style>
 
 
@@ -46,37 +46,13 @@
 		</g:Cell>
 
 		<g:Cell horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_MIDDLE">
-			<g:TabLayoutPanel barUnit="EM" barHeight="3">
-				<g:tab>
-					<g:header size='7'>
-						<b>HTML</b>
-						header
-					</g:header>
-					<g:Label>able</g:Label>
-				</g:tab>
-				<g:tab>
-					<g:header size='7'>
-						<b>HTML</b>
-					</g:header>
-					<g:Label>baker</g:Label>
-				</g:tab>
 
-			</g:TabLayoutPanel>
+			<g:HorizontalPanel ui:field="appPanel">
+
+			</g:HorizontalPanel>
+
 		</g:Cell>
-
-		<g:VerticalPanel>
-			<g:Button ui:field="saveWorkButton" text="Save Work" />
-			<g:Button ui:field="getWorkButton" text="Get Work" />
-		</g:VerticalPanel>
-
-
-		<g:VerticalPanel>
-			<g:Button ui:field="testButton" text="Test" />
-			<g:Button ui:field="registerButton" text="Register" />
-		</g:VerticalPanel>
-
-
-
+		
 	</g:VerticalPanel>
 
 </ui:UiBinder> 
