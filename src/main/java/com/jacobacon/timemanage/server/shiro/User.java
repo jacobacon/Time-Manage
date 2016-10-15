@@ -78,6 +78,7 @@ public class User implements Serializable {
 
 	public User(String username, String password, String name, Set<String> roles, Set<String> permissions) {
 		this.username = username;
+		this.name = name;
 		this.salt = salt().getBytes();
 		this.passwordHash = hash(password, salt);
 		this.roles = Collections.unmodifiableSet(roles);

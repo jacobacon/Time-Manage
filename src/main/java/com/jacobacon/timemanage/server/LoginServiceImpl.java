@@ -127,12 +127,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 		User user = userDAO.findUser(currentUser.getPrincipal().toString());
 		if ((user != null) && (!currentUser.equals("jacob"))) {
 			userData = new UserData(user.getName(), user.getUserName());
-			log.debug("Created userdata");
+			log.debug("Created userdata with info: username: " + user.getUserName() + "Name: " + user.getName());
 			return userData;
 		} else {
-			userData = new UserData("Testy McTestFace", "Usename");
+			log.debug("Couldn't Find a valid user... making default UserData");
+			userData = new UserData("Testy McTestFace", "Username");
 			return userData;
 		}
 	}
-
 }
