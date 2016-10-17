@@ -20,6 +20,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -28,7 +29,7 @@ import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.services.PunchService;
 import com.jacobacon.timemanage.client.services.PunchServiceAsync;
-import com.jacobacon.timemanage.client.ui.resources.HomeResources;
+import com.jacobacon.timemanage.client.ui.resources.AppResources;
 import com.jacobacon.timemanage.shared.UserData;
 import com.jacobacon.timemanage.shared.WorkDay;
 
@@ -50,7 +51,7 @@ public class AppView extends Composite {
 	}
 
 	@UiField(provided = true)
-	final HomeResources res;
+	final AppResources res;
 
 	@UiField
 	static AnchorListItem homeTab;
@@ -71,7 +72,7 @@ public class AppView extends Composite {
 	NavbarLink nameLink;
 
 	@UiField
-	VerticalPanel vp;
+	FlowPanel vp;
 
 	@UiField
 	AnchorListItem logoutButton;
@@ -83,7 +84,7 @@ public class AppView extends Composite {
 
 
 	public AppView() {
-		this.res = GWT.create(HomeResources.class);
+		this.res = GWT.create(AppResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 
@@ -102,6 +103,7 @@ public class AppView extends Composite {
 
 			}
 		});
+	
 
 	}
 

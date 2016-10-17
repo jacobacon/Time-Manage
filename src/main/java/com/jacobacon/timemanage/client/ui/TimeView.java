@@ -22,7 +22,7 @@ import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.services.PunchService;
 import com.jacobacon.timemanage.client.services.PunchServiceAsync;
-import com.jacobacon.timemanage.client.ui.resources.HomeResources;
+import com.jacobacon.timemanage.client.ui.resources.AppResources;
 import com.jacobacon.timemanage.shared.WorkDay;
 
 public class TimeView extends Composite {
@@ -39,10 +39,10 @@ public class TimeView extends Composite {
 	}
 
 	@UiField(provided = true)
-	final HomeResources res;
+	final AppResources res;
 
 	public TimeView() {
-		this.res = GWT.create(HomeResources.class);
+		this.res = GWT.create(AppResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Time-Log");

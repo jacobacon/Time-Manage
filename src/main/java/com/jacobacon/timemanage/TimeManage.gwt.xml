@@ -24,6 +24,7 @@
   <set-property name="gwt.logging.enabled" value="TRUE"/>
   <inherits name="org.gwtbootstrap3.GwtBootstrap3"/>
   <inherits name="org.gwtbootstrap3.extras.notify.Notify"/>
+  <inherits name="org.gwtbootstrap3.extras.datetimepicker.DateTimePicker"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.jacobacon.timemanage.client.TimeManage'/>
