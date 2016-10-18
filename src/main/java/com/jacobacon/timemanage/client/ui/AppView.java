@@ -80,7 +80,7 @@ public class AppView extends Composite {
 	@UiField
 	static HorizontalPanel appPanel;
 
-	private UserData userData;
+	private static UserData userData;
 
 
 	public AppView() {
@@ -180,4 +180,7 @@ public class AppView extends Composite {
 
 	}
 
+	public static UserData getUserData(){
+		return userData;
+	}
 }

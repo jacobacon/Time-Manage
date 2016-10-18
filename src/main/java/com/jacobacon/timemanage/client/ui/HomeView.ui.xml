@@ -2,50 +2,50 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
 	xmlns:b2="urn:import:org.gwtbootstrap3.extras.datetimepicker.client.ui"
-		xmlns:res="urn:with:com.jacobacon.timemanage.client.ui.resources.AppResources">
+	xmlns:res="urn:with:com.jacobacon.timemanage.client.ui.resources.AppResources">
 	<ui:with type="com.jacobacon.timemanage.client.ui.resources.AppResources"
 		field="res"></ui:with>
 	<ui:style>
-	.important {
+		.important {
 		font-weight: bold;
-	}
-	
-	.homeView {
-		
-	}
+		}
 	</ui:style>
 
 
 	<g:VerticalPanel res:styleName="{res.style.panel}">
 		<g:Cell horizontalAlignment="ALIGN_CENTER">
-		<g:VerticalPanel>	
-		<b:PageHeader text="Save Work" />
+			<g:VerticalPanel>
+				<b:PageHeader text="Save Work" />
 
 				<g:HorizontalPanel verticalAlignment="ALIGN_TOP">
 
 					<g:VerticalPanel>
 						<b2:DateTimePicker startView="DAY" minView="HOUR"
-							maxView="DAY" showMeridian="true" format="mm/dd/yyyy HH:ii P" />
+							maxView="DAY" showMeridian="true" format="mm/dd/yyyy HH:ii P" ui:field="timeIn"/>
 						<b2:DateTimePicker startView="DAY" minView="HOUR"
-							maxView="DAY" showMeridian="true" format="mm/dd/yyyy HH:ii P" />
+							maxView="DAY" showMeridian="true" format="mm/dd/yyyy HH:ii P" ui:field="timeOut"/>
 
 					</g:VerticalPanel>
 
 					<g:VerticalPanel>
-						<g:Button ui:field="saveWorkButton" text="Save Work" res:styleName="{res.style.button}"/>
-						<g:Button ui:field="getWorkButton" text="Get Work" res:styleName="{res.style.button}"/>
+						<g:Button ui:field="saveWorkButton" text="Save Work"
+							res:styleName="{res.style.button}" />
+						<g:Button ui:field="getWorkButton" text="Get Work"
+							res:styleName="{res.style.button}" />
 					</g:VerticalPanel>
 
 
 					<g:VerticalPanel>
-						<g:Button ui:field="testButton" text="Test" res:styleName="{res.style.button}"/>
-						<g:Button ui:field="registerButton" text="Register" res:styleName="{res.style.button}"/>
+						<g:Button ui:field="testButton" text="Test"
+							res:styleName="{res.style.button}" />
+						<g:Button ui:field="registerButton" text="Register"
+							res:styleName="{res.style.button}" />
 					</g:VerticalPanel>
 
 
 				</g:HorizontalPanel>
-				</g:VerticalPanel>
-			</g:Cell>
 			</g:VerticalPanel>
+		</g:Cell>
+	</g:VerticalPanel>
 
 </ui:UiBinder> 

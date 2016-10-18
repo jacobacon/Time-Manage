@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.jetty.util.log.Log;
+import org.gwtbootstrap3.extras.datetimepicker.client.ui.DateTimePicker;
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 
+import com.google.common.base.Preconditions;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -22,20 +25,27 @@ import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.services.PunchService;
 import com.jacobacon.timemanage.client.services.PunchServiceAsync;
 import com.jacobacon.timemanage.client.ui.resources.AppResources;
+import com.jacobacon.timemanage.shared.UserData;
 import com.jacobacon.timemanage.shared.WorkDay;
 
-public class HomeView extends Composite{
+public class HomeView extends Composite {
 
 	private static HomeViewUiBinder uiBinder = GWT.create(HomeViewUiBinder.class);
-	
+
 	private static LoginServiceAsync loginService = GWT.create(LoginService.class);
 	private static PunchServiceAsync punchService = GWT.create(PunchService.class);
 
 	interface HomeViewUiBinder extends UiBinder<Widget, HomeView> {
 	}
-	
+
 	@UiField(provided = true)
 	final AppResources res;
+
+	@UiField
+	DateTimePicker timeIn;
+
+	@UiField
+	DateTimePicker timeOut;
 
 	public HomeView() {
 		this.res = GWT.create(AppResources.class);
@@ -43,32 +53,37 @@ public class HomeView extends Composite{
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Home");
 	}
-	
+
 	@UiHandler("saveWorkButton")
 	public void saveWorkButton(ClickEvent event) {
+		UserData userData = AppView.getUserData();
+		Window.alert(userData.getIpAddress());
+		if ((timeIn.getValue() != null) && (timeOut.getValue() != null)) {
+			punchService.saveWorkDay(new WorkDay(userData.getName(), userData.getUsername(), userData.getIpAddress(),
+					timeIn.getValue(), timeOut.getValue()), new AsyncCallback<Void>() {
 
-		punchService.saveWorkDay(new WorkDay("Jacob Beneski", "jacobacon", "000.000.000.000", new Date(), new Date()),
-				new AsyncCallback<Void>() {
+						@Override
+						public void onFailure(Throwable arg0) {
+							Window.alert("Couldn't Save Work Day");
 
-					@Override
-					public void onFailure(Throwable arg0) {
-						Window.alert("Couldn't Save Work Day");
+						}
 
-					}
+						@Override
+						public void onSuccess(Void arg0) {
+							Notify.notify("Saved Work Day Successfully.");
 
-					@Override
-					public void onSuccess(Void arg0) {
-						Notify.notify("Saved Work Day Successfully.");
+						}
 
-					}
-
-				});
+					});
+		} else {
+			Notify.notify("You Must Enter a Value for Time In and Time Out");
+		}
 	}
 
 	@UiHandler("getWorkButton")
 	public void getWorkButton(ClickEvent event) {
-
-		punchService.getWorkDay("Jacob Beneski", new AsyncCallback<WorkDay>() {
+		UserData userData = AppView.getUserData();
+		punchService.getWorkDay(userData.getName(), new AsyncCallback<WorkDay>() {
 
 			@Override
 			public void onFailure(Throwable arg0) {
@@ -144,7 +159,5 @@ public class HomeView extends Composite{
 			}
 		});
 	}
-
-
 
 }

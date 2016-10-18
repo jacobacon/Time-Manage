@@ -30,7 +30,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	private static final UserDAO userDAO = new UserDAO();
 
 	private Subject currentUser;
-
+	
+	//private String ipAddress = getThreadLocalRequest().getRemoteAddr();
+	String ipAddress = "000.000.000.123";
+	
 	public LoginServiceImpl() {
 		Factory<SecurityManager> factory = new IniSecurityManagerFactory();
 		SecurityManager securityManager = factory.getInstance();
@@ -126,12 +129,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 		UserData userData;
 		User user = userDAO.findUser(currentUser.getPrincipal().toString());
 		if ((user != null) && (!currentUser.equals("jacob"))) {
-			userData = new UserData(user.getName(), user.getUserName());
+			userData = new UserData(user.getName(), user.getUserName(), ipAddress);
 			log.debug("Created userdata with info: username: " + user.getUserName() + "Name: " + user.getName());
 			return userData;
 		} else {
 			log.debug("Couldn't Find a valid user... making default UserData");
-			userData = new UserData("Testy McTestFace", "Username");
+			userData = new UserData("Testy McTestFace", "Username", ipAddress);
 			return userData;
 		}
 	}
