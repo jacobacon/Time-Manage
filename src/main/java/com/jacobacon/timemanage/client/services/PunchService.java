@@ -19,6 +19,6 @@ public interface PunchService extends RemoteService {
 
 	public List<WorkDay> getWorkDays();
 	
-	public List<String> test();
+	public List<WorkDay> test();
 
 }

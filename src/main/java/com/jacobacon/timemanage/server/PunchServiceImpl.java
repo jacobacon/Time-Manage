@@ -9,6 +9,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.VoidWork;
 import com.googlecode.objectify.Work;
+import com.googlecode.objectify.cmd.Query;
 import com.jacobacon.timemanage.client.services.PunchService;
 import com.jacobacon.timemanage.shared.WorkDay;
 
@@ -60,19 +61,22 @@ public class PunchServiceImpl extends RemoteServiceServlet implements PunchServi
 	
 	@Override
 	public List<WorkDay> getWorkDays() {
-			return null;
+		List<WorkDay> workdays;
+		Query<WorkDay> q = ofy().load().type(WorkDay.class);
+		workdays = new ArrayList<WorkDay>(q.list());
+		return workdays;
 	}
 	
 	
 	@Override
-	public List<String> test(){
-		List<String> list = new ArrayList<String>();
+	public List<WorkDay> test(){
+		List<WorkDay> list = new ArrayList<WorkDay>();
 		
-		list.add("Test 1");
-		list.add("Test 2");
-		list.add("Test 3");
-		list.add("Test 4");
-		list.add("Test 5");
+		list.add(new WorkDay());
+		list.add(new WorkDay());
+		list.add(new WorkDay());
+		list.add(new WorkDay());
+		list.add(new WorkDay());
 		return list;
 	}
 

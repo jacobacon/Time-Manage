@@ -36,9 +36,9 @@ public class WorkDay implements Serializable, IsSerializable {
 
 	public WorkDay() {
 
-		this.name = "";
-		this.username = "";
-		this.loggedIp = "";
+		this.name = "Default";
+		this.username = "Default";
+		this.loggedIp = "123.123.123.123";
 		this.timeIn = new Date();
 		this.timeOut = new Date();
 		this.day = new Date();

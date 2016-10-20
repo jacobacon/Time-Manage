@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.appengine.repackaged.com.google.common.util.concurrent.AsyncCallable;
+import com.google.appengine.repackaged.com.google.common.util.concurrent.ListenableFuture;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -49,7 +51,25 @@ public class TimeView extends Composite {
 	@UiHandler("testButton")
 	public void testButton(ClickEvent event) {
 		
-		
+		punchService.getWorkDays(new AsyncCallback<List<WorkDay>>() {
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(List<WorkDay> result) {
+				String output = "";
+				
+				for(int i = 0; i < result.size(); i++){
+					output += result.get(i).getName();
+				}
+				Window.alert(output);
+				
+			}
+		});
 	}
 
 }

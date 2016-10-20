@@ -17,6 +17,6 @@ public interface PunchServiceAsync {
 
 	void getWorkDays(AsyncCallback<List<WorkDay>> callback);
 	
-	void test(AsyncCallback<List<String>> callback);
+	void test(AsyncCallback<List<WorkDay>> callback);
 
 }
