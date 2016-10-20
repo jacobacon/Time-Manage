@@ -2,6 +2,7 @@ package com.jacobacon.timemanage.server;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Key;
@@ -56,10 +57,23 @@ public class PunchServiceImpl extends RemoteServiceServlet implements PunchServi
 		return null;
 	}
 
+	
 	@Override
-	public ArrayList<WorkDay> getWorkDays() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<WorkDay> getWorkDays() {
+			return null;
+	}
+	
+	
+	@Override
+	public List<String> test(){
+		List<String> list = new ArrayList<String>();
+		
+		list.add("Test 1");
+		list.add("Test 2");
+		list.add("Test 3");
+		list.add("Test 4");
+		list.add("Test 5");
+		return list;
 	}
 
 }

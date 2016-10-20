@@ -11,16 +11,8 @@
 
 
 	<g:HorizontalPanel>
-	
-			<g:VerticalPanel>
-				<g:Button ui:field="saveWorkButton" text="Save Work" />
-				<g:Button ui:field="getWorkButton" text="Get Work" />
-			</g:VerticalPanel>
-
-
 			<g:VerticalPanel>
 				<g:Button ui:field="testButton" text="Test" />
-				<g:Button ui:field="registerButton" text="Register" />
 			</g:VerticalPanel>
 
 

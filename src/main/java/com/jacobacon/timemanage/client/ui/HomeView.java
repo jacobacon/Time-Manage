@@ -88,7 +88,7 @@ public class HomeView extends Composite {
 
 			@Override
 			public void onSuccess(WorkDay result) {
-				Notify.notify("Got Work Day For: " + result.getName() + "with un: " + result.getUsername());
+				Notify.notify("Got Work Day For: " + result.getName() + " with un: " + result.getUsername());
 
 			}
 		});

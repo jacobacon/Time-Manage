@@ -2,6 +2,7 @@ package com.jacobacon.timemanage.client.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -16,6 +17,8 @@ public interface PunchService extends RemoteService {
 	
 	public WorkDay getWorkDay(String name);
 
-	public ArrayList<WorkDay> getWorkDays();
+	public List<WorkDay> getWorkDays();
+	
+	public List<String> test();
 
 }

@@ -3,33 +3,45 @@ package com.jacobacon.timemanage.shared;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class WorkDay implements Serializable{
+public class WorkDay implements Serializable, IsSerializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2201052316367433008L;
 
-	@Id
+	@Index
 	private String name;
 
 	private String username;
 
 	private String loggedIp;
 
+	@Index
 	private Date timeIn;
 
+	@Index
 	private Date timeOut;
 
 	private Date day;
+	
+	@Id
+	Long id;
 
 	public WorkDay() {
 
-		this("default", "default", "000.000.000.000", new Date(), new Date());
+		this.name = "";
+		this.username = "";
+		this.loggedIp = "";
+		this.timeIn = new Date();
+		this.timeOut = new Date();
+		this.day = new Date();
 
 	}
 
@@ -72,10 +84,6 @@ public class WorkDay implements Serializable{
 
 	public Date getDay() {
 		return day;
-	}
-
-	public Long getDayLong() {
-		return day.getTime();
 	}
 
 }
