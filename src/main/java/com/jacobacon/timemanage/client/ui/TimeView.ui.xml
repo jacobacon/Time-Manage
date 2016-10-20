@@ -10,7 +10,7 @@
 	</ui:style>
 
 
-	<g:HorizontalPanel>
+	<g:HorizontalPanel ui:field="hp">
 			<g:VerticalPanel>
 				<g:Button ui:field="testButton" text="Test" />
 			</g:VerticalPanel>
