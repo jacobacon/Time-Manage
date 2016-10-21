@@ -10,7 +10,7 @@
 	</ui:style>
 
 
-	<g:HorizontalPanel ui:field="hp" addStyleNames="{res.style.color}">
+	<g:HorizontalPanel ui:field="hp" addStyleNames="{res.style.center}">
 		<g:HorizontalPanel ui:field="scroll" addStyleNames="{res.style.scrollPanel}"></g:HorizontalPanel>
 	</g:HorizontalPanel>
 

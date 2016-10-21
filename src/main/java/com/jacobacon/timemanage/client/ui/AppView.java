@@ -103,6 +103,23 @@ public class AppView extends Composite {
 
 			}
 		});
+		
+		loginService.checkRole("admin", new AsyncCallback<Boolean>() {
+
+			@Override
+			public void onFailure(Throwable thrown) {
+				Window.alert("An Error Occurred");
+				
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				if(!result){
+					adminTab.setActive(false);
+				}
+				
+			}
+		});
 	
 
 	}
