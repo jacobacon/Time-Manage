@@ -1,30 +1,26 @@
 package com.jacobacon.timemanage.client.ui;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.gwtbootstrap3.extras.fullcalendar.client.ui.Event;
 import org.gwtbootstrap3.extras.fullcalendar.client.ui.FullCalendar;
 import org.gwtbootstrap3.extras.fullcalendar.client.ui.ViewOption;
+import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.services.PunchService;
@@ -47,12 +43,14 @@ public class TimeView extends Composite {
 
 	@UiField(provided = true)
 	final AppResources res;
-	
+
 	@UiField
 	HorizontalPanel hp;
 
+	@UiField
+	HorizontalPanel scroll;
+
 	FullCalendar cal = new FullCalendar("timeViewCal", ViewOption.agendaWeek, false);
-	
 
 	public TimeView() {
 		this.res = GWT.create(AppResources.class);
@@ -60,42 +58,55 @@ public class TimeView extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Time-Log");
 		cal.addLoadHandler(new LoadHandler() {
-			
+
 			@Override
 			public void onLoad(LoadEvent event) {
 				addEvents();
-				
+
 			}
 		});
-		hp.add(cal);
+
+		scroll.add(cal);
+		hp.add(scroll);
+
 	}
 
-	@UiHandler("testButton")
-	public void testButton(ClickEvent event) {
+	protected void addEvents() {
 
 		punchService.getWorkDays(new AsyncCallback<List<WorkDay>>() {
 
 			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
+			public void onSuccess(List<WorkDay> result) {
+				ArrayList<WorkDay> workDays = new ArrayList<WorkDay>(result);
+
+				if (workDays.size() == 0) {
+					Notify.notify("No Work Found");
+				} else {
+
+					for (int i = 0; i < workDays.size(); i++) {
+						WorkDay workDay = workDays.get(i);
+
+						Event workEvent = new Event("Work: ", workDay.getJob());
+
+						workEvent.setStart(workDay.getTimeIn());
+						workEvent.setEnd(workDay.getTimeOut());
+						workEvent.setDurationEditable(false);
+						workEvent.setEditable(false);
+						workEvent.setStartEditable(false);
+
+						cal.addEvent(workEvent);
+					}
+
+				}
 
 			}
 
 			@Override
-			public void onSuccess(List<WorkDay> result) {
-				String output = "";
-
-				for (int i = 0; i < result.size(); i++) {
-					output += result.get(i).getName();
-				}
-				Window.alert(output);
+			public void onFailure(Throwable thrown) {
+				Notify.notify("An Error Occurred");
 
 			}
 		});
-	}
-	
-	protected void addEvents(){
-		
 	}
 
 }

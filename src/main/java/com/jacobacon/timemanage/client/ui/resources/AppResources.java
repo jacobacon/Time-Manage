@@ -16,6 +16,10 @@ public interface AppResources extends ClientBundle {
 		public String panel();
 		
 		public String center();
+		
+		public String color();
+		
+		public String scrollPanel();
 
 	}
 

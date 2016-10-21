@@ -31,6 +31,8 @@ public class WorkDay implements Serializable, IsSerializable {
 
 	private Date day;
 	
+	private String job;
+	
 	@Id
 	Long id;
 
@@ -42,9 +44,10 @@ public class WorkDay implements Serializable, IsSerializable {
 		this.timeIn = new Date();
 		this.timeOut = new Date();
 		this.day = new Date();
+		this.job = "Work";
 
 	}
-
+	
 	public WorkDay(String name, String username, String ip, Date in, Date out) {
 		this.name = name;
 		this.username = username;
@@ -52,6 +55,17 @@ public class WorkDay implements Serializable, IsSerializable {
 		this.timeIn = in;
 		this.timeOut = out;
 		day = new Date();
+		this.job = "Work";
+	}
+
+	public WorkDay(String name, String username, String ip, Date in, Date out, String job) {
+		this.name = name;
+		this.username = username;
+		this.loggedIp = ip;
+		this.timeIn = in;
+		this.timeOut = out;
+		day = new Date();
+		this.job = job;
 	}
 
 	public String getName() {
@@ -84,6 +98,34 @@ public class WorkDay implements Serializable, IsSerializable {
 
 	public Date getDay() {
 		return day;
+	}
+	
+	public String getJob() {
+		return job;
+	}
+
+	public String getLoggedIp() {
+		return loggedIp;
+	}
+
+	public void setLoggedIp(String loggedIp) {
+		this.loggedIp = loggedIp;
+	}
+
+	public void setTimeIn(Date timeIn) {
+		this.timeIn = timeIn;
+	}
+
+	public void setTimeOut(Date timeOut) {
+		this.timeOut = timeOut;
+	}
+
+	public void setDay(Date day) {
+		this.day = day;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
 	}
 
 }

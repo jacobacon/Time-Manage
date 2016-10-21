@@ -27,7 +27,7 @@
 }
 
 .panel {
-	background: green;
+	background: red;
 	width: 100%;
 	border: 1px solid black;
 }
@@ -35,5 +35,17 @@
 .center {
 	margin-left: auto;
 	margin-right: auto;
-	background: orange;
+	background: yellow;
+}
+
+.color {
+	background: green;
+	width: 100vw;
+	height: 90vh;
+}
+
+.scrollPanel {
+	background: brown;
+	width: 50vw;
+	height: 50vh;
 }
