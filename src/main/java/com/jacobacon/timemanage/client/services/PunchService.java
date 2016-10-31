@@ -16,8 +16,10 @@ public interface PunchService extends RemoteService {
 	public WorkDay getWorkDay(Date date);
 	
 	public WorkDay getWorkDay(String name);
+	
+	public List<WorkDay> getWorkDaysFiltered(String filter, String filterParam);
 
-	public List<WorkDay> getWorkDays();
+	public List<WorkDay> getAllWorkDays();
 	
 	public List<WorkDay> test();
 

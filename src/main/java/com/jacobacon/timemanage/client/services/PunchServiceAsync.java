@@ -14,8 +14,10 @@ public interface PunchServiceAsync {
 	void getWorkDay(Date date, AsyncCallback<WorkDay> callback);
 	
 	void getWorkDay(String name, AsyncCallback<WorkDay> callback);
+	
+	void getWorkDaysFiltered(String filter, String filterParam, AsyncCallback<List<WorkDay>> callback);
 
-	void getWorkDays(AsyncCallback<List<WorkDay>> callback);
+	void getAllWorkDays(AsyncCallback<List<WorkDay>> callback);
 	
 	void test(AsyncCallback<List<WorkDay>> callback);
 

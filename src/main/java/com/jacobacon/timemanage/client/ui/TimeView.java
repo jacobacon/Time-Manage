@@ -73,18 +73,23 @@ public class TimeView extends Composite {
 
 	protected void addEvents() {
 
-		punchService.getWorkDays(new AsyncCallback<List<WorkDay>>() {
+		punchService.getWorkDaysFiltered("name", AppView.getUserData().getName(), new AsyncCallback<List<WorkDay>>() {
+
+			@Override
+			public void onFailure(Throwable thrown) {
+				// TODO Auto-generated method stub
+
+			}
 
 			@Override
 			public void onSuccess(List<WorkDay> result) {
-				ArrayList<WorkDay> workDays = new ArrayList<WorkDay>(result);
-
-				if (workDays.size() == 0) {
+				ArrayList<WorkDay> workdays = new ArrayList<WorkDay>(result);
+				if (workdays.size() == 0) {
 					Notify.notify("No Work Found");
 				} else {
+					for (int i = 0; i < workdays.size(); i++) {
 
-					for (int i = 0; i < workDays.size(); i++) {
-						WorkDay workDay = workDays.get(i);
+						WorkDay workDay = workdays.get(i);
 
 						Event workEvent = new Event("Work: ", workDay.getJob());
 
@@ -95,17 +100,13 @@ public class TimeView extends Composite {
 						workEvent.setStartEditable(false);
 
 						cal.addEvent(workEvent);
+
 					}
 
 				}
 
 			}
 
-			@Override
-			public void onFailure(Throwable thrown) {
-				Notify.notify("An Error Occurred");
-
-			}
 		});
 	}
 

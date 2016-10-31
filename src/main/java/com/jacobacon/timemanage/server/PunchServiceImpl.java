@@ -60,9 +60,17 @@ public class PunchServiceImpl extends RemoteServiceServlet implements PunchServi
 
 	
 	@Override
-	public List<WorkDay> getWorkDays() {
+	public List<WorkDay> getAllWorkDays() {
 		List<WorkDay> workdays;
 		Query<WorkDay> q = ofy().load().type(WorkDay.class);
+		workdays = new ArrayList<WorkDay>(q.list());
+		return workdays;
+	}
+	
+	@Override
+	public List<WorkDay> getWorkDaysFiltered(String filterType, String filterParam){
+		List<WorkDay> workdays;
+		Query<WorkDay> q = ofy().load().type(WorkDay.class).filter(filterType, filterParam);
 		workdays = new ArrayList<WorkDay>(q.list());
 		return workdays;
 	}
