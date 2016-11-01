@@ -3,7 +3,7 @@ package com.jacobacon.timemanage.client;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.ui.AppView;
-import com.jacobacon.timemanage.client.ui.Login;
+import com.jacobacon.timemanage.client.ui.LoginView;
 
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 import org.slf4j.Logger;
@@ -68,28 +68,22 @@ public class TimeManage implements EntryPoint {
 				if (userLoginCheck()) {
 					switch (historyToken) {
 					case "login":
-						//showApp();
 						AppView.setActiveView(0);
 						History.newItem("home");
 						break;
 					case "home":
-						//showApp();
 						AppView.setActiveView(0);
 						break;
 					case "timelog":
-						//showApp();
 						AppView.setActiveView(1);
 						break;
 					case "reports":
-						//showApp();
 						AppView.setActiveView(2);
 						break;
 					case "settings":
-						//showApp();
 						AppView.setActiveView(3);
 						break;
 					case "admin":
-						//showApp();
 						AppView.setActiveView(4);
 						break;
 					case "logout":
@@ -131,7 +125,7 @@ public class TimeManage implements EntryPoint {
 		RootPanel.get("webApp").clear();
 
 		Window.setTitle("Login Page");
-		RootPanel.get("webApp").add(new Login());
+		RootPanel.get("webApp").add(new LoginView());
 
 	}
 

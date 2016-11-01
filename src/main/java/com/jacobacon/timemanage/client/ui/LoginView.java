@@ -26,21 +26,21 @@ import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.ui.resources.LoginResources;
 
-public class Login extends Composite {
+public class LoginView extends Composite {
 
-	Logger log = LoggerFactory.getLogger(Login.class);
+	Logger log = LoggerFactory.getLogger(LoginView.class);
 
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 	private static LoginServiceAsync loginService = GWT.create(LoginService.class);
 
-	@UiTemplate("Login.ui.xml")
-	interface LoginUiBinder extends UiBinder<Widget, Login> {
+	@UiTemplate("LoginView.ui.xml")
+	interface LoginUiBinder extends UiBinder<Widget, LoginView> {
 	}
 
 	@UiField(provided = true)
 	final LoginResources res;
 
-	public Login() {
+	public LoginView() {
 		this.res = GWT.create(LoginResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
