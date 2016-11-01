@@ -6,7 +6,7 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface LoginResources extends ClientBundle {
 
-	@Source("images/clock.png")
+	@Source("clock.png")
 	ImageResource clock();
 
 	public interface MyCss extends CssResource {
