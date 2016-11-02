@@ -3,6 +3,9 @@ package com.jacobacon.timemanage.client.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gwtbootstrap3.extras.fullcalendar.client.ui.CalendarConfig;
+import org.gwtbootstrap3.extras.fullcalendar.client.ui.ClickAndHoverConfig;
+import org.gwtbootstrap3.extras.fullcalendar.client.ui.ClickAndHoverEventCallback;
 import org.gwtbootstrap3.extras.fullcalendar.client.ui.Event;
 import org.gwtbootstrap3.extras.fullcalendar.client.ui.FullCalendar;
 import org.gwtbootstrap3.extras.fullcalendar.client.ui.ViewOption;
@@ -11,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -50,13 +55,46 @@ public class TimeView extends Composite {
 	@UiField
 	HorizontalPanel scroll;
 
-	FullCalendar cal = new FullCalendar("timeViewCal", ViewOption.agendaWeek, false);
+	CalendarConfig config = new CalendarConfig();
+
+	ClickAndHoverConfig clickHover = new ClickAndHoverConfig(new ClickAndHoverEventCallback() {
+
+		@Override
+		public void eventMouseover(JavaScriptObject calendarEvent, NativeEvent event, JavaScriptObject viewObject) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void eventMouseout(JavaScriptObject calendarEvent, NativeEvent event, JavaScriptObject viewObject) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void eventClick(JavaScriptObject calendarEvent, NativeEvent event, JavaScriptObject viewObject) {
+			Event clickedEvent = new Event(calendarEvent);
+			Notify.notify("Clicked: " + clickedEvent.getTitle());
+
+		}
+
+		@Override
+		public void dayClick(JavaScriptObject moment, NativeEvent event, JavaScriptObject viewObject) {
+			// TODO Auto-generated method stub
+
+		}
+	});
+
+	FullCalendar cal = new FullCalendar("timeViewCal", ViewOption.agendaWeek, config, false);
 
 	public TimeView() {
 		this.res = GWT.create(AppResources.class);
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Time-Log");
+
+		config.setClickHoverConfig(clickHover);
+
 		cal.addLoadHandler(new LoadHandler() {
 
 			@Override
