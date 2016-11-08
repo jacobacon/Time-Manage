@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.gwtbootstrap3.client.ui.TextBox;
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
+import org.gwtbootstrap3.extras.select.client.ui.Option;
 import org.gwtbootstrap3.extras.select.client.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,9 @@ public class AdminView extends Composite {
 
 	@UiField
 	Select perms;
+	
+	@UiField
+	Select userSelect;
 
 	@UiHandler("register")
 	void doClick(ClickEvent event) {
@@ -54,6 +58,7 @@ public class AdminView extends Composite {
 	public AdminView() {
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Admin");
+		userSelect.add(new Option());
 	}
 
 	public void register() {

@@ -46,7 +46,7 @@
 			<g:VerticalPanel>
 				<b:PageHeader text="Modify User" addStyleNames="{res.style.pad}"></b:PageHeader>
 
-
+				<select:Select ui:field="userSelect" addStyleNames="{res.style.pad}"></select:Select>
 
 
 
