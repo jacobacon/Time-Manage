@@ -14,7 +14,7 @@ public interface LoginServiceAsync {
 	void logout(AsyncCallback<Void> callback) throws IllegalArgumentException;
 
 	void register(String username, String password, String name, Set<String> roles, Set<String> permissions,
-			AsyncCallback<Void> callback) throws IllegalArgumentException;
+			AsyncCallback<String> callback) throws IllegalArgumentException;
 
 	void test(AsyncCallback<Long> callback) throws IllegalArgumentException;
 

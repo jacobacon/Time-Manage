@@ -10,43 +10,44 @@
 	</ui:style>
 
 
-	<g:FlowPanel addStyleNames='{res.style.background}'
-		width="100%" height="100%" ui:field="vp">
-			<b:Navbar>
-				<b:NavbarHeader>
-					<b:NavbarBrand>Time Punch</b:NavbarBrand>
-					<b:NavbarCollapseButton dataTarget="#navbar-collapse" />
-				</b:NavbarHeader>
+	<g:FlowPanel addStyleNames='{res.style.background}' width="100%"
+		height="100%" ui:field="vp">
+		<b:Navbar>
+			<b:NavbarHeader>
+				<b:NavbarBrand>Time Punch</b:NavbarBrand>
+				<b:NavbarCollapseButton dataTarget="#navbar-collapse" />
+			</b:NavbarHeader>
 
-				<b:NavbarCollapse b:id="navbar-collapse">
-					<b:NavbarNav>
-						<b:AnchorListItem ui:field="homeTab" active="true"
-							href="#home">Home</b:AnchorListItem>
-						<b:AnchorListItem ui:field="timeTab" href="#timelog">Timelog</b:AnchorListItem>
-						<b:AnchorListItem ui:field="reportTab" href="#reports">Reports</b:AnchorListItem>
-						<b:AnchorListItem ui:field="settingsTab" href="#settings">Settings</b:AnchorListItem>
-						<b:AnchorListItem ui:field="adminTab" href="#admin">Admin</b:AnchorListItem>
-
-
-					</b:NavbarNav>
-
-					<b:NavbarNav pull="RIGHT">
-						<b:AnchorListItem ui:field="logoutButton">Logout</b:AnchorListItem>
-					</b:NavbarNav>
-					<b:NavbarText pull="RIGHT">
-						<g:HTMLPanel>
-							Signed in as
-							<b:NavbarLink href="#settings" ui:field="nameLink"></b:NavbarLink>
-						</g:HTMLPanel>
-					</b:NavbarText>
-
-				</b:NavbarCollapse>
-			</b:Navbar>
+			<b:NavbarCollapse b:id="navbar-collapse">
+				<b:NavbarNav>
+					<b:AnchorListItem ui:field="homeTab" active="true"
+						href="#home">Home</b:AnchorListItem>
+					<b:AnchorListItem ui:field="timeTab" href="#timelog">Timelog</b:AnchorListItem>
+					<b:AnchorListItem ui:field="reportTab" href="#reports">Reports</b:AnchorListItem>
+					<b:AnchorListItem ui:field="settingsTab" href="#settings">Settings</b:AnchorListItem>
+					<b:AnchorListItem ui:field="adminTab" href="#admin">Admin</b:AnchorListItem>
 
 
-			<g:HorizontalPanel ui:field="appPanel" res:styleName="{res.style.center}">
+				</b:NavbarNav>
 
-			</g:HorizontalPanel>
+				<b:NavbarNav pull="RIGHT">
+					<b:AnchorListItem ui:field="logoutButton">Logout</b:AnchorListItem>
+				</b:NavbarNav>
+				<b:NavbarText pull="RIGHT">
+					<g:HTMLPanel>
+						Signed in as
+						<b:NavbarLink href="#settings" ui:field="nameLink"></b:NavbarLink>
+					</g:HTMLPanel>
+				</b:NavbarText>
+
+			</b:NavbarCollapse>
+		</b:Navbar>
+
+
+		<g:HorizontalPanel ui:field="appPanel"
+			res:styleName="{res.style.center}">
+
+		</g:HorizontalPanel>
 
 
 

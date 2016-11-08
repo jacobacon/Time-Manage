@@ -5,6 +5,9 @@ import com.jacobacon.timemanage.client.services.LoginServiceAsync;
 import com.jacobacon.timemanage.client.ui.AppView;
 import com.jacobacon.timemanage.client.ui.LoginView;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -37,6 +41,8 @@ public class TimeManage implements EntryPoint {
 	public void onModuleLoad() {
 
 		Window.setTitle("Loading App...");
+
+		RootPanel.get("webApp").add(new Label("Loading..."));
 
 		loginService.isLoggedIn(new AsyncCallback<Boolean>() {
 

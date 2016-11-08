@@ -139,20 +139,21 @@ public class HomeView extends Composite {
 
 		Set<String> permissions = new HashSet<String>();
 		permissions.add("admin");
-		loginService.register("test", "test", "Testy McTestUser", permissions, permissions, new AsyncCallback<Void>() {
+		loginService.register("test", "test", "Testy McTestUser", permissions, permissions,
+				new AsyncCallback<String>() {
 
-			@Override
-			public void onFailure(Throwable arg0) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(Throwable arg0) {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onSuccess(Void result) {
-				Window.alert("Registered Successfully");
+					@Override
+					public void onSuccess(String result) {
+						Window.alert("Registered Successfully");
 
-			}
-		});
+					}
+				});
 	}
 
 }

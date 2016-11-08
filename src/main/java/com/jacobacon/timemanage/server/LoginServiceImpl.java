@@ -15,8 +15,10 @@ import org.apache.shiro.util.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jacobacon.timemanage.client.services.LoginService;
+import com.jacobacon.timemanage.client.ui.AppView;
 import com.jacobacon.timemanage.server.shiro.User;
 import com.jacobacon.timemanage.server.shiro.UserDAO;
 import com.jacobacon.timemanage.shared.UserData;
@@ -30,10 +32,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	private static final UserDAO userDAO = new UserDAO();
 
 	private Subject currentUser;
-	
-	//private String ipAddress = getThreadLocalRequest().getRemoteAddr();
+
+	// private String ipAddress = getThreadLocalRequest().getRemoteAddr();
 	String ipAddress = "000.000.000.123";
-	
+
 	public LoginServiceImpl() {
 		Factory<SecurityManager> factory = new IniSecurityManagerFactory();
 		SecurityManager securityManager = factory.getInstance();
@@ -92,8 +94,16 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	}
 
 	@Override
-	public void register(String username, String password, String name, Set<String> roles, Set<String> permissions) {
-		userDAO.saveUser(new User(username, password, name, roles, permissions), true);
+	public String register(String username, String password, String name, Set<String> roles, Set<String> permissions) {
+		User tempUser = userDAO.findUser(username);
+
+		if (tempUser != null) {
+			log.info("User is already found.");
+			return "User is already found";
+		} else {
+			userDAO.saveUser(new User(username, password, name, roles, permissions), true);
+			return "created";
+		}
 
 	}
 

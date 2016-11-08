@@ -1,9 +1,5 @@
 package com.jacobacon.timemanage.client.ui;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.gwtbootstrap3.client.ui.AnchorListItem;
 import org.gwtbootstrap3.client.ui.NavbarLink;
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
@@ -22,16 +18,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
-import com.jacobacon.timemanage.client.services.PunchService;
-import com.jacobacon.timemanage.client.services.PunchServiceAsync;
 import com.jacobacon.timemanage.client.ui.resources.AppResources;
 import com.jacobacon.timemanage.shared.UserData;
-import com.jacobacon.timemanage.shared.WorkDay;
 
 public class AppView extends Composite {
 
@@ -44,7 +35,6 @@ public class AppView extends Composite {
 
 	private static HomeUiBinder uiBinder = GWT.create(HomeUiBinder.class);
 	private static LoginServiceAsync loginService = GWT.create(LoginService.class);
-	private static PunchServiceAsync punchService = GWT.create(PunchService.class);
 
 	@UiTemplate("AppView.ui.xml")
 	interface HomeUiBinder extends UiBinder<Widget, AppView> {
@@ -82,7 +72,6 @@ public class AppView extends Composite {
 
 	private static UserData userData;
 
-
 	public AppView() {
 		this.res = GWT.create(AppResources.class);
 		res.style().ensureInjected();
@@ -103,24 +92,23 @@ public class AppView extends Composite {
 
 			}
 		});
-		
+
 		loginService.checkRole("admin", new AsyncCallback<Boolean>() {
 
 			@Override
 			public void onFailure(Throwable thrown) {
 				Window.alert("An Error Occurred");
-				
+
 			}
 
 			@Override
 			public void onSuccess(Boolean result) {
-				if(!result){
+				if (!result) {
 					adminTab.setActive(false);
 				}
-				
+
 			}
 		});
-	
 
 	}
 
@@ -197,7 +185,8 @@ public class AppView extends Composite {
 
 	}
 
-	public static UserData getUserData(){
+	public static UserData getUserData() {
 		return userData;
 	}
+
 }

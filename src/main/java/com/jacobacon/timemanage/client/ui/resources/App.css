@@ -27,8 +27,8 @@
 }
 
 .panel {
-	background: rgb(25,25,25); /* For browsers that don't support RGBA */
-	background: rgba(25,25,25,.30);
+	background: rgb(25, 25, 25); /* For browsers that don't support RGBA */
+	background: rgba(25, 25, 25, .30);
 	width: 100%;
 	border: 1px solid black;
 }
@@ -44,8 +44,13 @@
 }
 
 .scrollPanel {
-	background: rgb(25,25,25); /* For browsers that don't support RGBA */
-	background: rgba(25,25,25,.30);
+	background: rgb(25, 25, 25); /* For browsers that don't support RGBA */
+	background: rgba(25, 25, 25, .30);
 	width: 50vw;
 	height: 50vh;
+}
+
+.pad {
+	margin: 5px 5px 5px;
+	padding: 3px 3px 3px;
 }

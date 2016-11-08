@@ -14,7 +14,7 @@ public interface LoginService extends RemoteService {
 
 	public void logout();
 
-	public void register(String username, String password, String name, Set<String> roles, Set<String> permissions);
+	public String register(String username, String password, String name, Set<String> roles, Set<String> permissions);
 
 	public Long test();
 
