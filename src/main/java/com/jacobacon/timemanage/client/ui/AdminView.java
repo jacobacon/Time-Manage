@@ -58,7 +58,13 @@ public class AdminView extends Composite {
 	public AdminView() {
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Admin");
-		userSelect.add(new Option());
+		Option option = new Option();
+		option.setName("Test");
+		option.setValue("test");
+		option.setId("test");
+		userSelect.add(option);
+		userSelect.refresh();
+		userSelect.render();
 	}
 
 	public void register() {

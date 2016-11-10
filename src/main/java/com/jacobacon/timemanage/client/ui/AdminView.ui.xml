@@ -23,10 +23,11 @@
 				<g:Label text="Password" addStyleNames="{res.style.pad}"></g:Label>
 				<b:TextBox ui:field="password" addStyleNames="{res.style.pad}"></b:TextBox>
 
-				<select:Select ui:field="perms" addStyleNames="{res.style.pad}">
+				<g:FlowPanel addStyleNames="{res.style.pad}">
+				<select:Select ui:field="perms">
 					<select:OptGroup label="Role: ">
 						<select:Option text="User" value="user"></select:Option>
-						<select:Option text="Admin"></select:Option>
+						<select:Option text="Admin" value="admin"></select:Option>
 					</select:OptGroup>
 					<select:OptGroup label="Permissions: ">
 						<select:Option text="View All Reports"></select:Option>
@@ -38,6 +39,7 @@
 
 
 				</select:Select>
+				</g:FlowPanel>
 
 				<g:Button ui:field="register" text="Register"
 					addStyleNames="{res.style.pad}"></g:Button>
