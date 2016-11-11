@@ -1,5 +1,6 @@
 package com.jacobacon.timemanage.server;
 
+import java.util.List;
 import java.util.Set;
 
 import org.apache.shiro.SecurityUtils;
@@ -132,6 +133,11 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 			return false;
 		}
 	}
+	
+	//@Override 
+	//public List<User> getUsers(){
+	//	return null;
+	//}
 
 	@Override
 	public UserData getUserData() {

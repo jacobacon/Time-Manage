@@ -24,31 +24,31 @@
 				<b:TextBox ui:field="password" addStyleNames="{res.style.pad}"></b:TextBox>
 
 				<g:FlowPanel addStyleNames="{res.style.pad}">
-				<select:Select ui:field="perms">
-					<select:OptGroup label="Role: ">
-						<select:Option text="User" value="user"></select:Option>
-						<select:Option text="Admin" value="admin"></select:Option>
-					</select:OptGroup>
-					<select:OptGroup label="Permissions: ">
-						<select:Option text="View All Reports"></select:Option>
-						<select:Option text="View Admin"></select:Option>
+					<select:Select ui:field="perms">
+						<select:OptGroup label="Role: ">
+							<select:Option text="User" value="user"></select:Option>
+							<select:Option text="Admin" value="admin"></select:Option>
+						</select:OptGroup>
+						<select:OptGroup label="Permissions: ">
+							<select:Option text="View All Reports"></select:Option>
+							<select:Option text="View Admin"></select:Option>
 
-					</select:OptGroup>
-
-
+						</select:OptGroup>
 
 
-				</select:Select>
+
+
+					</select:Select>
 				</g:FlowPanel>
 
 				<g:Button ui:field="register" text="Register"
 					addStyleNames="{res.style.pad}"></g:Button>
 			</g:VerticalPanel>
 
-			<g:VerticalPanel>
+			<g:VerticalPanel ui:field="rightPanel">
 				<b:PageHeader text="Modify User" addStyleNames="{res.style.pad}"></b:PageHeader>
 
-				<select:Select ui:field="userSelect" addStyleNames="{res.style.pad}"></select:Select>
+
 
 
 

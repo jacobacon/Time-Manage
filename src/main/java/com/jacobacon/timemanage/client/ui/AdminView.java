@@ -1,6 +1,8 @@
 package com.jacobacon.timemanage.client.ui;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.gwtbootstrap3.client.ui.TextBox;
@@ -19,10 +21,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
+import com.jacobacon.timemanage.server.shiro.User;
 
 public class AdminView extends Composite {
 
@@ -46,9 +50,11 @@ public class AdminView extends Composite {
 
 	@UiField
 	Select perms;
-	
+
 	@UiField
-	Select userSelect;
+	VerticalPanel rightPanel;
+
+	private Select userSelect = new Select();
 
 	@UiHandler("register")
 	void doClick(ClickEvent event) {
@@ -58,16 +64,16 @@ public class AdminView extends Composite {
 	public AdminView() {
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Admin");
-		Option option = new Option();
-		option.setName("Test");
-		option.setValue("test");
-		option.setId("test");
-		userSelect.add(option);
+
+		addUsers();
+
+		rightPanel.add(userSelect);
+		rightPanel.add(new Label("Blah"));
+
 		userSelect.refresh();
-		userSelect.render();
 	}
 
-	public void register() {
+	private void register() {
 
 		Set<String> roles = new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
@@ -96,4 +102,41 @@ public class AdminView extends Composite {
 				});
 	}
 
+	private void addUsers() {
+		/*loginService.getUsers(new AsyncCallback<List<User>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				log.error("Couldn't get users.");
+
+			}
+
+			@Override
+			public void onSuccess(List<User> result) {
+				ArrayList<User> users = new ArrayList<User>(result);
+				for (int i = 0; i < users.size(); i++) {
+					Option option = new Option();
+					option.setText(users.get(i).getName());
+					option.setId(users.get(i).getName());
+					option.setValue(users.get(i).getName());
+
+					userSelect.add(option);
+
+				}
+
+			}
+		});
+		*/
+		
+		for(int i = 0; i < 15; i++){
+			Option option = new Option();
+			option.setText("Test: " + i);
+			option.setId("test " + i);
+			option.setValue("Test: " + i);
+			
+			userSelect.add(option);
+		}
+		
+		
+	}
 }
