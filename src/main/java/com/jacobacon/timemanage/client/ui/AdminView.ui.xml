@@ -48,7 +48,12 @@
 			<g:VerticalPanel ui:field="rightPanel">
 				<b:PageHeader text="Modify User" addStyleNames="{res.style.pad}"></b:PageHeader>
 
+				<g:Label text="Username" addStyleNames="{res.style.pad}"></g:Label>
 
+				<select:Select ui:field="userSelect"></select:Select>
+
+				<g:Button ui:field="modifyButton" text="Modify"
+					addStyleNames="{res.style.pad}"></g:Button>
 
 
 

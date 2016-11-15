@@ -17,10 +17,8 @@ import org.apache.shiro.util.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jacobacon.timemanage.client.services.LoginService;
-import com.jacobacon.timemanage.client.ui.AppView;
 import com.jacobacon.timemanage.server.shiro.User;
 import com.jacobacon.timemanage.server.shiro.UserDAO;
 import com.jacobacon.timemanage.shared.UserData;

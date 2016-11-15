@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.jacobacon.timemanage.server.shiro.User;
 import com.jacobacon.timemanage.shared.UserData;
 
 public interface LoginServiceAsync {
@@ -23,7 +22,7 @@ public interface LoginServiceAsync {
 	void checkPermission(String permission, AsyncCallback<Boolean> callback) throws IllegalArgumentException;
 
 	void checkRole(String role, AsyncCallback<Boolean> callback) throws IllegalArgumentException;
-	
+
 	void getUserList(AsyncCallback<List<String>> callback) throws IllegalArgumentException;
 
 	void getUserData(AsyncCallback<UserData> callback) throws IllegalArgumentException;

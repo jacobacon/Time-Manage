@@ -1,6 +1,5 @@
 package com.jacobacon.timemanage.client.ui;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,11 +51,20 @@ public class AdminView extends Composite {
 	@UiField
 	VerticalPanel rightPanel;
 
-	private Select userSelect = new Select();
+	@UiField
+	Select userSelect;
+
+	// private Select userSelect = new Select();
 
 	@UiHandler("register")
 	void doClick(ClickEvent event) {
 		register();
+		userSelect.refresh();
+	}
+
+	@UiHandler("modifyButton")
+	void doModify(ClickEvent event) {
+		Notify.notify("Modify User Panel will be shown.");
 	}
 
 	public AdminView() {
@@ -65,7 +73,7 @@ public class AdminView extends Composite {
 
 		addUsers();
 
-		rightPanel.add(userSelect);
+		// rightPanel.add(userSelect);
 		rightPanel.add(new Label("Blah"));
 
 		userSelect.refresh();
@@ -103,42 +111,38 @@ public class AdminView extends Composite {
 
 	private void addUsers() {
 
-		/*
 		loginService.getUserList(new AsyncCallback<List<String>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				log.error("Couldn't get users.");
+				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onSuccess(List<String> result) {
-				Window.alert(result.size() + " Objects found.");
+				String[] userList = result.toArray(new String[result.size()]);
+				log.info(userList.length + " Names Found.");
 
-				ArrayList<String> users = new ArrayList<String>(result);
-				Window.alert(users.size() + "User Names");
-				for (int i = 0; i < 5; i++) {
-					Option option = new Option();
-					option.setText("Banana " + i);
-					option.setId("banana " + i);
-					option.setValue("banana " + i);
-					userSelect.add(option);
+				if (userList.length != 0) {
+
+					for (int i = 0; i < userList.length; i++) {
+						Option option = new Option();
+						option.setText(userList[i]);
+						option.setId(userList[i]);
+						option.setValue(userList[i]);
+
+						userSelect.add(option);
+
+					}
+
+					userSelect.refresh();
+					userSelect.render();
+				} else {
+					Notify.notify("No Users Found.");
 				}
 			}
 		});
-		
-		
-*/
-		String [] user = {"Dave", "Joe","Bob","Jeff","Bob","Pat","Gabe"};
-		for (int i = 0; i < user.length; i++) {
-			Option option = new Option();
-			option.setText(user[i]);
-			option.setId(user[i].toLowerCase() + i);
-			option.setValue(user[i]);
-
-			userSelect.add(option);
-		}
 
 	}
 }
