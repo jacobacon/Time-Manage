@@ -20,6 +20,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.jacobacon.timemanage.client.services.LoginService;
@@ -60,11 +61,20 @@ public class AdminView extends Composite {
 	void doClick(ClickEvent event) {
 		register();
 		userSelect.refresh();
+		userSelect.render();
 	}
 
 	@UiHandler("modifyButton")
 	void doModify(ClickEvent event) {
 		Notify.notify("Modify User Panel will be shown.");
+		EditPopup editPopup = new EditPopup();
+		
+		editPopup.add(new Label("Test"));
+		
+		editPopup.setGlassEnabled(true);
+		editPopup.show();
+		editPopup.center();
+		
 	}
 
 	public AdminView() {
@@ -144,5 +154,15 @@ public class AdminView extends Composite {
 			}
 		});
 
+	}
+	
+	private static class EditPopup extends PopupPanel{
+		public EditPopup(){
+			super(true);
+			
+			setWidget(new Label("Click outside to close this."));
+		}
+		
+		
 	}
 }
