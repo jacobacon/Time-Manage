@@ -1,5 +1,6 @@
 package com.jacobacon.timemanage.server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -133,11 +134,13 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 			return false;
 		}
 	}
-	
-	//@Override 
-	//public List<User> getUsers(){
-	//	return null;
-	//}
+
+	@Override
+	public List<String> getUserList() {
+		ArrayList<String> users = new ArrayList<String>(userDAO.getUserList());
+
+		return users;
+	}
 
 	@Override
 	public UserData getUserData() {

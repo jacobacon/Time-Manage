@@ -5,8 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
+import com.googlecode.objectify.cmd.Query;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO extends BaseDAO<User> {
 
@@ -58,6 +62,22 @@ public class UserDAO extends BaseDAO<User> {
 
 	public User findUser(String username) {
 		return get(username);
+	}
+
+	public List<User> getUsers() {
+		List<User> users;
+		Query<User> query = ofy().load().type(User.class);
+		users = new ArrayList<User>(query.list());
+		return users;
+	}
+	
+	public List<String> getUserList(){
+		List<String> userList = new ArrayList<String>();
+		Query<User> query = ofy().load().type(User.class);
+		for(int i = 0; i < query.list().size(); i++){
+			userList.add(query.list().get(i).getName());
+		}
+		return userList;
 	}
 
 	public long getCount() {

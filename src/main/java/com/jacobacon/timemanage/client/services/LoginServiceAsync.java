@@ -24,7 +24,7 @@ public interface LoginServiceAsync {
 
 	void checkRole(String role, AsyncCallback<Boolean> callback) throws IllegalArgumentException;
 	
-	//void getUsers(AsyncCallback<List<User>> callback) throws IllegalArgumentException;
+	void getUserList(AsyncCallback<List<String>> callback) throws IllegalArgumentException;
 
 	void getUserData(AsyncCallback<UserData> callback) throws IllegalArgumentException;
 }

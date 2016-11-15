@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.jacobacon.timemanage.server.shiro.User;
 import com.jacobacon.timemanage.shared.UserData;
 
 @RemoteServiceRelativePath("login")
@@ -26,6 +25,6 @@ public interface LoginService extends RemoteService {
 
 	public UserData getUserData();
 
-	//public List<User> getUsers();
+	public List<String> getUserList();
 
 }

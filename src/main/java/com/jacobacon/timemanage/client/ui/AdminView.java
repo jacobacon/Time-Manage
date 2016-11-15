@@ -19,14 +19,12 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.jacobacon.timemanage.client.services.LoginService;
 import com.jacobacon.timemanage.client.services.LoginServiceAsync;
-import com.jacobacon.timemanage.server.shiro.User;
 
 public class AdminView extends Composite {
 
@@ -71,6 +69,7 @@ public class AdminView extends Composite {
 		rightPanel.add(new Label("Blah"));
 
 		userSelect.refresh();
+		userSelect.render();
 	}
 
 	private void register() {
@@ -103,7 +102,9 @@ public class AdminView extends Composite {
 	}
 
 	private void addUsers() {
-		/*loginService.getUsers(new AsyncCallback<List<User>>() {
+
+		/*
+		loginService.getUserList(new AsyncCallback<List<String>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -112,31 +113,32 @@ public class AdminView extends Composite {
 			}
 
 			@Override
-			public void onSuccess(List<User> result) {
-				ArrayList<User> users = new ArrayList<User>(result);
-				for (int i = 0; i < users.size(); i++) {
+			public void onSuccess(List<String> result) {
+				Window.alert(result.size() + " Objects found.");
+
+				ArrayList<String> users = new ArrayList<String>(result);
+				Window.alert(users.size() + "User Names");
+				for (int i = 0; i < 5; i++) {
 					Option option = new Option();
-					option.setText(users.get(i).getName());
-					option.setId(users.get(i).getName());
-					option.setValue(users.get(i).getName());
-
+					option.setText("Banana " + i);
+					option.setId("banana " + i);
+					option.setValue("banana " + i);
 					userSelect.add(option);
-
 				}
-
 			}
 		});
-		*/
 		
-		for(int i = 0; i < 15; i++){
+		
+*/
+		String [] user = {"Dave", "Joe","Bob","Jeff","Bob","Pat","Gabe"};
+		for (int i = 0; i < user.length; i++) {
 			Option option = new Option();
-			option.setText("Test: " + i);
-			option.setId("test " + i);
-			option.setValue("Test: " + i);
-			
+			option.setText(user[i]);
+			option.setId(user[i].toLowerCase() + i);
+			option.setValue(user[i]);
+
 			userSelect.add(option);
 		}
-		
-		
+
 	}
 }
