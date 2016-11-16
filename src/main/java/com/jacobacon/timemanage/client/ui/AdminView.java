@@ -66,15 +66,12 @@ public class AdminView extends Composite {
 
 	@UiHandler("modifyButton")
 	void doModify(ClickEvent event) {
-		Notify.notify("Modify User Panel will be shown.");
 		EditPopup editPopup = new EditPopup();
-		
-		editPopup.add(new Label("Test"));
-		
+
 		editPopup.setGlassEnabled(true);
 		editPopup.show();
 		editPopup.center();
-		
+
 	}
 
 	public AdminView() {
@@ -82,9 +79,6 @@ public class AdminView extends Composite {
 		Window.setTitle("Admin");
 
 		addUsers();
-
-		// rightPanel.add(userSelect);
-		rightPanel.add(new Label("Blah"));
 
 		userSelect.refresh();
 		userSelect.render();
@@ -155,14 +149,13 @@ public class AdminView extends Composite {
 		});
 
 	}
-	
-	private static class EditPopup extends PopupPanel{
-		public EditPopup(){
+
+	private static class EditPopup extends PopupPanel {
+		public EditPopup() {
 			super(true);
-			
+
 			setWidget(new Label("Click outside to close this."));
 		}
-		
-		
+
 	}
 }
