@@ -19,6 +19,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -154,7 +155,7 @@ public class AdminView extends Composite {
 		public EditPopup() {
 			super(true);
 
-			setWidget(new Label("Click outside to close this."));
+			setWidget(new AdminUserPopup());
 		}
 
 	}
