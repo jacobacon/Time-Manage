@@ -47,6 +47,9 @@ public class HomeView extends Composite {
 		res.style().ensureInjected();
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.setTitle("Home");
+		
+		timeIn.setReadOnly(true);
+		timeOut.setReadOnly(true);
 	}
 
 	@UiHandler("saveWorkButton")
